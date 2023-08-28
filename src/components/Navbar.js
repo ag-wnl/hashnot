@@ -8,11 +8,11 @@ function Navbar() {
         
             <div class = 'navbar'>
                 
-                <div>hashnot</div>
+                <div><h2>hashnot</h2></div>
                 <ul class = 'nav-right'>
-                    <li>test1</li>
-                    <li>test2</li>
-                    <li>test3</li>
+                    <li>About</li>
+                    <li>FAQ</li>
+                    <li>Explore</li>
                     <button class = 'login-btn'>Login</button>
                 </ul>
             </div>
