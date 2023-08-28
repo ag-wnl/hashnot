@@ -1,11 +1,28 @@
 
 import '../App.css';
 import { useAuth0 } from "@auth0/auth0-react";
+import Navbar from '../components/Navbar';
 
 function Account() {
+
+    const {loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
+
     return (
         <>
-            <h1>Hehe</h1>
+            <Navbar />
+            <div class = 'account-head'>
+                <h1>Account</h1>
+                <p>Hi {user.name}! Hope you're doing amazing. You can check out your account settings over here</p>
+
+                <div class = 'user-card'>
+                    <div class = 'user-card-row'>
+                        <img src={user.picture} alt={user.name} class = 'card-pfp' />
+                        <span>{user.name}</span>
+                        <span>{user.email}</span>
+                    </div>
+                </div>
+
+            </div>
         </>
     );
 }

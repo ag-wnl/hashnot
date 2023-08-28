@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../components/component.css';
 import { useAuth0 } from "@auth0/auth0-react";
 
 function Navbar() {
 
     const {loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
+
+    const navigate = useNavigate();
 
     return (
 
@@ -19,9 +21,11 @@ function Navbar() {
                         <li>Explore</li>
                         {/* <li>{isAuthenticated && <p>{user.name}</p>}</li> */}
                         {
-                            isAuthenticated ? (<button 
-                            onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
-                            class = 'login-btn'>Logout</button>)
+                            isAuthenticated ? (
+                                <button 
+                                onClick={() => navigate("/account")}
+                                class = 'login-btn'>{user.name}</button>
+                            )
                             :
                             (<button 
                             onClick={() => loginWithRedirect()}
