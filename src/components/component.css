@@ -19,7 +19,7 @@
 }
 
 .login-btn {
-    background-color: #638596;
+    background-color: #577a8c;
     color: #C4EBFF;
     font-family: 'Poppins', sans-serif;
     border: none;
@@ -28,6 +28,11 @@
     padding-left: 14px;
     padding-right: 14px;
     cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.login-btn:hover {
+    background-color: #446a7d;
 }
 
 .footer {
@@ -67,4 +72,9 @@
     list-style: none;
     gap: 2rem;
     font-size: 14px;
+}
+
+.link-react {
+    text-decoration: none;
+    color: #d7dbdc;
 }
