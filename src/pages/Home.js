@@ -1,7 +1,8 @@
 import Navbar from "../components/Navbar";
-
-
-
+import banner_frame from '../imgs/banner_frame.png';
+import '../App.css';
+import open_lnk from '../imgs/open_link.svg';
+import Footer from "../components/Footer";
 
 function Home() {
     return (
@@ -15,7 +16,41 @@ function Home() {
                     <span class = 'banner-sub-text'>and with anyone</span>
 
                     <button class = 'banner-btn'>Join now</button>
+
+                    <img class = 'banner-frame' src = {banner_frame}/>
                 </div>
+
+                <div class = 'section-below-banner'>
+                    <div class = 'sq-box'>
+                        <span><strong>Join a Team</strong></span>
+                        <span class = 'banner-sub-text'>Discover teams who are looking for exactly someone like you and hack the planet!</span>
+                        <span class = 'go-btn'>
+                            Let's Go!
+                            <img src = {open_lnk}/>
+                        </span>
+                    </div>
+
+                    <div class = 'sq-box'>
+                        <span><strong>Join a Team</strong></span>
+                        <span class = 'banner-sub-text'>Discover teams who are looking for exactly someone like you and hack the planet!</span>
+                        <span class = 'go-btn'>
+                            Let's Go!
+                            <img src = {open_lnk}/>
+                        </span>
+                    </div>
+
+                    <div class = 'sq-box'>
+                        <span><strong>Join a Team</strong></span>
+                        <span class = 'banner-sub-text'>Discover teams who are looking for exactly someone like you and hack the planet!</span>
+                        <span class = 'go-btn'>
+                            Let's Go!
+                            <img src = {open_lnk}/>
+                        </span>
+                    </div>
+                    
+                </div>
+
+                <Footer />
                 
             </div>
         

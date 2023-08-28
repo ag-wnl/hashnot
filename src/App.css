@@ -6,7 +6,7 @@
 }
 
 .banner {
-  margin-top: 8rem;
+  margin-top: 6rem;
   font-family: 'Poppins', sans-serif;
   color: white;
   display: flex;
@@ -42,4 +42,44 @@
 
 .banner-btn:hover {
   background-color: rgb(223, 223, 223);
+}
+
+.banner-frame {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.section-below-banner {
+  margin-top: 14rem;
+  font-family: 'Poppins', sans-serif;
+  color: rgb(233, 233, 233);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center ;
+  gap: 10rem;
+}
+
+.sq-box {
+  border: 1px solid rgb(162, 162, 162);
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 230px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem ;
+}
+
+.go-btn {
+  border-top: 1px solid rgb(204, 204, 204);
+  padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+  cursor: pointer;
+}
+
+.go-btn:hover {
+  color: rgb(224, 224, 224);
 }

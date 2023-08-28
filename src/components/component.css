@@ -29,3 +29,42 @@
     padding-right: 14px;
     cursor: pointer;
 }
+
+.footer {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10rem;
+    padding: 50px;
+}
+
+.footer-mid-section {
+    color: #c4c4c4;
+}
+
+.below-footer {
+    padding: 20px;
+    margin: 0 auto 0 auto;
+    max-width: 90%;
+    padding-top: 50px;
+    font-family: 'Poppins', sans-serif;
+    color: rgb(221, 221, 221);
+    font-size: 12px;
+    border-top: 1px solid rgb(81, 81, 81);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 4rem;
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 2rem;
+    font-size: 14px;
+}
