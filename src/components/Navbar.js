@@ -14,7 +14,7 @@ function Navbar() {
             
                 <div class = 'navbar'>
                     
-                    <div><h2>hashnot</h2></div>
+                    <div><Link to="/home" class = 'link-react'><h2>hashnot</h2></Link></div>
                     <ul class = 'nav-right'>
                         <li><Link to="/about" class = 'link-react'>About</Link></li>
                         <li>FAQ</li>

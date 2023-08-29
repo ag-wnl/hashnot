@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Navbar from '../components/Navbar';
 import ExploreSearch from '../components/ExploreSearch';
 import { useState } from 'react';
+import { SearchResults } from '../components/SearchResults';
 
 
 function Explore() {
@@ -15,7 +16,11 @@ function Explore() {
             <div class = 'account-head'>
                 <div class = 'explore-header'>
                     <h1>Join teams or create one!</h1>
-                    <ExploreSearch setResults={setResults} />
+                    <div class = 'search-bar'>
+                        <ExploreSearch setResults={setResults} />
+                        <SearchResults  results = {results} />
+                    </div>
+                    
                     <button class = 'create-btn'>Create</button>
                 </div>
                 
