@@ -5,6 +5,23 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.create-btn {
+  background-color: #8e8f50;
+  color: #fbffb6;
+  font-family: 'Poppins', sans-serif;
+  border: none;
+  border-radius: 18px;
+  padding: 5px;
+  padding-left: 14px;
+  padding-right: 14px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.create-btn:hover {
+  background-color: #7d7e34;
+}
+
 .banner {
   margin-top: 6rem;
   font-family: 'Poppins', sans-serif;
@@ -92,6 +109,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 
 .user-card-row {
@@ -105,4 +123,11 @@
   width: 40px;
   height: 40px;
   border-radius: 6px;
+}
+
+.explore-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

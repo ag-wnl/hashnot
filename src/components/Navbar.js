@@ -18,7 +18,7 @@ function Navbar() {
                     <ul class = 'nav-right'>
                         <li><Link to="/about" class = 'link-react'>About</Link></li>
                         <li>FAQ</li>
-                        <li>Explore</li>
+                        <li><Link to="/explore" class = 'link-react'>Explore</Link></li>
                         {/* <li>{isAuthenticated && <p>{user.name}</p>}</li> */}
                         {
                             isAuthenticated ? (

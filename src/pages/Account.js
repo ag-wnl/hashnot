@@ -2,6 +2,7 @@
 import '../App.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import Navbar from '../components/Navbar';
+import '../components/component.css'
 
 function Account() {
 
@@ -21,6 +22,9 @@ function Account() {
                         <span>{user.email}</span>
                     </div>
                 </div>
+                <button 
+                    onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+                    class = 'login-btn'>Logout</button>
 
             </div>
         </>

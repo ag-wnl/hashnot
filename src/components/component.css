@@ -76,5 +76,37 @@
 
 .link-react {
     text-decoration: none;
-    color: #d7dbdc;
+    color: #ffffff;
+}
+
+.search-wrap {
+    min-width: 300px;
+    color: rgb(233, 233, 233);
+    background-color: #101111;
+    border: 1px solid rgb(125, 125, 125);
+    border-radius: 18px;
+    height: 2.2rem;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+}
+
+input {
+    background-color: transparent;
+    color: rgb(233, 233, 233);
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    height: 100%;
+    font-size: 1rem;
+    width: 100%;
+    margin-left: 5px;
+}
+
+input:focus {
+    outline: none;
+    color: rgb(233, 233, 233);
+}
+
+.search-icon {
+    color: #b5bb4c;
 }
