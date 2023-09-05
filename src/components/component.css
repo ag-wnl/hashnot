@@ -136,3 +136,22 @@ input:focus {
 .search-res:hover {
     background-color: #1d2118;
 }
+
+.post-container {
+    margin-top: 2rem;
+    padding: 0px 15px 15px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items:start;
+    gap: 1.2rem;
+    border: 2px solid rgb(195, 183, 255);
+    border-radius: 12px;
+    max-width: 60%;
+}
+
+.post-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2.2rem;
+}
