@@ -1,12 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom';
 import '../components/component.css';
-import { useAuth0 } from "@auth0/auth0-react";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
+
 
 function Navbar() {
 
-    const {loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
-
     const navigate = useNavigate();
+    const { currentUser } = useContext(AuthContext);
+    var btn_text = '';
+    if(currentUser){
+        btn_text = currentUser.name
+    }
 
     return (
 
@@ -18,19 +23,13 @@ function Navbar() {
                     <ul class = 'nav-right'>
                         <li><Link to="/about" class = 'link-react'>About</Link></li>
                         <li>FAQ</li>
-                        <li><Link to="/explore" class = 'link-react'>Explore</Link></li>
-                        {/* <li>{isAuthenticated && <p>{user.name}</p>}</li> */}
-                        {
-                            isAuthenticated ? (
-                                <button 
-                                onClick={() => navigate("/account")}
-                                class = 'login-btn'>{user.name}</button>
-                            )
-                            :
-                            (<button 
-                            onClick={() => loginWithRedirect()}
-                            class = 'login-btn'>Login</button>)
-                        }
+                        <li><Link to="/explore" class = 'link-react'>Explore</Link></li>                    
+                           
+                        <button 
+                        class='login-btn'
+                        onClick={currentUser ? ()=> navigate("/account") :  ()=>navigate("/login")}
+                        >{btn_text}</button>
+
                     </ul>
                 </div>
             

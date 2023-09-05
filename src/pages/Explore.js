@@ -1,5 +1,4 @@
 import '../App.css';
-import { useAuth0 } from "@auth0/auth0-react";
 import Navbar from '../components/Navbar';
 import ExploreSearch from '../components/ExploreSearch';
 import { useState } from 'react';

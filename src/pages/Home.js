@@ -3,8 +3,14 @@ import banner_frame from '../imgs/banner_frame.png';
 import '../App.css';
 import open_lnk from '../imgs/open_link.svg';
 import Footer from "../components/Footer";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
+
 
 function Home() {
+
+    const { currentUser } = useContext(AuthContext);
+
     return (
 
         <>

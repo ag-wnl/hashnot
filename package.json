@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@auth0/auth0-react": "^2.2.1",
-    "@auth0/auth0-spa-js": "^2.1.2",
     "@shopify/polaris": "^11.13.0",
     "@shopify/polaris-icons": "^7.8.1",
     "@testing-library/jest-dom": "^5.17.0",
