@@ -4,6 +4,7 @@ import ExploreSearch from '../components/ExploreSearch';
 import { useState } from 'react';
 import { SearchResults } from '../components/SearchResults';
 import Posts from '../components/Posts';
+import Share from '../components/Share';
 
 
 function Explore() {
@@ -23,6 +24,8 @@ function Explore() {
                     
                     <button class = 'create-btn'>Create</button>
                 </div>
+
+                <Share />
 
                 <Posts />
                 
