@@ -2,22 +2,31 @@ import React from 'react'
 import '../components/component.css';
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
+import { useQuery } from 'react-query'
+import { makeRequest } from "../axios"
+import Post from './Post';
 
 function Posts() {
+
+  const { isLoading, error, data } = useQuery('posts', () =>
+  makeRequest.get("/posts").then(res => {
+    return res.data;
+  })
+  );
+
+  console.log(data);
+
   return (
     <>
-        <div class = 'post-container'>
-            <div class = 'post-header'>
-                <span>PfP</span>
-                <h3>This is the post Header</h3>
-            </div>
-            <div>This is the post description. This will contain the information about the post, team formation etc. This is where the user can read a summary about what the OP is trying to say.</div>
-
-            <button class = 'login-btn'>Interested</button>
-        </div>
+      {error ? "Something went wrong" : (isLoading ? "Loading Posts " : data.map((post) => (
+        <Post post={post} key={post.id} />
+      )))}
         
     </>
   )
 }
 
 export default Posts
+
+
+        
