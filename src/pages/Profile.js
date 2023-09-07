@@ -25,30 +25,36 @@ function Profile() {
                 <div class = 'profile-header'>
                     <h1>Your Account</h1>
                 </div>
-                <div class = 'profile-card'>
-                    <div class = 'profile-row'>
-                        <img 
-                        style={{width:'50px',height:'50px',borderRadius:'12px'}} 
-                        src={pfp} />
-                        <h3>{currentUser.username}</h3>
-                        <button 
-                        title='View Messages'
-                        class = 'dm-btn-container'><img class = 'dm-btn' src={dm_img} /></button>
+                <div class = 'profile-cards-row'>
+                    <div class = 'profile-card'>
+                        <div class = 'profile-row'>
+                            <img 
+                            style={{width:'50px',height:'50px',borderRadius:'12px'}} 
+                            src={pfp} />
+                            <h3>{currentUser.username}</h3>
+                            <button 
+                            title='View Messages'
+                            class = 'dm-btn-container'><img class = 'dm-btn' src={dm_img} /></button>
+                        </div>
+                        <div class = 'profile-row'>
+                            <span>{currentUser.name}</span>
+                        </div>
+                        {(currentUser.about) && <span>{currentUser.about}</span>}
+                        <div class = 'profile-links'>
+                            {(currentUser.github) &&
+                            <span>Github: {currentUser.github}</span>
+                            }
+                            {(currentUser.website) &&
+                            <span>Website: {currentUser.website}</span>
+                            }
+                        </div>
                     </div>
-                    <div class = 'profile-row'>
-                        <span>{currentUser.name}</span>
+
+                    <div class = 'other-utils'>
+                        <span>Followed By: 10</span>
                     </div>
-                    {(currentUser.about) && <span>{currentUser.about}</span>}
-                    <div class = 'profile-links'>
-                        {(currentUser.github) &&
-                        <span>Github: {currentUser.github}</span>
-                        }
-                        {(currentUser.website) &&
-                        <span>Website: {currentUser.website}</span>
-                        }
-                    </div>
-            
                 </div>
+        
                 <Invites />
                 <Posts />
             </div>
