@@ -7,7 +7,8 @@ import userimg from "../imgs/user.png"
 import Post from '../components/Post';
 import Posts from '../components/Posts';
 import Invites from '../components/Invites';
-import dm_img from "../imgs/message.png"
+import chat_img from "../imgs/chat.png"
+import team_img from "../imgs/team.png"
 
 function Profile() {
 
@@ -32,9 +33,6 @@ function Profile() {
                             style={{width:'50px',height:'50px',borderRadius:'12px'}} 
                             src={pfp} />
                             <h3>{currentUser.username}</h3>
-                            <button 
-                            title='View Messages'
-                            class = 'dm-btn-container'><img class = 'dm-btn' src={dm_img} /></button>
                         </div>
                         <div class = 'profile-row'>
                             <span>{currentUser.name}</span>
@@ -52,6 +50,16 @@ function Profile() {
 
                     <div class = 'other-utils'>
                         <span>Followed By: 10</span>
+                        <div class = 'profile-row'>
+                            <img 
+                            title='View Teams'
+                            style={{width:'30px', cursor:'pointer'}}
+                            src = {team_img} />
+                            <img 
+                            title='View Chats'
+                            style={{width:'20px', cursor:'pointer'}}
+                            src = {chat_img} />
+                        </div>
                     </div>
                 </div>
         

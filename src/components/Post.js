@@ -5,6 +5,7 @@ import { AuthContext } from "../context/authContext";
 import { useQuery, useQueryClient, useMutation } from 'react-query'
 import { makeRequest } from "../axios"
 import moment from "moment";
+import Messages from './Messages';
 
 function Post({ post }) {
 
@@ -32,6 +33,7 @@ function Post({ post }) {
                 </div>
 
                 <button class = 'login-btn'>Interested</button>
+                <Messages postId={post.id} />
             </div>
         </>
     )
