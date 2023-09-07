@@ -7,6 +7,7 @@ import userimg from "../imgs/user.png"
 import Post from '../components/Post';
 import Posts from '../components/Posts';
 import Invites from '../components/Invites';
+import dm_img from "../imgs/message.png"
 
 function Profile() {
 
@@ -30,10 +31,23 @@ function Profile() {
                         style={{width:'50px',height:'50px',borderRadius:'12px'}} 
                         src={pfp} />
                         <h3>{currentUser.username}</h3>
+                        <button 
+                        title='View Messages'
+                        class = 'dm-btn-container'><img class = 'dm-btn' src={dm_img} /></button>
                     </div>
                     <div class = 'profile-row'>
                         <span>{currentUser.name}</span>
                     </div>
+                    {(currentUser.about) && <span>{currentUser.about}</span>}
+                    <div class = 'profile-links'>
+                        {(currentUser.github) &&
+                        <span>Github: {currentUser.github}</span>
+                        }
+                        {(currentUser.website) &&
+                        <span>Website: {currentUser.website}</span>
+                        }
+                    </div>
+            
                 </div>
                 <Invites />
                 <Posts />

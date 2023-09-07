@@ -80,7 +80,7 @@
 }
 
 .search-wrap {
-    min-width: 300px;
+    min-width: 120px;
     color: rgb(233, 233, 233);
     background-color: #101111;
     border: 1px solid rgb(125, 125, 125);
@@ -210,3 +210,21 @@ input:focus {
 .review-btn:hover {
     background-color: #a576df;
 }
+
+.green-btn {
+    background-color: #03DAC5;
+    color: rgb(35, 35, 35);
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    border-radius: 18px;
+    padding: 5px;
+    padding-left: 14px;
+    padding-right: 14px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .green-btn:hover {
+    background-color: #00C4B4;
+  }

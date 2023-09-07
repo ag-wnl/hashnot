@@ -184,3 +184,21 @@
   align-items: center;
   gap: 3rem;
 } 
+
+.dm-btn-container {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.dm-btn {
+  width: 30px;
+  height: 30px;
+}
+
+.profile-links {
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}

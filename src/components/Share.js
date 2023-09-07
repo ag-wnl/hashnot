@@ -66,7 +66,7 @@ function Share() {
                         <img class = 'pfp' src={post_img} />
                     </span>
                     <span title='Tag Users'>@</span>
-                    <button class = 'create-btn'
+                    <button class = 'green-btn'
                     onClick={handleClick}
                     >Share Post</button>
                 </div>
