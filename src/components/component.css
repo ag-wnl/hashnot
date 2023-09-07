@@ -118,14 +118,16 @@ input:focus {
 }
 
 .results-list {
-    width: 100%;
+    position: absolute;
+    max-width: 100%;
     background-color: #161616;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    margin-top: 0.5rem;
+    margin-top: 2.5rem;
     max-height: 200px;
     overflow-y: scroll;
+    z-index: 100;
 }
 
 .search-res {
@@ -183,4 +185,28 @@ input:focus {
     display: flex;
     flex-direction: row;
     gap: 1.5rem;
+    cursor: pointer;
+}
+
+.invite-container {
+    margin-top: 3rem;
+    background-color: #232323;   
+    max-width: 60%;
+    padding: 20px;
+    border-radius: 12px; 
+}
+
+.review-btn {
+    font-family: 'Poppins', sans-serif;
+    color: #101111;
+    background-color: #BB86FC;
+    font-weight: 700;
+    border: none;
+    border-radius: 16px;
+    padding: 8px;
+    transition: 0.3s ease-in-out;
+}
+
+.review-btn:hover {
+    background-color: #a576df;
 }

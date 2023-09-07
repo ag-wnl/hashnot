@@ -7,6 +7,7 @@ import Explore from './pages/Explore';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+import Profile from './pages/Profile';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
                 <Route path='/explore' element = {<Explore />} />
                 <Route path='/register' element = {<Register />} />
                 <Route path='/login' element = {<Login />} />
+                <Route path='/profile' element = {<Profile />} />
               </Routes>
             </BrowserRouter>  
         </div>
