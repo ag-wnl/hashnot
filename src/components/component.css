@@ -148,7 +148,7 @@ input:focus {
     gap: 1.2rem;
     border: 2px solid rgb(195, 183, 255);
     border-radius: 12px;
-    max-width: 60%;
+    max-width: 80%;
 }
 
 .post-header {
@@ -161,6 +161,7 @@ input:focus {
 .pfp {
     width: 25px;
     height: 25px;
+    border-radius: 5px;
 }
 
 .share-card {
@@ -225,6 +226,42 @@ input:focus {
     transition: 0.2s ease-in-out;
   }
   
-  .green-btn:hover {
+.green-btn:hover {
     background-color: #00C4B4;
-  }
+}
+  
+.message-write {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 100%;
+    background-color: #1A1D1E;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    gap: 0.7rem;
+}
+
+.message {
+    margin-top: 2rem;
+    background-color: #AEC0F5;
+    color: black;
+    padding: 10px 15px 0px 15px;
+    /* border-radius: 15px; */
+    border-radius: 0px 10px 10px 10px;
+    float: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.msg-pfp {
+    width: 20px;
+    border-radius: 10px;
+}
+
+.msg-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -11,6 +11,9 @@ function Share() {
     const { currentUser } = useContext(AuthContext);
     const queryClient = useQueryClient();
 
+    const [title, setTitle] = useState("")
+    const [desc, setDesc] = useState("")
+
     const mutation = useMutation(
         (newPost) => {
           return makeRequest.post("/posts", newPost);
@@ -23,18 +26,14 @@ function Share() {
         }
     );
 
-    var pfp = userimg;
-    if(currentUser.profilePic) {
-        pfp = "/upload/" + currentUser.profilePic;
-    }
-
-    const [file, setFile] = useState(null)
-    const [title, setTitle] = useState("")
-    const [desc, setDesc] = useState("")
-
     const handleClick = e => {
         e.preventDefault()
         mutation.mutate({title, desc})
+    }
+
+    var pfp = userimg;
+    if(currentUser.pfp) {
+        pfp = "/upload/" + currentUser.pfp;
     }
 
     return (
