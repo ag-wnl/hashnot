@@ -31,16 +31,16 @@ function Share() {
         mutation.mutate({title, desc})
     }
 
-    var pfp = userimg;
+    var user_pfp = userimg;
     if(currentUser.pfp) {
-        pfp = "/upload/" + currentUser.pfp;
+        user_pfp = "/upload/" + currentUser.pfp;
     }
 
     return (
         <>
             <div class = 'share-card'>
                 <div class = 'share-card-header'>
-                    <img class = 'pfp' src={pfp} alt="" />
+                    <img class = 'pfp' src={user_pfp} alt="" />
                     <span>test</span>
                 </div>
                 <input

@@ -4,6 +4,8 @@ import '../App.css';
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import userimg from "../imgs/user.png"
+import git_img from "../imgs/github.svg"
+import website_img from "../imgs/link.svg"
 import Post from '../components/Post';
 import Posts from '../components/Posts';
 import Invites from '../components/Invites';
@@ -30,7 +32,7 @@ function Profile() {
                     <div class = 'profile-card'>
                         <div class = 'profile-row'>
                             <img 
-                            style={{width:'50px',height:'50px',borderRadius:'12px'}} 
+                            style={{width:'70px',height:'70px',borderRadius:'12px'}} 
                             src={pfp} />
                             <h3>{currentUser.username}</h3>
                         </div>
@@ -40,15 +42,28 @@ function Profile() {
                         {(currentUser.about) && <span>{currentUser.about}</span>}
                         <div class = 'profile-links'>
                             {(currentUser.github) &&
-                            <span>Github: {currentUser.github}</span>
+                            <span style={{display:'flex', alignItems:'center', gap:'5px'}}>
+                                <img 
+                                style={{width:'20px'}}
+                                src={git_img} />
+                                <b>Github: </b>{currentUser.github}</span>
                             }
                             {(currentUser.website) &&
-                            <span>Website: {currentUser.website}</span>
+                            <span  style={{display:'flex', alignItems:'center', gap:'5px'}}>
+                                <img
+                                style={{width:'20px'}}
+                                src={website_img} />
+                                <b>Website: </b>{currentUser.website}</span>
                             }
                         </div>
                     </div>
 
                     <div class = 'other-utils'>
+                        <h3>Showcase</h3>
+                        <div class = 'showcase'>
+                            #1 in Google Kickstart 2040, Won Facebook HackerCup
+                        </div>
+                        <span style={{fontSize:'14px'}}><b>Skills: </b>C++, JavaScript, Data Science, Databases</span>
                         <span>Followed By: 10</span>
                         <div class = 'profile-row'>
                             <img 

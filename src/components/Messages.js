@@ -11,12 +11,11 @@ import moment from 'moment';
 
 const Messages = ({postId}) => {
 
+    const { currentUser } = useContext(AuthContext);
     const [desc, setDesc] = useState("");
 
-    const { currentUser } = useContext(AuthContext);
-
-    const { isLoading, error, data } = useQuery('messages', () =>
-    makeRequest.get("/messages?postId=" + postId).then(res => {
+    const { isLoading, error, data } = useQuery(['messages', postId], () =>
+    makeRequest.get("/messages?postId=" + postId).then((res) => {
         return res.data;
         })
     );  
@@ -89,7 +88,6 @@ const Messages = ({postId}) => {
                 ))}
             </div>
         </>
-        // {"/upload/" + message.pfp}
     )
 }
 

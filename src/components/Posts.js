@@ -18,10 +18,11 @@ function Posts() {
 
   return (
     <>
-      {error ? "Something went wrong" : (isLoading ? "Loading Posts " : data.map((post) => (
-        <Post post={post} key={post.id} />
-      )))}
-        
+      {error
+        ? "Something went wrong!"
+        : isLoading
+        ? "loading"
+        : data.map((post) => <Post post={post} key={post.id} />)}
     </>
   )
 }
