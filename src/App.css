@@ -5,6 +5,14 @@
   font-family: 'Poppins', sans-serif;
 }
 
+button {
+  font-family: 'Poppins', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
 .create-btn {
   background-color: #8e8f50;
   color: #fbffb6;
@@ -198,10 +206,10 @@
 }
 
 .profile-row {
-  display: flex;
+    display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 2rem;
+  gap: 1.7rem;
 } 
 
 .dm-btn-container {
@@ -225,5 +233,27 @@
 .showcase {
   display: flex;
   flex-direction: row;
-  font-size: 18px;
+  font-size: 14px;
+}
+
+.side-by-side-posts {
+  display: flex;
+  flex-direction: row;
+  align-items:baseline;
+  justify-content: center ;
+  gap: 2rem;
+}
+
+.profile-btn {
+  border: none;
+  border-radius: 8px;
+  background-color: #252421;
+  padding: 4px 10px 4px 10px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.profile-btn:hover {
+  background-color: #352c4c;
 }

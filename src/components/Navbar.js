@@ -27,9 +27,9 @@ function Navbar() {
                            
                         <button 
                         class='login-btn'
-                        onClick={currentUser ? ()=> navigate("/profile") :  ()=>navigate("/login")}
+                        // <Link to={`/profile/${post.userId}`}></Link>
+                        onClick={currentUser ? ()=> navigate(`/profile/${currentUser.username}`) :  ()=>navigate("/login")}
                         >{btn_text}</button>
-
                     </ul>
                 </div>
             

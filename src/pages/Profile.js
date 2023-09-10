@@ -5,84 +5,116 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import userimg from "../imgs/user.png"
 import git_img from "../imgs/github.svg"
+import edit from "../imgs/edit.svg"
 import website_img from "../imgs/link.svg"
-import Post from '../components/Post';
 import Posts from '../components/Posts';
 import Invites from '../components/Invites';
 import chat_img from "../imgs/chat.png"
 import team_img from "../imgs/team.png"
+import { Link, useLocation } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { makeRequest } from '../axios';
 
 function Profile() {
 
     const { currentUser } = useContext(AuthContext);
+    
+    const userName = useLocation().pathname.split('/')[2]
 
-    var pfp = userimg;
-    if(currentUser.profilePic) {
-        pfp = "/upload/" + currentUser.profilePic;
-    }
+    const { isLoading, error, data } = useQuery(["user"], () =>
+        makeRequest.get("/users/find/" + userName).then((res) => {
+        return res.data;
+        })
+    );
 
     return (
         <>
             <Navbar />
-            <div class = 'profile-page'>
-                <div class = 'profile-header'>
-                    <h1>Your Account</h1>
-                </div>
-                <div class = 'profile-cards-row'>
-                    <div class = 'profile-card'>
-                        <div class = 'profile-row'>
-                            <img 
-                            style={{width:'70px',height:'70px',borderRadius:'12px'}} 
-                            src={pfp} />
-                            <h3>{currentUser.username}</h3>
-                        </div>
-                        <div class = 'profile-row'>
-                            <span>{currentUser.name}</span>
-                        </div>
-                        {(currentUser.about) && <span>{currentUser.about}</span>}
-                        <div class = 'profile-links'>
-                            {(currentUser.github) &&
-                            <span style={{display:'flex', alignItems:'center', gap:'5px'}}>
+            {isLoading ? ('Loading User Profile...')
+            : (
+                <div class = 'profile-page'>
+                    <div class = 'profile-header'>
+                        <h1>Profile</h1>
+                    </div>
+                    <div class = 'profile-cards-row'>
+                        <div class = 'profile-card'>
+                            <div class = 'profile-row'>
+                                
+                                {data.pfp ? 
                                 <img 
-                                style={{width:'20px'}}
-                                src={git_img} />
-                                <b>Github: </b>{currentUser.github}</span>
-                            }
-                            {(currentUser.website) &&
-                            <span  style={{display:'flex', alignItems:'center', gap:'5px'}}>
-                                <img
-                                style={{width:'20px'}}
-                                src={website_img} />
-                                <b>Website: </b>{currentUser.website}</span>
-                            }
-                        </div>
-                    </div>
+                                style={{width:'90px',height:'90px',borderRadius:'12px'}} 
+                                src={data.pfp} />
+                                :
+                                <img 
+                                style={{width:'70px',height:'70px',borderRadius:'12px'}} 
+                                src={userimg} />}
 
-                    <div class = 'other-utils'>
-                        <h3>Showcase</h3>
-                        <div class = 'showcase'>
-                            #1 in Google Kickstart 2040, Won Facebook HackerCup
+                                <h3>{data.username}</h3>
+                                {(data.id === currentUser.id 
+                                    && <button>
+                                    <img src={edit} /></button>)}
+                            </div>
+                            <div class = 'profile-row'>
+                                <span>{data.name}</span>
+                            </div>
+                            {(data.about) && <span>{data.about}</span>}
+                            <div class = 'profile-links'>
+                                {(data.github) &&
+                                <Link 
+                                style={{color:'black'}}
+                                to='https://google.com/'>
+                                    <span style={{display:'flex', alignItems:'center', gap:'5px'}}>
+                                    <img 
+                                    style={{width:'20px'}}
+                                    src={git_img} />
+                                    <b>Github: </b>{data.github}</span>
+                                </Link>
+                                }
+                                {(data.website) &&
+                                <Link 
+                                style={{color:'black'}}
+                                to='https://google.com/'>
+                                    <span  style={{display:'flex', alignItems:'center', gap:'5px'}}>
+                                    <img
+                                    style={{width:'20px'}}
+                                    src={website_img} />
+                                    <b>Website: </b>{data.website}</span>
+                                </Link>
+                                }
+                            </div>
                         </div>
-                        <span style={{fontSize:'14px'}}><b>Skills: </b>C++, JavaScript, Data Science, Databases</span>
-                        <span>Followed By: 10</span>
-                        <div class = 'profile-row'>
-                            <img 
-                            title='View Teams'
-                            style={{width:'30px', cursor:'pointer'}}
-                            src = {team_img} />
-                            <img 
-                            title='View Chats'
-                            style={{width:'20px', cursor:'pointer'}}
-                            src = {chat_img} />
+
+                        <div class = 'other-utils'>
+                            <h3>Showcase</h3>
+                            <div class = 'showcase'>
+                                #1 in Google Kickstart 2040, Won Facebook HackerCup
+                            </div>
+                            <span style={{fontSize:'14px'}}><b>Skills: </b>C++, JavaScript, Data Science, Databases</span>
+                            
+                            <div class = 'profile-row'>
+                                <button class='profile-btn'>Follow</button>
+                                <button class='profile-btn'>Chat</button>
+                            </div>
+                            
+                            <div class = 'profile-row'>
+                                <img 
+                                title='View Teams'
+                                style={{width:'30px', cursor:'pointer'}}
+                                src = {team_img} />
+                                <img 
+                                title='View Chats'
+                                style={{width:'20px', cursor:'pointer'}}
+                                src = {chat_img} />
+                            </div>
                         </div>
                     </div>
+            
+                    <Invites />
+                    <Posts />
                 </div>
-        
-                <Invites />
-                <Posts />
-            </div>
+            )}
         </>
-    )
-}
+    );
+};
 
 export default Profile;

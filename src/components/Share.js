@@ -3,7 +3,6 @@ import { useContext, useState } from "react";
 import '../components/component.css';
 import { AuthContext } from "../context/authContext";
 import userimg from "../imgs/user.png"
-import post_img from "../imgs/post_img.svg"
 import { useMutation, useQueryClient } from 'react-query';
 import { makeRequest } from "../axios";
 
@@ -55,15 +54,17 @@ function Share() {
                 onChange={(e) => setDesc(e.target.value)}
                 // value={desc}
                 />
+                <input
+                type="text"
+                placeholder={`Mention desired skills`}
+                // value={desc}
+                />
 
                 <div class = 'share-bottom-bar'>
                     <input type = "file" 
                         style={{display: "none"}}
                         onChange={(e) => setTitle(e.target.files[0])}
                     />
-                    <span title='Add Image'>
-                        <img class = 'pfp' src={post_img} />
-                    </span>
                     <span title='Tag Users'>@</span>
                     <button class = 'green-btn'
                     onClick={handleClick}
