@@ -18,7 +18,7 @@ function Explore() {
             <Navbar />
             <div class = 'account-head'>
                 <div class = 'explore-header'>
-                    <h1>Join teams or create one!</h1>
+                    <h2>Join teams or create one!</h2>
                     <div class = 'search-bar'>
                         <ExploreSearch setResults={setResults} />
                         <SearchResults  results = {results} />

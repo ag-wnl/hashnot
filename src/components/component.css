@@ -1,3 +1,11 @@
+h1 {
+    font-size: 48px;
+}
+
+h2 {
+    font-size: 32px;
+}
+
 .navbar {
     color: white;
     font-family: 'Poppins', sans-serif;
@@ -10,6 +18,7 @@
 }
 
 .nav-right {
+    font-size: 18px;
     color: #d7dbdc;
     display: flex;
     flex-direction: row;
@@ -302,7 +311,7 @@ input:focus {
 }
 
 .side-post-container {
-    border: 1px solid rgb(99, 99, 99);
+    background-color: #0e0f0f;
     border-radius: 6px;
     padding: 10px 15px 10px 15px;
     width: 300px;

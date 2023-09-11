@@ -27,7 +27,7 @@ function App() {
                 <Route path='/explore' element = {<Explore />} />
                 <Route path='/register' element = {<Register />} />
                 <Route path='/login' element = {<Login />} />
-                <Route path='/profile/:id' element = {<Profile />} />
+                <Route path='/profile/:userName' element = {<Profile />} />
               </Routes>
             </BrowserRouter>  
         </div>

@@ -11,21 +11,61 @@ import Posts from '../components/Posts';
 import Invites from '../components/Invites';
 import chat_img from "../imgs/chat.png"
 import team_img from "../imgs/team.png"
-import { Link, useLocation } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
+
 
 function Profile() {
 
     const { currentUser } = useContext(AuthContext);
     
-    const userName = useLocation().pathname.split('/')[2]
+    // const userName = useLocation().pathname.split('/')[2]
+    const { userName } = useParams();
 
     const { isLoading, error, data } = useQuery(["user"], () =>
         makeRequest.get("/users/find/" + userName).then((res) => {
-        return res.data;
+            return res.data;
         })
     );
+
+    const queryClient = useQueryClient();
+
+    const userId = data?.id;
+    
+    //I made the second query go only when first is done im so smart!
+    const { isLoading: relationLoading, data: relationData } = useQuery(
+        ["relation"],
+        () =>
+            makeRequest.get("/relations?followedUserId=" + userId).then((res) => {
+                return res.data;
+            }),
+        {
+            enabled: !!userId, // Only enable the query when userId is truthy (not null or undefined)
+        }
+    );
+    
+    console.log(relationData);
+
+    const mutation = useMutation(
+        (following) => {
+        if (following)
+            return makeRequest.delete("/relations?userId=" + userId);
+        return makeRequest.post("/relations", { userId });
+        },
+        {
+        onSuccess: () => {
+            // Invalidate and refetch
+            queryClient.invalidateQueries(["relation"]);
+        },
+        }
+    );
+
+    const handleFollow = () => {
+        mutation.mutate(relationData.includes(currentUser.id));
+    };
+
+    
 
     return (
         <>
@@ -34,7 +74,7 @@ function Profile() {
             : (
                 <div class = 'profile-page'>
                     <div class = 'profile-header'>
-                        <h1>Profile</h1>
+                        <h2>Profile</h2>
                     </div>
                     <div class = 'profile-cards-row'>
                         <div class = 'profile-card'>
@@ -48,9 +88,10 @@ function Profile() {
                                 <img 
                                 style={{width:'70px',height:'70px',borderRadius:'12px'}} 
                                 src={userimg} />}
-
+                                
+                                {/* Edit or Update Profile */}
                                 <h3>{data.username}</h3>
-                                {(data.id === currentUser.id 
+                                {relationLoading ? ("Loading") :  (data.id === currentUser.id 
                                     && <button>
                                     <img src={edit} /></button>)}
                             </div>
@@ -92,7 +133,16 @@ function Profile() {
                             <span style={{fontSize:'14px'}}><b>Skills: </b>C++, JavaScript, Data Science, Databases</span>
                             
                             <div class = 'profile-row'>
-                                <button class='profile-btn'>Follow</button>
+                                {relationLoading ? ("Loading") : (data.id != currentUser.id 
+                                    && <button class='profile-btn'
+                                        onClick={handleFollow}
+                                        >
+                                        {relationData.includes(currentUser.id) 
+                                        ? "Following" 
+                                        : "Follow"}
+                                        </button> )}
+                                
+                                
                                 <button class='profile-btn'>Chat</button>
                             </div>
                             
@@ -110,7 +160,7 @@ function Profile() {
                     </div>
             
                     <Invites />
-                    <Posts />
+                    {/* <Posts /> */}
                 </div>
             )}
         </>

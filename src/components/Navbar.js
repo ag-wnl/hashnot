@@ -8,7 +8,7 @@ function Navbar() {
 
     const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
-    var btn_text = '';
+    var btn_text = 'Login';
     if(currentUser){
         btn_text = currentUser.name
     }
@@ -24,7 +24,7 @@ function Navbar() {
                         <li><Link to="/about" class = 'link-react'>About</Link></li>
                         <li>FAQ</li>
                         <li><Link to="/explore" class = 'link-react'>Explore</Link></li>                    
-                           
+
                         <button 
                         class='login-btn'
                         // <Link to={`/profile/${post.userId}`}></Link>
