@@ -163,9 +163,8 @@ function Profile() {
                                 src = {chat_img} />
                             </div>
                         </div>
-                        {openUpdate &&  <Update setOpenUpdate={setOpenUpdate} user = {userData} />}
                     </div>
-            
+                    {openUpdate &&  <Update setOpenUpdate={setOpenUpdate} user = {userData} />}
                     <Invites />
                     {/* <Posts /> */}
                 </div>
