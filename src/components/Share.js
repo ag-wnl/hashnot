@@ -32,7 +32,7 @@ function Share() {
 
     var user_pfp = userimg;
     if(currentUser.pfp) {
-        user_pfp = "/upload/" + currentUser.pfp;
+        user_pfp = currentUser.pfp;
     }
 
     return (

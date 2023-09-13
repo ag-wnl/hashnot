@@ -42,7 +42,7 @@ const Messages = ({postId}) => {
 
     var user_pfp = userimg;
     if(currentUser.pfp) {
-        user_pfp = "/upload/" + currentUser.pfp;
+        user_pfp = currentUser.pfp;
     }
 
     return (
@@ -74,7 +74,7 @@ const Messages = ({postId}) => {
                             <div style={{display:'flex', gap:'0.7rem'}}>
                                 <img 
                                 class = 'msg-pfp'
-                                src={(message.pfp ? "/upload/" + message.pfp : user_pfp)} alt="" />
+                                src={(message.pfp ? message.pfp : user_pfp)} alt="" />
                                 <span style={{fontSize:'14px', fontWeight:'700'}}>{message.name}</span>
                             </div>
 

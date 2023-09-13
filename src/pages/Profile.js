@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar';
 import '../App.css';
 import { useContext } from "react";
@@ -14,27 +14,27 @@ import team_img from "../imgs/team.png"
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
+import Update from '../components/Update';
 
 
 function Profile() {
 
     const { currentUser } = useContext(AuthContext);
-    
     // const userName = useLocation().pathname.split('/')[2]
     const { userName } = useParams();
+    const queryClient = useQueryClient();
 
-    const { isLoading, error, data } = useQuery(["user"], () =>
+    const [openUpdate, setOpenUpdate] = useState(false);
+
+    const { isLoading, error, data: userData, refetch: userRefetch } = useQuery(["user"], () =>
         makeRequest.get("/users/find/" + userName).then((res) => {
             return res.data;
         })
     );
+    let userId =  userData?.id;
 
-    const queryClient = useQueryClient();
-
-    const userId = data?.id;
-    
     //I made the second query go only when first is done im so smart!
-    const { isLoading: relationLoading, data: relationData } = useQuery(
+    const { isLoading: relationLoading, data: relationData, refetch: relRefetch } = useQuery(
         ["relation"],
         () =>
             makeRequest.get("/relations?followedUserId=" + userId).then((res) => {
@@ -44,9 +44,18 @@ function Profile() {
             enabled: !!userId, // Only enable the query when userId is truthy (not null or undefined)
         }
     );
-    
-    console.log(relationData);
 
+    //refetch user data and relation data again when username changes
+    useEffect(() => {
+        userRefetch().then((newUserData) => {
+            userId = newUserData?.id;
+            relRefetch();
+        });
+    }, [userName]);
+
+    console.log("refetched data for ID: " + userId);
+    console.log(relationData);
+    
     const mutation = useMutation(
         (following) => {
         if (following)
@@ -65,8 +74,6 @@ function Profile() {
         mutation.mutate(relationData.includes(currentUser.id));
     };
 
-    
-
     return (
         <>
             <Navbar />
@@ -80,27 +87,27 @@ function Profile() {
                         <div class = 'profile-card'>
                             <div class = 'profile-row'>
                                 
-                                {data.pfp ? 
+                                {userData.pfp ? 
                                 <img 
                                 style={{width:'90px',height:'90px',borderRadius:'12px'}} 
-                                src={data.pfp} />
+                                src={userData.pfp} />
                                 :
                                 <img 
                                 style={{width:'70px',height:'70px',borderRadius:'12px'}} 
                                 src={userimg} />}
                                 
                                 {/* Edit or Update Profile */}
-                                <h3>{data.username}</h3>
-                                {relationLoading ? ("Loading") :  (data.id === currentUser.id 
-                                    && <button>
+                                <h3>{userData.username}</h3>
+                                {!relationLoading && (userData.id === currentUser.id)
+                                    && (<button title='Edit' class='edit-btn' onClick={()=>setOpenUpdate(true)}>
                                     <img src={edit} /></button>)}
                             </div>
                             <div class = 'profile-row'>
-                                <span>{data.name}</span>
+                                <span>{userData.name}</span>
                             </div>
-                            {(data.about) && <span>{data.about}</span>}
+                            {(userData.about) && <span>{userData.about}</span>}
                             <div class = 'profile-links'>
-                                {(data.github) &&
+                                {(userData.github) &&
                                 <Link 
                                 style={{color:'black'}}
                                 to='https://google.com/'>
@@ -108,10 +115,10 @@ function Profile() {
                                     <img 
                                     style={{width:'20px'}}
                                     src={git_img} />
-                                    <b>Github: </b>{data.github}</span>
+                                    <b>Github: </b>{userData.github}</span>
                                 </Link>
                                 }
-                                {(data.website) &&
+                                {(userData.website) &&
                                 <Link 
                                 style={{color:'black'}}
                                 to='https://google.com/'>
@@ -119,7 +126,7 @@ function Profile() {
                                     <img
                                     style={{width:'20px'}}
                                     src={website_img} />
-                                    <b>Website: </b>{data.website}</span>
+                                    <b>Website: </b>{userData.website}</span>
                                 </Link>
                                 }
                             </div>
@@ -133,7 +140,7 @@ function Profile() {
                             <span style={{fontSize:'14px'}}><b>Skills: </b>C++, JavaScript, Data Science, Databases</span>
                             
                             <div class = 'profile-row'>
-                                {relationLoading ? ("Loading") : (data.id != currentUser.id 
+                                {relationLoading ? ("Loading") : (userData.id != currentUser.id 
                                     && <button class='profile-btn'
                                         onClick={handleFollow}
                                         >
@@ -141,8 +148,7 @@ function Profile() {
                                         ? "Following" 
                                         : "Follow"}
                                         </button> )}
-                                
-                                
+        
                                 <button class='profile-btn'>Chat</button>
                             </div>
                             
@@ -157,6 +163,7 @@ function Profile() {
                                 src = {chat_img} />
                             </div>
                         </div>
+                        {openUpdate &&  <Update setOpenUpdate={setOpenUpdate} user = {userData} />}
                     </div>
             
                     <Invites />
