@@ -146,10 +146,12 @@ function Post({ post }) {
                             <rect x="186" y="462" fill="#262626" width="140" height="40"/>
                         </g>
                         </svg>
-                    )
-                        
-                    }
+                    )}
                     {data?.length} Upvotes
+
+                    {(post.userId === currentUser.id) 
+                    && <button title='Delete Post' onClick={handleDelete} style={{backgroundColor:'#8f1818'}} class = 'post-bottom-btn'>Delete</button>}
+                    
                 </div>
                 {
                     chat && <Messages postId={post.id} /> 

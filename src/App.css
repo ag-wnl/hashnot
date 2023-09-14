@@ -13,6 +13,29 @@ a {
   text-decoration: none;
 }
 
+.login-page-btn {
+  background-color: rgb(99, 169, 254);
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  padding: 8px 20px 8px 20px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.login-page-btn:hover {
+  background-color: rgb(79, 131, 255);
+}
+
+.login-bottom-text {
+  font-size: 12px;
+  color: rgb(146, 146, 146);
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+.login-bottom-text:hover {
+  color: rgb(197, 197, 197);
+}
+
 .create-btn {
   background-color: #8e8f50;
   color: #fbffb6;
@@ -149,23 +172,40 @@ a {
 
 
 .register-card {
-  margin-top: 3rem;
-  padding: 30px;
+  margin-top: 1rem;
+  padding: 10px 5px 40px 5px;
+  width: 40%;
+  background-color: #111111;
   display: flex;
   flex-direction: column;
   justify-content: center;  
-  align-items: flex-start;
-  gap: 2.3rem;
-  border: 1px solid rgb(119, 119, 119);
-  border-radius: 20px;
-  max-width: 50%;
+  align-items: center;
+  gap: 1.7rem;
+  border: 1px solid rgb(72, 72, 72);
+  border-radius: 6px;
 }
 
 .register-field {
+  background-color: #000000;
   display: flex;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgb(242, 255, 144);
+  border-radius: 4px;
+  padding: 6px 10px 6px 10px;
   width: 60%;
+}
+
+.register-page-card {
+  margin-top: 1rem;
+  padding: 20px 5px 20px 5px;
+  width: 40%;
+  background-color: #111111;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  
+  align-items: center;
+  gap: 1.7rem;
+  border: 1px solid rgb(72, 72, 72);
+  border-radius: 6px;
 }
 
 .profile-page {
@@ -257,3 +297,11 @@ a {
 .profile-btn:hover {
   background-color: #352c4c;
 }
+
+.login-head {
+  padding: 10px 50px 50px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} 

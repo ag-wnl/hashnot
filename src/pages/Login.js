@@ -3,7 +3,8 @@ import '../App.css';
 import { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 function Login() {
 
@@ -35,19 +36,25 @@ function Login() {
     return (
         <>
             <Navbar />
-            <div class = 'account-head'>
-                <h1>Login to your Account</h1>
+            <div class = 'login-head'>
+                <h2>Login to your Account</h2>
 
                 <form class = 'register-card'>
-                        <input class='register-field' type="text" placeholder="Username" name="username" onChange={handleChange}/>
+                    <h3>Welcome Back!</h3>
+                    <input class='register-field' type="text" placeholder="Username" name="username" onChange={handleChange}/>
                         
-                        <input class='register-field' type="password" placeholder="Password" name="password" onChange={handleChange}/>
+                    <input class='register-field' type="password" placeholder="Password" name="password" onChange={handleChange}/>
                         
-                        {/* {err && err} */}
-                        <button class="create-btn" onClick={handleLogin}>Login</button>
-                </form>
+                    {/* {err && err} */}
+                    <button class="login-page-btn" onClick={handleLogin}>Login</button>
 
+                    <Link to='/register' class = 'link-react'>
+                        <span class = 'login-bottom-text'>Dont have an account? <b>Register here</b></span>
+                    </Link>
+            
+                </form>
             </div>
+            <Footer />
         </>
     )
 }

@@ -6,12 +6,12 @@ import { useQuery } from 'react-query'
 import { makeRequest } from "../axios"
 import Post from './Post';
 
-function Posts() {
+const Posts = ({userId}) => {
 
-  const { isLoading, error, data } = useQuery('posts', () =>
-  makeRequest.get("/posts").then(res => {
-    return res.data;
-  })
+  const { isLoading, error, data } = useQuery(["posts"], () =>
+    makeRequest.get("/posts?userId="+userId).then(res => {
+      return res.data;
+    })
   );
 
   console.log(data);
@@ -25,9 +25,9 @@ function Posts() {
         : data.map((post) => <Post post={post}  key={post.id} />)}
     </>
   )
-}
+};
 
-export default Posts
+export default Posts;
 
 
         

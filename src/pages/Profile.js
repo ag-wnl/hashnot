@@ -166,7 +166,9 @@ function Profile() {
                     </div>
                     {openUpdate &&  <Update setOpenUpdate={setOpenUpdate} user = {userData} />}
                     <Invites />
-                    {/* <Posts /> */}
+
+                    {/* To show only posts by user whos profile we viewing */}
+                    <Posts userId={userData.id} />
                 </div>
             )}
         </>

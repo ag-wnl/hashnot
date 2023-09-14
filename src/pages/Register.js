@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import '../App.css';
 import { useState } from "react";
 import axios from "axios";
+import Footer from "../components/Footer";
 
 function Register() {
 
@@ -32,19 +33,21 @@ function Register() {
     return (
         <>
             <Navbar />
-            <div class = 'account-head'>
-                <h1>Register Account</h1>
+            <div class = 'login-head'>
+                <h2>Register Account</h2>
 
-                <form class = 'register-card'>
+                <form class = 'register-page-card'>
+                        <h3>Join the Community!</h3>
                         <input class='register-field' type="text" placeholder="Username" name="username" onChange={handleChange}/>
                         <input class='register-field' type="email" placeholder="Email" name="email" onChange={handleChange}/>
                         <input class='register-field' type="password" placeholder="Password" name="password" onChange={handleChange}/>
                         <input class='register-field' type="text" placeholder="Name" name="name" onChange={handleChange}/>
                         {/* {err && err} */}
-                        <button class="create-btn" onClick={handleClick}>Register</button>
+                        <button class="login-page-btn" onClick={handleClick}>Register</button>
                 </form>
 
             </div>
+            <Footer />
         </>
     )
 }
