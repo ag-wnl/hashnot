@@ -168,6 +168,7 @@ function Profile() {
                     <Invites />
 
                     {/* To show only posts by user whos profile we viewing */}
+                    <h2>Your Posts</h2>
                     <Posts userId={userData.id} />
                 </div>
             )}

@@ -228,7 +228,7 @@ a {
   background-color: #F2E7FE;
   color: black;
   border-radius: 6px;
-  width: 30%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -237,7 +237,7 @@ a {
 .other-utils {
   padding: 20px;
   border-radius: 6px;
-  background-color: #FFCCA7;
+  background-color: #ffd8bd;
   color: black;
   width: 60%;
   display: flex;

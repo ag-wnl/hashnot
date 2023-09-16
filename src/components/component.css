@@ -89,7 +89,6 @@ h2 {
 }
 
 .search-wrap {
-    min-width: 120px;
     color: rgb(233, 233, 233);
     background-color: #101111;
     border: 1px solid rgb(125, 125, 125);
@@ -98,6 +97,7 @@ h2 {
     padding: 0 15px;
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 input {
@@ -179,6 +179,40 @@ input:focus {
     width: 25px;
     height: 25px;
     border-radius: 5px;
+}
+
+.create-post-title {
+    width: 90%;
+    background-color: rgb(14, 14, 14);
+    padding: 4px 8px 4px 8px;
+    border-radius: 4px;
+    border: 1px solid rgb(50, 50, 50);
+}
+
+.create-post-desc {
+    width: 90%;
+    background-color: rgb(14, 14, 14);
+    color: white;
+    padding: 4px 8px 4px 8px;
+    border-radius: 4px;
+    border: 1px solid rgb(50, 50, 50);
+}
+
+.create-post-skills {
+    font-size: 14px;
+    width: 90%;
+    padding: 4px 8px 4px 8px;
+    background-color: rgb(14, 14, 14);
+    border-radius: 4px;
+    border: 1px solid rgb(50, 50, 50);
+}
+
+.post-inp-area {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
 }
 
 .share-card {

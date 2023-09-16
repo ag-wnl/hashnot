@@ -40,25 +40,32 @@ function Share() {
             <div class = 'share-card'>
                 <div class = 'share-card-header'>
                     <img class = 'pfp' src={user_pfp} alt="" />
-                    <span>test</span>
+                    <span>{currentUser.username}</span>
                 </div>
-                <input
-                type="text"
-                placeholder={`The post title goes here ${currentUser.username}!`}
-                onChange={(e) => setTitle(e.target.value)}
-                // value={desc}
-                />
-                <input
-                type="text"
-                placeholder={`Describe your excitement here! ${currentUser.name}`}
-                onChange={(e) => setDesc(e.target.value)}
-                // value={desc}
-                />
-                <input
-                type="text"
-                placeholder={`Mention desired skills`}
-                // value={desc}
-                />
+                
+                <div class = 'post-inp-area'>
+                    <input
+                    class = 'create-post-title'
+                    type="text"
+                    placeholder={`Type your amazing post Title here!`}
+                    onChange={(e) => setTitle(e.target.value)}
+                    // value={desc}
+                    />
+                    <textarea
+                    rows="5" 
+                    class = 'create-post-desc'
+                    type="text"
+                    placeholder={`The Post description goes here!`}
+                    onChange={(e) => setDesc(e.target.value)}
+                    // value={desc}
+                    />
+                    <input
+                    class = 'create-post-skills'
+                    type="text"
+                    placeholder={`Mention desired skills, seperated by ;`}
+                    // value={desc}
+                    />
+                </div>
 
                 <div class = 'share-bottom-bar'>
                     <input type = "file" 

@@ -91,7 +91,7 @@ function Post({ post }) {
                 <div class = 'skills'>
                     <span>Skills: React, Tailwind, Node.js</span>
                 </div>
-
+                
                 <div class = 'post-bottom-line'>
                     <button class = 'post-bottom-btn'>Interested</button>
                     <button class = 'post-bottom-btn' onClick={() => setChat(!chat)}>Chat</button>
