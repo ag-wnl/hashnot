@@ -11,6 +11,7 @@ import {FaSearch} from "react-icons/fa"
 import { useQueries, useQuery } from 'react-query';
 import { makeRequest } from '../axios';
 import Post from '../components/Post';
+import NoResult from '../components/NoResult';
 
 function Explore() {
 
@@ -52,7 +53,11 @@ function Explore() {
                     
                     {/* Fetching posts according to search result, or if not then default posts */}
                     <div>
-                        {(isLoading || data.length === 0) ? <Posts /> : data.map((post) => <Post post={post}  key={post.id} />)}
+                        {(search === "" && <Posts />)}
+                        {(isLoading) ? "Loading Search Results..." 
+                        : 
+                        ( (data.length === 0) ? <NoResult searchQ = {search} />
+                        : data.map((post) => <Post post={post}  key={post.id} />))}
                     </div>
                     <div>
                         <SidePosts />

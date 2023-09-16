@@ -418,3 +418,20 @@ input:focus {
 .close-btn:hover {
     background-color: #5a1120;
 }
+
+.no-res-box {
+    background-color: rgb(25, 25, 25);
+    border: 1px solid rgb(68, 68, 68);
+    border-radius: 4px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.no-res-txt {
+    overflow: 'hidden';
+    white-space: 'nowrap';
+    text-overflow: ellipsis;
+}
