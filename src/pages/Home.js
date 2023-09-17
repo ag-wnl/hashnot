@@ -5,10 +5,12 @@ import open_lnk from '../imgs/open_link.svg';
 import Footer from "../components/Footer";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 function Home() {
 
+    const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
 
     return (
@@ -21,7 +23,9 @@ function Home() {
                     <span class = 'banner-sub-text'>Create or join a team and create the future together, from anywhere</span>
                     <span class = 'banner-sub-text'>and with anyone</span>
 
-                    <button class = 'banner-btn'>Join now</button>
+                    <button 
+                    onClick={()=> navigate(`/register`)}
+                    class = 'banner-btn'>Join now</button>
 
                     <img class = 'banner-frame' src = {banner_frame}/>
                 </div>

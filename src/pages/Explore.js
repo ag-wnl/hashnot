@@ -50,6 +50,25 @@ function Explore() {
                     sharePostOpen && <Share />
                 }
                 <div class = 'side-by-side-posts'>
+
+                    {/* search Filters */}
+                    <div class = 'filter-container'>
+                        <span 
+                        style={{fontSize:'18px', borderBottom:'1px solid #4d4d4d', paddingBottom:'8px'}}>
+                            Filters</span>
+                        <div class='filter-row'>
+                            <p>Skills</p> <p>Select Skill</p>
+                        </div>
+                        <div class='filter-row'>
+                            <p>Type</p> <p>Select Type</p>
+                        </div>
+                        <div class='filter-row'>
+                            <p>Region</p> <p>Select Region</p>
+                        </div>
+                        <div class='filter-row'>
+                            <p>Team Size</p> <p>Select Team Size</p>
+                        </div>
+                    </div>
                     
                     {/* Fetching posts according to search result, or if not then default posts */}
                     <div>
