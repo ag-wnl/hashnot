@@ -9,12 +9,19 @@ import Messages from './Messages';
 import userimg from "../imgs/user.png"
 import upvote from "../imgs/up.svg"
 import { Link } from 'react-router-dom';
+import LinkPreview from './LinkPreview';
+import { ReactTinyLink } from "react-tiny-link";
+const extractUrls = require("extract-urls");
 
 function Post({ post }) {
 
     const { currentUser } = useContext(AuthContext);
 
     const [chat, setChat] = useState(false);
+
+    //checking is post description contains URLs:
+    const urls = extractUrls(post.desc, true);
+    const firstURL = urls && urls.length > 0 ? urls[0] : '';
 
     //fetching upvotes 
     const { isLoading, error, data } = useQuery(["upvotes", post.id], () =>
@@ -92,6 +99,15 @@ function Post({ post }) {
                     <span>Skills: React, Tailwind, Node.js</span>
                 </div>
                 
+                {urls && <ReactTinyLink
+                    class = 'url-preview'
+                    cardSize="small"
+                    showGraphic={true}
+                    maxLine={2}
+                    minLine={1}
+                    url = {firstURL}
+                />} 
+
                 <div class = 'post-bottom-line'>
                     <button class = 'post-bottom-btn'>Interested</button>
                     <button class = 'post-bottom-btn' onClick={() => setChat(!chat)}>Chat</button>

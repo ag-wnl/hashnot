@@ -56,7 +56,7 @@ function Explore() {
                         {(search === "" && <Posts />)}
                         {(isLoading) ? "Loading Search Results..." 
                         : 
-                        ( (data.length === 0) ? <NoResult searchQ = {search} />
+                        ( (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />
                         : data.map((post) => <Post post={post}  key={post.id} />))}
                     </div>
                     <div>
