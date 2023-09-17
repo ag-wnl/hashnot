@@ -9,13 +9,10 @@ import edit from "../imgs/edit.svg"
 import website_img from "../imgs/link.svg"
 import Posts from '../components/Posts';
 import Invites from '../components/Invites';
-import chat_img from "../imgs/chat.png"
-import team_img from "../imgs/team.png"
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
 import Update from '../components/Update';
-
 
 function Profile() {
 
@@ -96,8 +93,9 @@ function Profile() {
                                 style={{width:'70px',height:'70px',borderRadius:'12px'}} 
                                 src={userimg} />}
                                 
+                                <h2>{userData.username}</h2>
+                                
                                 {/* Edit or Update Profile */}
-                                <h3>{userData.username}</h3>
                                 {!relationLoading && (userData.id === currentUser.id)
                                     && (<button title='Edit' class='edit-btn' onClick={()=>setOpenUpdate(true)}>
                                     <img src={edit} /></button>)}
@@ -133,7 +131,7 @@ function Profile() {
                         </div>
 
                         <div class = 'other-utils'>
-                            <h3>Showcase</h3>
+                            <h2>Showcase</h2>
                             <div class = 'showcase'>
                                 #1 in Google Kickstart 2040, Won Facebook HackerCup
                             </div>
@@ -152,16 +150,6 @@ function Profile() {
                                 <button class='profile-btn'>Chat</button>
                             </div>
                             
-                            <div class = 'profile-row'>
-                                <img 
-                                title='View Teams'
-                                style={{width:'30px', cursor:'pointer'}}
-                                src = {team_img} />
-                                <img 
-                                title='View Chats'
-                                style={{width:'20px', cursor:'pointer'}}
-                                src = {chat_img} />
-                            </div>
                         </div>
                     </div>
                     {openUpdate &&  <Update setOpenUpdate={setOpenUpdate} user = {userData} />}

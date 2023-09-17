@@ -83,12 +83,12 @@ function Post({ post }) {
                     style={{fontSize:'12px'}}
                     >{moment(post.createdAt).fromNow()}</span>
                 </div>
-                <span style={{fontSize:'18px'}}><b>{post.title}</b></span>
-                <div>
+                <span style={{fontSize:'18px'}}>{post.title}</span>
+                <div style={{fontSize:'14px'}}>
                     {post.desc}
                 </div>
                 
-                <div class = 'skills'>
+                <div class = 'skills' style={{fontSize:'14px'}}>
                     <span>Skills: React, Tailwind, Node.js</span>
                 </div>
                 

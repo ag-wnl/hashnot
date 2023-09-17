@@ -44,7 +44,7 @@ function Explore() {
                     </div>
                         
                     <button class = 'create-btn' 
-                    onClick={() => setsharePostOpen(!sharePostOpen)}>Create</button>
+                    onClick={() => setsharePostOpen(!sharePostOpen)}>Create Post</button>
                 </div>
                 {
                     sharePostOpen && <Share />

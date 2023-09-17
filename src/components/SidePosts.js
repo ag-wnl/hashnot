@@ -8,11 +8,15 @@ import moment from "moment";
 import Messages from './Messages';
 import userimg from "../imgs/user.png"
 import upvote from "../imgs/up.svg"
+import banner_img from "../imgs/hackathon_banner.png"
 
 function SidePosts() {
     return (
         <>
             <div class = 'side-post-container'>
+                <img 
+                style={{width:'300px', height:'190px', paddingBottom:'15px', borderBottom: '1px solid #727372'}}
+                src={banner_img} />
                 Explore the nexus of people looking to work towards solving problems and winning big!
             </div>
         </>
