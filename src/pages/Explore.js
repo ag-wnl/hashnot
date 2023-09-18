@@ -15,9 +15,13 @@ import NoResult from '../components/NoResult';
 
 function Explore() {
 
-    const [results, setResults] = useState([]);
     const [sharePostOpen, setsharePostOpen] = useState(false);
     const [search, setSearch] = useState("")
+    const [sorter, setSorter] = useState("")
+
+    const handleSortChange = (e) => {
+        setSorter(e.target.value);
+    }
     
     const {isLoading, error, data} = useQuery({
         queryKey: ['search', search],
@@ -56,6 +60,20 @@ function Explore() {
                         <span 
                         style={{fontSize:'18px', borderBottom:'1px solid #4d4d4d', paddingBottom:'8px'}}>
                             Filters</span>
+                        
+                        <div class='filter-row'>
+                            <p>Sort by</p> 
+                            <form>
+                                <label htmlFor='sort'></label>
+                                
+                                <select name="sort" id="sort" value={sorter} onChange={handleSortChange}>
+                                    <option class = 'sort-selection' >No Selection</option>
+                                    <option value="recent">Most Recent</option>
+                                    <option value="highest">Upvotes</option>
+                                </select>
+                            
+                            </form>
+                        </div>
                         <div class='filter-row'>
                             <p>Skills</p> <p>Select Skill</p>
                         </div>
@@ -72,7 +90,7 @@ function Explore() {
                     
                     {/* Fetching posts according to search result, or if not then default posts */}
                     <div>
-                        {(search === "" && <Posts />)}
+                        {(search === "" && <Posts sorted = {sorter} />)}
                         {(isLoading) ? "Loading Search Results..." 
                         : 
                         ( (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />

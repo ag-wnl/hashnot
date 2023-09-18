@@ -100,7 +100,6 @@ function Post({ post }) {
                 </div>
                 
                 {urls && <ReactTinyLink
-                    class = 'url-preview'
                     cardSize="small"
                     showGraphic={true}
                     maxLine={2}
