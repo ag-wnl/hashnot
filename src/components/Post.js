@@ -99,13 +99,14 @@ function Post({ post }) {
                     <span>Skills: React, Tailwind, Node.js</span>
                 </div>
                 
-                {urls && <ReactTinyLink
+                {/* URL Preview Generator: */}
+                {/* {urls && <ReactTinyLink
                     cardSize="small"
                     showGraphic={true}
                     maxLine={2}
                     minLine={1}
                     url = {firstURL}
-                />} 
+                />}  */}
 
                 <div class = 'post-bottom-line'>
                     <button class = 'post-bottom-btn'>Interested</button>

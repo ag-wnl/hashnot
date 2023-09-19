@@ -29,6 +29,7 @@ function Explore() {
             return res.data;
         })
     });
+    
     console.log(data);
 
     return (

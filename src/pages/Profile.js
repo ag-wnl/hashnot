@@ -17,17 +17,18 @@ import Update from '../components/Update';
 function Profile() {
 
     const { currentUser } = useContext(AuthContext);
-    // const userName = useLocation().pathname.split('/')[2]
     const { userName } = useParams();
     const queryClient = useQueryClient();
 
     const [openUpdate, setOpenUpdate] = useState(false);
 
-    const { isLoading, error, data: userData, refetch: userRefetch } = useQuery(["user"], () =>
-        makeRequest.get("/users/find/" + userName).then((res) => {
+    const { isLoading, error, data: userData, refetch: userRefetch } = useQuery({
+        queryKey: ["user", userName],
+        queryFn: () => makeRequest.get("users/find/" + userName).then(res => {
             return res.data;
         })
-    );
+    });
+
     let userId =  userData?.id;
 
     //I made the second query go only when first is done im so smart!
