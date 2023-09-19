@@ -29,7 +29,7 @@ function Explore() {
             return res.data;
         })
     });
-    
+
     console.log(data);
 
     return (
@@ -76,16 +76,55 @@ function Explore() {
                             </form>
                         </div>
                         <div class='filter-row'>
-                            <p>Skills</p> <p>Select Skill</p>
+                            <p>Skills</p> 
+
+                            <select name="sort" id="sort" value={sorter}>
+                                    <option class = 'sort-selection' >No Selection</option>
+                                    <option value="recent">Web Development</option>
+                                    <option value="highest">Machine Learning</option>
+                                    <option value="highest">Mobile App Development</option>
+                                    <option value="highest">DevOps</option>
+                                    <option value="highest">Database Management</option>
+                                    <option value="highest">Data Science</option>
+                                    <option value="highest">Cloud Computing</option>
+                                    <option value="highest">Cybersecurity</option>
+                                    <option value="highest">Blockchain Development</option>
+                                    <option value="highest">Game Development</option>
+                                    <option value="highest">FinTech</option>
+                                    <option value="highest">Bioinformatics</option>
+                            </select>
+
                         </div>
                         <div class='filter-row'>
-                            <p>Type</p> <p>Select Type</p>
+                            <p>Objective</p> 
+
+                            <form>                                
+                                <select name="sort" id="sort" value={sorter} onChange={handleSortChange}>
+                                    <option class = 'sort-selection' >No Selection</option>
+                                    <option value="recent">Hackathons</option>
+                                    <option value="highest">Project</option>
+                                </select>
+                            </form>
+
                         </div>
                         <div class='filter-row'>
-                            <p>Region</p> <p>Select Region</p>
+                            <p>Experience Level</p> 
+
+                            <form>                                
+                                <select name="sort" id="sort" value={sorter}>
+                                    <option class = 'sort-selection' >No Selection</option>
+                                    <option value="recent">Rookie</option>
+                                    <option value="highest">Veteran</option>
+                                    <option value="highest">Elite</option>
+                                    <option value="highest">Pro</option>
+                                    <option value="highest">Master</option>
+                                </select>
+                            </form>
+
                         </div>
                         <div class='filter-row'>
-                            <p>Team Size</p> <p>Select Team Size</p>
+                            <p>Team Size</p> 
+                            <p>Select Team Size</p>
                         </div>
                     </div>
                     

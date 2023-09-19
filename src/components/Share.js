@@ -12,6 +12,7 @@ function Share() {
 
     const [title, setTitle] = useState("")
     const [desc, setDesc] = useState("")
+    const [skills, setSkills] = useState("")
 
     const mutation = useMutation(
         (newPost) => {
@@ -27,7 +28,7 @@ function Share() {
 
     const handleClick = e => {
         e.preventDefault()
-        mutation.mutate({title, desc})
+        mutation.mutate({title, desc, skills})
     }
 
     var user_pfp = userimg;
@@ -63,6 +64,7 @@ function Share() {
                     class = 'create-post-skills'
                     type="text"
                     placeholder={`Mention desired skills, seperated by ;`}
+                    onChange={(e) => setSkills(e.target.value)}
                     // value={desc}
                     />
                 </div>

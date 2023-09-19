@@ -15,7 +15,7 @@ function SidePosts() {
         <>
             <div class = 'side-post-container'>
                 <img 
-                style={{width:'300px', height:'190px', paddingBottom:'15px', borderBottom: '1px solid #727372'}}
+                style={{width:'300px', paddingBottom:'15px', borderBottom: '1px solid #727372'}}
                 src={banner_img} />
                 Explore the nexus of people looking to work towards solving problems and winning big!
             </div>

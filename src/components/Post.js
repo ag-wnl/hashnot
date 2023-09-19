@@ -96,7 +96,7 @@ function Post({ post }) {
                 </div>
                 
                 <div class = 'skills' style={{fontSize:'14px'}}>
-                    <span>Skills: React, Tailwind, Node.js</span>
+                    <span>{post.skills}</span>
                 </div>
                 
                 {/* URL Preview Generator: */}
