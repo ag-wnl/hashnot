@@ -324,4 +324,17 @@ a {
   font-size: 12px;
 }
 
+.skill-select-show {
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: rgb(142, 207, 239);
+}
 
+.selected-skill {
+  background-color: rgb(40, 83, 104);
+  padding: 2px 8px 2px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+}

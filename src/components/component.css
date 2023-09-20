@@ -14,6 +14,10 @@ button {
     transition: 0.3s ease-in
 }
 
+textarea {
+    font-family: 'Poppins', sans-serif;
+}
+
 .navbar {
     color: white;
     font-family: 'Poppins', sans-serif;
@@ -159,15 +163,42 @@ input:focus {
 
 .post-container {
     margin-top: 2rem;
-    background-color: #111111   ;
+    background-color: #111111;
     padding: 0px 15px 15px 15px;
-    width: 640px;
+    width: 600px;
     display: flex;
     flex-direction: column;
-    align-items:start;
     gap: 1.2rem;
-    border: 1px solid rgb(66, 66, 66);
     border-radius: 6px;
+}
+
+.post-header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.three-dot-container {
+    padding: px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.three-dot-container:hover {
+    background-color: #141625;
+}
+
+.post-threedots {
+    fill: gray;
+    width: 20px;
+    transition: 0.2s ease-in-out;
+}
+.post-threedots:hover {
+    fill: rgb(75, 156, 255);
 }
 
 .post-header {
@@ -176,13 +207,13 @@ input:focus {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 1rem;
+    justify-content: space-between;
 }
 
 .pfp {
-    width: 25px;
-    height: 25px;
-    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
 }
 
 .create-post-title {
@@ -190,7 +221,6 @@ input:focus {
     background-color: rgb(14, 14, 14);
     padding: 4px 8px 4px 8px;
     border-radius: 4px;
-    border: 1px solid rgb(50, 50, 50);
 }
 
 .create-post-desc {
@@ -198,8 +228,9 @@ input:focus {
     background-color: rgb(14, 14, 14);
     color: white;
     padding: 4px 8px 4px 8px;
+    border: none;
     border-radius: 4px;
-    border: 1px solid rgb(50, 50, 50);
+    resize: none;
 }
 
 .create-post-skills {
@@ -208,7 +239,6 @@ input:focus {
     padding: 4px 8px 4px 8px;
     background-color: rgb(14, 14, 14);
     border-radius: 4px;
-    border: 1px solid rgb(50, 50, 50);
 }
 
 .post-inp-area {
@@ -221,7 +251,6 @@ input:focus {
 
 .share-card {
     background-color: #161616;
-    border: 1px solid rgb(92, 92, 92);
     max-width: 60%;
     padding: 15px 20px 15px 20px;
     border-radius: 10px;
@@ -238,10 +267,12 @@ input:focus {
 }
 
 .share-bottom-bar {
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
     gap: 1.5rem;
     cursor: pointer;
+    padding: 0px 30px 0px 30px;
 }
 
 .invite-container {
@@ -265,16 +296,14 @@ input:focus {
 }
 
 .green-btn {
-    background-color: #f199bf;
-    color: rgb(0, 0, 0);
+    background-color: #7463f4;
+    color: white;
     font-size: 14px;
-    border-radius: 4px;
     padding: 8px 12px 8px 12px;
-    transition: 0.2s ease-in-out;
-  }
+}
   
 .green-btn:hover {
-    background-color: #ec85b1;
+    background-color: #5f4ced;
 }
   
 .message-write {
@@ -303,7 +332,7 @@ input:focus {
 
 .msg-pfp {
     width: 20px;
-    border-radius: 10px;
+    border-radius: 50%;
 }
 
 .msg-info {
@@ -316,7 +345,8 @@ input:focus {
 .post-bottom-line {
     border: 1px solid rgb(45, 45, 45);
     border-radius: 4px;
-    width: 615px;
+    width: 575px;
+    font-size: 12px;
     background-color: rgb(23, 22, 23);
     padding: 6px 12px 6px 10px;
     display: flex;
@@ -330,8 +360,16 @@ input:focus {
     background-color: #1b1a1c;
 }
 
+.post-header-subtle {
+    color: gray;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+}
+
 .post-bottom-btn {
-    font-size: 14px;
+    font-size: 12px;
     color: #ffffff;
     border-radius: 4px;
     background-color: #4b3165;
@@ -426,4 +464,38 @@ input:focus {
     overflow: 'hidden';
     white-space: 'nowrap';
     text-overflow: ellipsis;
+}
+
+.inp-row {
+    margin: 10px 40px 0 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+.req-members-cnt {
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 500px;
+}
+
+.number-req-selector {
+    width: 150px;
+    height: 2px;
+}
+
+.slider-value {
+    padding: 4px 8px 4px 8px;
+    background-color: #232323;
+    border-radius: 4px;
+}
+
+.obj-type-inp {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    gap: 10px;
+    align-items: center;
 }

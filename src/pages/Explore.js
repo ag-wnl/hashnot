@@ -18,10 +18,26 @@ function Explore() {
     const [sharePostOpen, setsharePostOpen] = useState(false);
     const [search, setSearch] = useState("")
     const [sorter, setSorter] = useState("")
+    const [skills, setSkills] = useState([]);
+
 
     const handleSortChange = (e) => {
         setSorter(e.target.value);
     }
+
+    const handleSkillSelect = (selectedSkill) => {
+        // Check if the selectedSkill is not already in the skills array
+        if (!skills.includes(selectedSkill)) {
+          // Add the selectedSkill to the skills array
+          setSkills([...skills, selectedSkill]);
+        }
+    };
+
+    const handleSkillClick = (clickedSkill) => {
+        // Filter out the clicked skill and update the skills array
+        const updatedSkills = skills.filter((skill) => skill !== clickedSkill);
+        setSkills(updatedSkills);
+    };
     
     const {isLoading, error, data} = useQuery({
         queryKey: ['search', search],
@@ -78,23 +94,36 @@ function Explore() {
                         <div class='filter-row'>
                             <p>Skills</p> 
 
-                            <select name="sort" id="sort" value={sorter}>
+                            <select name="sort" id="sort" 
+                            onChange={(e) => handleSkillSelect(e.target.value)}>
                                     <option class = 'sort-selection' >No Selection</option>
-                                    <option value="recent">Web Development</option>
-                                    <option value="highest">Machine Learning</option>
-                                    <option value="highest">Mobile App Development</option>
-                                    <option value="highest">DevOps</option>
-                                    <option value="highest">Database Management</option>
-                                    <option value="highest">Data Science</option>
-                                    <option value="highest">Cloud Computing</option>
-                                    <option value="highest">Cybersecurity</option>
-                                    <option value="highest">Blockchain Development</option>
-                                    <option value="highest">Game Development</option>
-                                    <option value="highest">FinTech</option>
-                                    <option value="highest">Bioinformatics</option>
+                                    <option value="webdev">Web Development</option>
+                                    <option value="ml">Machine Learning</option>
+                                    <option value="mobileapp">Mobile App Development</option>
+                                    <option value="devops">DevOps</option>
+                                    <option value="dbmgmt">Database Management</option>
+                                    <option value="ds">Data Science</option>
+                                    <option value="cloud">Cloud Computing</option>
+                                    <option value="cybersec">Cybersecurity</option>
+                                    <option value="blockchain">Blockchain Development</option>
+                                    <option value="gamedev">Game Development</option>
+                                    <option value="fintech">FinTech</option>
+                                    <option value="bioinfo">Bioinformatics</option>
                             </select>
-
                         </div>
+
+                        {/* displaying skills selected by user */}
+                        <div class = 'skill-select-show'>
+                            {skills.map((skill, index) => (
+                                <span key={index}
+                                title='Remove'
+                                onClick={() => handleSkillClick(skill)}
+                                className="selected-skill">
+                                {skill}
+                                </span>
+                            ))}
+                        </div>
+
                         <div class='filter-row'>
                             <p>Objective</p> 
 

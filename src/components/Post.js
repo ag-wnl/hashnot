@@ -70,33 +70,43 @@ function Post({ post }) {
         <div class = 'post-box'>
             <div class = 'post-container'>
                 <div class = 'post-header'>
-                    
+
+                    <div class='post-header-left'>
+                        {post.pfp ?
+                                    <Link to={`/profile/${post.username}`}> 
+                                    <img 
+                                    style={{width:'40px',height:'40px',borderRadius:'50%'}} 
+                                    src={post.pfp} /></Link>
+                                    :
+                                    <Link to={`/profile/${post.username}`}> 
+                                    <img 
+                                    style={{width:'40px',height:'40px',borderRadius:'50%'}} 
+                                    src={userimg} /></Link>
+                                    }
+                        <span>{post.name}</span>
                         
-                    {post.pfp ?
-                                <Link to={`/profile/${post.username}`}> 
-                                <img 
-                                style={{width:'40px',height:'40px',borderRadius:'12px'}} 
-                                src={post.pfp} /></Link>
-                                :
-                                <Link to={`/profile/${post.username}`}> 
-                                <img 
-                                style={{width:'40px',height:'40px',borderRadius:'12px'}} 
-                                src={userimg} /></Link>
-                                }
-                    <span>•</span>
-                    <span>{post.name}</span>
-                    <span>•</span>
-                    <span
-                    style={{fontSize:'12px'}}
-                    >{moment(post.createdAt).fromNow()}</span>
+                        <div class = 'post-header-subtle'>
+                            <span >@{post.username}</span>
+                            <span>•</span>
+                            <span
+                            style={{fontSize:'12px'}}
+                            >{moment(post.createdAt).fromNow()}</span>
+                        </div>
+                    </div>    
+                    
+                    <div class = 'three-dot-container'>
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="post-threedots"><g><path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path></g></svg>
+                    </div>
+                
+                    
                 </div>
-                <span style={{fontSize:'18px'}}>{post.title}</span>
+                <span style={{fontSize:'16px'}}>{post.title}</span>
                 <div style={{fontSize:'14px'}}>
                     {post.desc}
                 </div>
                 
-                <div class = 'skills' style={{fontSize:'14px'}}>
-                    <span>{post.skills}</span>
+                <div class = 'skills' style={{fontSize:'12px'}}>
+                    <span>Skills : {post.skills}</span>
                 </div>
                 
                 {/* URL Preview Generator: */}
@@ -126,8 +136,8 @@ function Post({ post }) {
                         viewBox="0 0 512 512"
                         enableBackground="new 0 0 512 512"
                         xmlSpace="preserve"
-                        width="25"
-                        height="25"
+                        width="20"
+                        height="20"
                         >
                         {/* SVG path data */}
                         <polygon fill="#8ff76f" points="256,10 106,210 186,210 186,366 326,366 326,210 406,210" />
@@ -150,8 +160,8 @@ function Post({ post }) {
                         viewBox="0 0 512 512"
                         enableBackground="new 0 0 512 512"
                         xmlSpace="preserve"
-                        width="25"
-                        height="25"
+                        width="20"
+                        height="20"
                         >
                         {/* SVG path data */}
                         <polygon fill="#4a4a4a" points="256,10 106,210 186,210 186,366 326,366 326,210 406,210" />

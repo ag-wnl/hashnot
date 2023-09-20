@@ -5,6 +5,7 @@ import { AuthContext } from "../context/authContext";
 import userimg from "../imgs/user.png"
 import { useMutation, useQueryClient } from 'react-query';
 import { makeRequest } from "../axios";
+import ReactSlider from 'react-slider'
 
 function Share() {
     const { currentUser } = useContext(AuthContext);
@@ -13,6 +14,11 @@ function Share() {
     const [title, setTitle] = useState("")
     const [desc, setDesc] = useState("")
     const [skills, setSkills] = useState("")
+    const [sliderValue, setSliderValue] = useState(1);
+
+    const handleSliderChange = (e) => {
+        setSliderValue(e.target.value);
+    };
 
     const mutation = useMutation(
         (newPost) => {
@@ -60,13 +66,40 @@ function Share() {
                     onChange={(e) => setDesc(e.target.value)}
                     // value={desc}
                     />
+
+                    
                     <input
-                    class = 'create-post-skills'
-                    type="text"
-                    placeholder={`Mention desired skills, seperated by ;`}
-                    onChange={(e) => setSkills(e.target.value)}
-                    // value={desc}
+                        class = 'create-post-skills'
+                        type="text"
+                        placeholder={`Mention desired skills, seperated by ;`}
+                        onChange={(e) => setSkills(e.target.value)}
                     />
+
+                    <div class = 'inp-row'>
+                        <div class = 'req-members-cnt'>
+                            <span>Required Members</span>
+                            <input 
+                            class = 'number-req-selector'
+                            onChange={handleSliderChange}
+                            type="range" 
+                            id="slider"
+                            defaultValue={1} 
+                            min="1" max="12" step="1"/>
+                            <span className="slider-value">{sliderValue}</span>
+                        </div>
+
+                        <div class = 'obj-type-inp'>
+                            <span>Objective Type</span>
+                            <form>                                
+                                <select name="sort" id="sort">
+                                    <option class = 'sort-selection' >No Selection</option>
+                                    <option value="recent">Hackathons</option>
+                                    <option value="highest">Project</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                        
                 </div>
 
                 <div class = 'share-bottom-bar'>
@@ -74,7 +107,6 @@ function Share() {
                         style={{display: "none"}}
                         onChange={(e) => setTitle(e.target.files[0])}
                     />
-                    <span title='Tag Users'>@</span>
                     <button class = 'green-btn'
                     onClick={handleClick}
                     >Share Post</button>
