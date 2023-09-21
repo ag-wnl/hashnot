@@ -322,6 +322,7 @@ a {
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
+  width: 250px
 }
 
 .skill-select-show {
@@ -337,4 +338,9 @@ a {
   padding: 2px 8px 2px 8px;
   border-radius: 12px;
   cursor: pointer;
+}
+
+.number-req-selector-filter {
+  height: 2px;
+  width: 110px;
 }

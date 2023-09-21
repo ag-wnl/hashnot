@@ -15,9 +15,31 @@ function Share() {
     const [desc, setDesc] = useState("")
     const [skills, setSkills] = useState("")
     const [sliderValue, setSliderValue] = useState(1);
+    const [objective, setObjective] = useState("");
+    const [domains, setDomains] = useState([]);
+    let domainString = domains.join(',');
+    console.log(domainString);
 
     const handleSliderChange = (e) => {
         setSliderValue(e.target.value);
+    };
+
+    const handleObjectiveChange = (e) => {
+        setObjective(e.target.value);
+    }
+
+    const handleDomainSelect = (selectedDomain) => {
+        // Check if the selectedSkill is not already in the skills array
+        if (!domains.includes(selectedDomain)) {
+          // Add the selectedSkill to the skills array
+          setDomains([...domains, selectedDomain]);
+        }
+    };
+
+    const handleDomainClick = (clickedDomain) => {
+        // Filter out the clicked skill and update the skills array
+        const updatedDomains = domains.filter((domain) => domain !== clickedDomain);
+        setDomains(updatedDomains);
     };
 
     const mutation = useMutation(
@@ -34,7 +56,7 @@ function Share() {
 
     const handleClick = e => {
         e.preventDefault()
-        mutation.mutate({title, desc, skills})
+        mutation.mutate({title, desc, skills, sliderValue, objective, domainString})
     }
 
     var user_pfp = userimg;
@@ -71,7 +93,7 @@ function Share() {
                     <input
                         class = 'create-post-skills'
                         type="text"
-                        placeholder={`Mention desired skills, seperated by ;`}
+                        placeholder={`Mention desired skills, seperated by ,`}
                         onChange={(e) => setSkills(e.target.value)}
                     />
 
@@ -91,12 +113,44 @@ function Share() {
                         <div class = 'obj-type-inp'>
                             <span>Objective Type</span>
                             <form>                                
-                                <select name="sort" id="sort">
+                                <select name="sort" id="sort" value={objective} onChange={handleObjectiveChange}>
                                     <option class = 'sort-selection' >No Selection</option>
-                                    <option value="recent">Hackathons</option>
-                                    <option value="highest">Project</option>
+                                    <option value="Hackathon">Hackathon</option>
+                                    <option value="Project">Project</option>
                                 </select>
                             </form>
+                        </div>
+                    </div>
+
+                    {/* domain selection: */}
+                    <div style={{display:'flex', flexDirection:'row', alignItems:'center', gap:'1rem',fontSize:'14px'}}>
+                        <p>Select Skill Domain</p>
+                        <select name="sort" id="sort" onChange={(e) => handleDomainSelect(e.target.value)}>
+                                        <option selected="selected" disabled>No Selection</option>
+                                        <option value="web-development">Web Development</option>
+                                        <option value="machine-learning">Machine Learning</option>
+                                        <option value="mobile-app-dev">Mobile App Development</option>
+                                        <option value="devops">DevOps</option>
+                                        <option value="database-mgmt">Database Management</option>
+                                        <option value="data-science">Data Science</option>
+                                        <option value="cloud-computing">Cloud Computing</option>
+                                        <option value="cybersecurity">Cybersecurity</option>
+                                        <option value="blockchain-dev">Blockchain Development</option>
+                                        <option value="game-dev">Game Development</option>
+                                        <option value="fintech">FinTech</option>
+                                        <option value="bioinformatics">Bioinformatics</option>
+                        </select>
+
+                        {/* show domains selected */}
+                        <div class = 'skill-select-show'>
+                            {domains.map((domain, index) => (
+                                <span key={index}
+                                title='Remove'
+                                onClick={() => handleDomainClick(domain)}
+                                className="selected-skill">
+                                {domain}
+                                </span>
+                            ))}
                         </div>
                     </div>
                         
@@ -107,9 +161,13 @@ function Share() {
                         style={{display: "none"}}
                         onChange={(e) => setTitle(e.target.files[0])}
                     />
+
+                    <p style={{fontSize:'10px', color:'gray'}}>*The more post options you fill out, the easier it is for users to find it!</p>
+                            
                     <button class = 'green-btn'
                     onClick={handleClick}
                     >Share Post</button>
+
                 </div>
             </div>
         </>

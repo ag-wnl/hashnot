@@ -105,8 +105,21 @@ function Post({ post }) {
                     {post.desc}
                 </div>
                 
-                <div class = 'skills' style={{fontSize:'12px'}}>
-                    <span>Skills : {post.skills}</span>
+                <div style={{fontSize:'12px', display:'flex', flexDirection:'column', gap:'10px', color:'#8fb3ff'}}>
+                    
+                    <span style={{display:'flex', flexDirection:'row', gap:'10px', alignItems:'center'}}>
+                        Skills : 
+                        {post.skills && post.skills.split(',').map((skill, index) => (
+                            <span class = 'post-skills' key={index}> {skill}</span>
+                        ))}
+                    </span>
+
+                    <span style={{display:'flex', flexDirection:'row', gap:'10px', alignItems:'center'}}>
+                        Domains:
+                        {post.domain && post.domain.split(',').map((currDomain, index) => (
+                            <span class = 'post-skills' key={index}> {currDomain}</span>
+                        ))}
+                    </span>
                 </div>
                 
                 {/* URL Preview Generator: */}
@@ -119,7 +132,15 @@ function Post({ post }) {
                 />}  */}
 
                 <div class = 'post-bottom-line'>
-                    <button class = 'post-bottom-btn'>Interested</button>
+
+                    <span
+                    style={{color:'#8fb3ff', cursor:'pointer'}}
+                    >Team Size: {post.team_size}</span>
+
+                    <span
+                    style={{color:'#8fb3ff', cursor:'pointer'}}
+                    >Purpose: {post.objective}</span>
+
                     <button class = 'post-bottom-btn' onClick={() => setChat(!chat)}>Chat</button>
     
                     {/* Upvote Icon */}

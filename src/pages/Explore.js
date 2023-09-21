@@ -19,10 +19,20 @@ function Explore() {
     const [search, setSearch] = useState("")
     const [sorter, setSorter] = useState("")
     const [skills, setSkills] = useState([]);
+    const [objective, setObjective] = useState("");
+    const [sliderValue, setSliderValue] = useState(1);
 
+    let skillString = skills.join(',');
+
+    const handleSliderChange = (e) => {
+        setSliderValue(e.target.value);
+    };
 
     const handleSortChange = (e) => {
         setSorter(e.target.value);
+    }
+    const handleObjectiveChange = (e) => {
+        setObjective(e.target.value);
     }
 
     const handleSkillSelect = (selectedSkill) => {
@@ -38,6 +48,11 @@ function Explore() {
         const updatedSkills = skills.filter((skill) => skill !== clickedSkill);
         setSkills(updatedSkills);
     };
+
+    const noObjectiveClick = () => {
+        setObjective("");
+        console.log("emptied!")
+    }
     
     const {isLoading, error, data} = useQuery({
         queryKey: ['search', search],
@@ -96,19 +111,19 @@ function Explore() {
 
                             <select name="sort" id="sort" 
                             onChange={(e) => handleSkillSelect(e.target.value)}>
-                                    <option class = 'sort-selection' >No Selection</option>
-                                    <option value="webdev">Web Development</option>
-                                    <option value="ml">Machine Learning</option>
-                                    <option value="mobileapp">Mobile App Development</option>
+                                    <option class = 'sort-selection' selected="selected" disabled >No Selection</option>
+                                    <option value="web-development">Web Development</option>
+                                    <option value="machine-learning">Machine Learning</option>
+                                    <option value="mobile-app-dev">Mobile App Development</option>
                                     <option value="devops">DevOps</option>
-                                    <option value="dbmgmt">Database Management</option>
-                                    <option value="ds">Data Science</option>
-                                    <option value="cloud">Cloud Computing</option>
-                                    <option value="cybersec">Cybersecurity</option>
-                                    <option value="blockchain">Blockchain Development</option>
-                                    <option value="gamedev">Game Development</option>
+                                    <option value="database-mgmt">Database Management</option>
+                                    <option value="data-science">Data Science</option>
+                                    <option value="cloud-computing">Cloud Computing</option>
+                                    <option value="cybersecurity">Cybersecurity</option>
+                                    <option value="blockchain-dev">Blockchain Development</option>
+                                    <option value="game-dev">Game Development</option>
                                     <option value="fintech">FinTech</option>
-                                    <option value="bioinfo">Bioinformatics</option>
+                                    <option value="bioinformatics">Bioinformatics</option>
                             </select>
                         </div>
 
@@ -124,42 +139,40 @@ function Explore() {
                             ))}
                         </div>
 
+                        <div class = 'filter-row'>
+                            <p>Team Size</p>
+
+                            <input 
+                            class = 'number-req-selector-filter'
+                            onChange={handleSliderChange}
+                            type="range" 
+                            id="slider"
+                            value={sliderValue}
+                            defaultValue={1} 
+                            min="1" max="12" step="1"/>
+                            <div className="slider-container">
+                                <span className="slider-value">{sliderValue}</span>
+                            </div>
+                        </div>
+
                         <div class='filter-row'>
                             <p>Objective</p> 
 
                             <form>                                
-                                <select name="sort" id="sort" value={sorter} onChange={handleSortChange}>
-                                    <option class = 'sort-selection' >No Selection</option>
-                                    <option value="recent">Hackathons</option>
-                                    <option value="highest">Project</option>
+                                <select name="sort" id="sort" value={objective} onChange={handleObjectiveChange}>
+                                    <option class = 'sort-selection' value='nan'>No Selection</option>
+                                    <option value="Hackathon">Hackathon</option>
+                                    <option value="Project">Project</option>
                                 </select>
                             </form>
 
                         </div>
-                        <div class='filter-row'>
-                            <p>Experience Level</p> 
-
-                            <form>                                
-                                <select name="sort" id="sort" value={sorter}>
-                                    <option class = 'sort-selection' >No Selection</option>
-                                    <option value="recent">Rookie</option>
-                                    <option value="highest">Veteran</option>
-                                    <option value="highest">Elite</option>
-                                    <option value="highest">Pro</option>
-                                    <option value="highest">Master</option>
-                                </select>
-                            </form>
-
-                        </div>
-                        <div class='filter-row'>
-                            <p>Team Size</p> 
-                            <p>Select Team Size</p>
-                        </div>
+                        
                     </div>
                     
                     {/* Fetching posts according to search result, or if not then default posts */}
                     <div>
-                        {(search === "" && <Posts sorted = {sorter} />)}
+                        {(search === "" && <Posts sorted = {sorter} aim = {objective} domains = {skillString} />)}
                         {(isLoading) ? "Loading Search Results..." 
                         : 
                         ( (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />
