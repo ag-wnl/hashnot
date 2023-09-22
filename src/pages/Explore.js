@@ -22,6 +22,12 @@ function Explore() {
     const [objective, setObjective] = useState("");
     const [sliderValue, setSliderValue] = useState(1);
 
+    const handleClearBtnClick = () => {
+        setSkills([]);
+        setObjective("");
+        setSliderValue(1);
+    }
+
     let skillString = skills.join(',');
 
     const handleSliderChange = (e) => {
@@ -167,12 +173,16 @@ function Explore() {
                             </form>
 
                         </div>
+
+                        <div class = 'filter-row'>
+                            <button onClick={handleClearBtnClick} class = 'clear-filter-btn'>Clear Filters</button>
+                        </div>
                         
                     </div>
                     
                     {/* Fetching posts according to search result, or if not then default posts */}
                     <div>
-                        {(search === "" && <Posts sorted = {sorter} aim = {objective} domains = {skillString} />)}
+                        {(search === "" && <Posts sorted = {sorter} aim = {objective} domains = {skillString} teamSize = {sliderValue} />)}
                         {(isLoading) ? "Loading Search Results..." 
                         : 
                         ( (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />

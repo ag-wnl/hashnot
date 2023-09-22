@@ -344,3 +344,16 @@ a {
   height: 2px;
   width: 110px;
 }
+
+.clear-filter-btn {
+  border: none;
+  font-size: 12px;
+  background-color: #2b2b2b;
+  color: white;
+  padding: 5px 10px 5px 10px;
+}
+
+.clear-filter-btn:hover {
+  background-color: #29507d;
+  box-shadow: 0px 1px 8px 0px #17465e;
+}
