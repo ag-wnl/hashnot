@@ -31,17 +31,25 @@ function Profile() {
 
     let userId =  userData?.id;
 
-    //I made the second query go only when first is done im so smart!
-    const { isLoading: relationLoading, data: relationData, refetch: relRefetch } = useQuery(
-        ["relation"],
-        () =>
-            makeRequest.get("/relations?followedUserId=" + userId).then((res) => {
-                return res.data;
-            }),
-        {
-            enabled: !!userId, // Only enable the query when userId is truthy (not null or undefined)
-        }
-    );
+    // const { isLoading: relationLoading, data: relationData, refetch: relRefetch } = useQuery(
+    //     ["relation"],
+    //     () =>
+    //         makeRequest.get("/relations?followedUserId=" + userId).then((res) => {
+    //             return res.data;
+    //         }),
+    //     {
+    //         enabled: !!userId, // Only enable the query when userId is truthy (not null or undefined)
+    //     }
+    // );
+
+    //I made the second query go only when first is done im so smart! Also i am using queryKeys to fetch whenever data change im extra smart boiiiii!
+    const { isLoading: relationLoading, data: relationData, refetch: relRefetch } = useQuery({
+        queryKey: ["userId", userId],
+        queryFn: () => makeRequest.get("/relations?followedUserId=" + userId).then((res) => {
+            return res.data;
+        }),
+        enabled: !!userId, // Only enable the query when userId is truthy (not null or undefined)
+    });
 
     //refetch user data and relation data again when username changes
     useEffect(() => {
