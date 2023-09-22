@@ -20,7 +20,7 @@ function Home() {
             <div>
                 <Navbar /> 
                 <div class = 'banner'>
-                    <h2 class = 'banner-main-text'>Find your Dream Team and Create a Better Future</h2>
+                    <h1 class = 'banner-main-text'>Find your Dream Team and Create a Better Future</h1>
                     <span class = 'banner-sub-text'>Find the perfect team to join and develop amazing things</span>
                     <span class = 'banner-sub-text'>no boundaries when it comes to tech</span>
 
@@ -61,7 +61,13 @@ function Home() {
                     
                 </div>
 
-                <CustomizedTimeline />
+                <div class = 'timeline-block'>
+                    <div style={{display:'flex', flexDirection:'column', width:'50%'}}>
+                        <h1>This is the best thing and it is</h1>
+                        <span>test</span>
+                    </div>
+                    <CustomizedTimeline />
+                </div>
 
                 <Footer />
                 

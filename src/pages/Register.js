@@ -35,10 +35,8 @@ function Register() {
         <>
             <Navbar />
             <div class = 'login-head'>
-                <h2>Register Account</h2>
-
                 <form class = 'register-page-card'>
-                        <h3>Join the Community!</h3>
+                        <h2>Join the Community!</h2>
                         <input class='register-field' type="text" placeholder="Username" name="username" onChange={handleChange}/>
                         <input class='register-field' type="email" placeholder="Email" name="email" onChange={handleChange}/>
                         <input class='register-field' type="password" placeholder="Password" name="password" onChange={handleChange}/>

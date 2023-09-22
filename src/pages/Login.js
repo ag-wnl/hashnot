@@ -37,10 +37,10 @@ function Login() {
         <>
             <Navbar />
             <div class = 'login-head'>
-                <h2>Login to your Account</h2>
+                <h2>Welcome Back!</h2>
 
                 <form class = 'register-card'>
-                    <h3>Welcome Back!</h3>
+                    <h3>Log into your Account</h3>
                     <input class='register-field' type="text" placeholder="Username" name="username" onChange={handleChange}/>
                         
                     <input class='register-field' type="password" placeholder="Password" name="password" onChange={handleChange}/>

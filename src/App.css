@@ -71,13 +71,14 @@ a {
 }
 
 .banner-main-text {
-  font-size: 45px;
+  font-size: 40px;
   margin-bottom: 2rem;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .banner-sub-text{
-  color: rgb(199, 199, 199);
+  color: rgb(255, 255, 255);
+  font-size: 20px;
 }
 
 .banner-btn {
@@ -86,12 +87,13 @@ a {
   font-weight: bolder;
   color: black;
   background-color: white;
-  padding: 12px 20px 12px 20px;
-  border-radius: 30px;
+  padding: 14px 24px 14px 24px;
+  border-radius: 4px;
 }
 
 .banner-btn:hover {
   background-color: rgb(223, 223, 223);
+  box-shadow: 0px 0px 40px 0px rgb(19, 35, 94);
 }
 
 .banner-frame {
@@ -101,6 +103,7 @@ a {
 
 .section-below-banner {
   margin-top: 14rem;
+  margin-bottom: 10rem;
   font-family: 'Poppins', sans-serif;
   color: rgb(233, 233, 233);
   display: flex;
@@ -119,6 +122,9 @@ a {
   flex-direction: column;
   gap: 1.5rem ;
   transition: 0.3s ease-in-out;
+  -webkit-box-shadow: 2px -1px 43px 6px rgba(0,0,0,0.62);
+  -moz-box-shadow: 2px -1px 43px 6px rgba(0,0,0,0.62);
+  box-shadow: 2px -1px 43px 6px rgba(15, 16, 42, 0.62);
 }
 
 .sq-box:hover {
@@ -180,7 +186,7 @@ a {
 
 .register-card {
   margin-top: 1rem;
-  padding: 10px 5px 40px 5px;
+  padding: 20px 5px 40px 5px;
   width: 40%;
   background-color: #111111;
   display: flex;
@@ -188,7 +194,6 @@ a {
   justify-content: center;  
   align-items: center;
   gap: 1.7rem;
-  border: 1px solid rgb(72, 72, 72);
   border-radius: 6px;
 }
 
@@ -210,7 +215,6 @@ a {
   justify-content: center;  
   align-items: center;
   gap: 1.7rem;
-  border: 1px solid rgb(72, 72, 72);
   border-radius: 6px;
 }
 
@@ -362,4 +366,13 @@ a {
 .clear-filter-btn:hover {
   background-color: #29507d;
   box-shadow: 0px 1px 8px 0px #17465e;
+}
+
+.timeline-block {
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 100px;
 }
