@@ -1,6 +1,54 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# hashnot
+The platform to find a team to win big!
+
+
+
+
+
+
+
+## Screenshots
+
+![App Screenshot](https://i.imgur.com/zwr9AP1.png)
+
+![App Screenshot](https://i.imgur.com/xCLkUpL.png)
+
+![App Screenshot](https://i.imgur.com/wiUIjQk.png)
+
+
+
+
+## Dependencies
+
+```bash
+"react": "^18.2.0",
+"react-dom": "^18.2.0",
+"react-icons": "^4.10.1",
+"react-query": "^3.39.3",
+"react-range-slider-input": "^3.0.7",
+"react-router-dom": "^6.15.0",
+"react-scripts": "5.0.1",
+"axios": "^1.5.0",
+"cheerio": "^1.0.0-rc.12",
+"extract-urls": "^1.4.0",
+"moment": "^2.29.4",
+"@emotion/react": "^11.11.1",
+"@emotion/styled": "^11.11.0",
+"@mui/icons-material": "^5.14.9",
+"@mui/lab": "^5.0.0-alpha.145",
+"@mui/material": "^5.14.10",
+```
+## Usage
+
+Local Deployment
+
+```bash
+  npm start
+```
+
+```
+
 
 ## Available Scripts
 
