@@ -62,9 +62,10 @@ function Home() {
                 </div>
 
                 <div class = 'timeline-block'>
-                    <div style={{display:'flex', flexDirection:'column', width:'50%'}}>
-                        <h1>This is the best thing and it is</h1>
-                        <span>test</span>
+                    <div style={{display:'flex', flexDirection:'column', width:'60%'}}>
+                        <h1>There are always people looking for you!</h1>
+                        <span style={{fontSize:'20px'}}>There are people looking for exactly someone like you to join them and work on amazing projects</span>
+                        <button class='get-started-btn'>Get Started</button>
                     </div>
                     <CustomizedTimeline />
                 </div>

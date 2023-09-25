@@ -14,7 +14,7 @@ import Groups3Icon from '@mui/icons-material/Groups3';
 
 export default function CustomizedTimeline() {
   return (
-    <Timeline >
+    <Timeline class = 'timeline' >
       <TimelineItem>
         <TimelineOppositeContent
           sx={{ m: 'auto 0' }}
@@ -22,7 +22,6 @@ export default function CustomizedTimeline() {
           variant="body2"
           color="text.secondary"
         >
-          9:30 am
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineConnector />

@@ -9,7 +9,7 @@ function NoResult( {searchQ} ) {
                 <img 
                 style={{width:'300px'}}
                 src={not_found_img} />
-                <span class  = 'no-res-txt'>No results found for {searchQ.slice(0,10)}...</span>
+                <span class  = 'no-res-txt'>No results found...</span>
             </div>
         </>
     )

@@ -127,7 +127,7 @@ input:focus {
 }
 
 .search-icon {
-    color: #b5bb4c;
+    color: rgb(93, 164, 236);
 }
 
 .search-bar {
@@ -312,8 +312,7 @@ input:focus {
   
 .message-write {
     margin-top: 10px;
-    width: 100%;
-    max-width: 100%;
+    width: 96%;
     background-color: #1A1D1E;
     padding: 10px;
     border-radius: 15px;
@@ -510,4 +509,8 @@ input:focus {
     color: rgb(168, 209, 251);
     padding: 1px 8px 1px 8px;
     border-radius: 6px;
+}
+
+.timeline {
+    font-family: 'Poppins', sans-serif;
 }

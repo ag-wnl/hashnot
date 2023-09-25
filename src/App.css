@@ -376,3 +376,17 @@ a {
   align-items: center;
   padding: 100px;
 }
+
+.get-started-btn {
+  margin-top: 2rem;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(14, 14, 14);
+  padding: 14px 20px 14px 20px;
+  border-radius: 4px;
+  max-width: 200px;
+}
+
+.get-started-btn:hover {
+  background-color: #000000;
+}
