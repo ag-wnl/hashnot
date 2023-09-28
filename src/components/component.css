@@ -60,9 +60,9 @@ textarea {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10rem;
+    margin-top: 5rem;
     padding: 50px;
-    border-top: 1px solid rgb(60, 60, 60);
+    border-top: 1px solid rgb(34, 34, 34);
 }
 
 .footer-mid-section {

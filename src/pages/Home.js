@@ -32,7 +32,9 @@ function Home() {
                 </div>
 
                 <div class = 'section-below-banner'>
-                    <div class = 'sq-box'>
+                    <div 
+                    onClick={()=> navigate(`/register`)}
+                    class = 'sq-box'>
                         <span style={{fontSize:'20px'}}><strong>Start the Journey</strong></span>
                         <span class = 'banner-sub-text'>Discover teams who are looking for exactly someone like you and hack the planet!</span>
                         <span class = 'go-btn'>
@@ -41,7 +43,9 @@ function Home() {
                         </span>
                     </div>
 
-                    <div class = 'sq-box'>
+                    <div 
+                    onClick={()=> navigate(`/explore`)}
+                    class = 'sq-box'>
                         <span style={{fontSize:'20px'}}><strong>Find the Team</strong></span>
                         <span class = 'banner-sub-text'>Filter out posts to see exactly what you want and send a request!</span>
                         <span class = 'go-btn'>
@@ -50,7 +54,9 @@ function Home() {
                         </span>
                     </div>
 
-                    <div class = 'sq-box'>
+                    <div 
+                    onClick={()=> navigate(`/about`)}
+                    class = 'sq-box'>
                         <span style={{fontSize:'20px'}}><strong>Become a Part</strong></span>
                         <span class = 'banner-sub-text'>Send request to join a team and chat with the Original Poster!</span>
                         <span class = 'go-btn'>
@@ -65,7 +71,9 @@ function Home() {
                     <div style={{display:'flex', flexDirection:'column', width:'60%'}}>
                         <h1>There are always people looking for you!</h1>
                         <span style={{fontSize:'20px'}}>There are people looking for exactly someone like you to join them and work on amazing projects</span>
-                        <button class='get-started-btn'>Get Started</button>
+                        <button 
+                        onClick={()=> navigate(`/explore`)}
+                        class='get-started-btn'>Get Started</button>
                     </div>
                     <CustomizedTimeline />
                 </div>

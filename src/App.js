@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import Profile from './pages/Profile';
+import ScrollToTop from './components/ScrollToTop';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <>
         <div>
             <BrowserRouter>
+              <ScrollToTop />
               <Routes>
                 <Route index element = {<Home />} />
                 <Route path='/home' element = {<Home />} />

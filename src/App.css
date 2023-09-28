@@ -125,6 +125,7 @@ a {
   -webkit-box-shadow: 2px -1px 43px 6px rgba(0,0,0,0.62);
   -moz-box-shadow: 2px -1px 43px 6px rgba(0,0,0,0.62);
   box-shadow: 2px -1px 43px 6px rgba(15, 16, 42, 0.62);
+  cursor: pointer;
 }
 
 .sq-box:hover {
@@ -225,17 +226,19 @@ a {
 }
 
 .profile-cards-row {
+  background-color: #fcf4ff;
   margin-top: 2.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 3rem;
+  border-radius: 4px;
 }
 
 .profile-card {
   padding: 20px;
-  background-color: #F2E7FE;
+  /* background-color: #F2E7FE; */
   color: black;
   border-radius: 6px;
   width: 40%;
@@ -247,7 +250,7 @@ a {
 .other-utils {
   padding: 20px 30px 20px 30px;
   border-radius: 6px;
-  background-color: #ffd8bd;
+  /* background-color: #ffd8bd; */
   color: black;
   width: 60%;
   display: flex;

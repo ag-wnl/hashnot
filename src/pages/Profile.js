@@ -86,9 +86,9 @@ function Profile() {
             {isLoading ? ('Loading User Profile...')
             : (
                 <div class = 'profile-page'>
-                    <div class = 'profile-header'>
+                    {/* <div class = 'profile-header'>
                         <h2>Profile</h2>
-                    </div>
+                    </div> */}
                     <div class = 'profile-cards-row'>
                         <div class = 'profile-card'>
                             <div class = 'profile-row'>
@@ -102,7 +102,7 @@ function Profile() {
                                 style={{width:'70px',height:'70px',borderRadius:'12px'}} 
                                 src={userimg} />}
                                 
-                                <h2>{userData.username}</h2>
+                                <h2>@{userData.username}</h2>
                                 
                                 {/* Edit or Update Profile */}
                                 {!relationLoading && (userData.id === currentUser.id)
