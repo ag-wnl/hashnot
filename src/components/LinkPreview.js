@@ -1,47 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { load } from 'cheerio';
+import React from 'react'
+import '../components/component.css';
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
+import { useQuery, useQueryClient, useMutation } from 'react-query'
+import { makeRequest } from "../axios"
 
-function LinkPreview({ url }) {
-  const [image, setImage] = useState('');
-  const [heading, setHeading] = useState('');
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-
-    axios.get(url)
-      .then((response) => {
-        const html = response.data;
-        const $ = load(html);
-
-        // Extract the most important image and text heading
-        const imgElement = $('img'); // You might need to use a specific selector
-        const headingElement = $('h1, h2, h3'); // You can adjust the heading element selection
-
-        const imgSrc = imgElement.attr('src');
-        const headingText = "TEST"
-        // console.log(headingText);
-        // headingElement.first().text();
-        setImage(imgSrc);
-        setHeading(headingText);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching website:', error);
-        setLoading(false);
-      });
-  }, [url]);
-
-  if (loading) {
-    return <div>Loading Preview...</div>;
-  }
-
-  return (
-    <div>
-      {image && <img src={image} alt="Website Image" />}
-      <h1>{heading}</h1>
-    </div>
+function LinkPreview({url}) {
+  
+  const { isLoading, error, data } = useQuery(["urlprev", url], () =>
+        makeRequest.get("/urlprev?url=" + url).then((res) => {
+        return res.data;
+        })
   );
+  
+  return (
+    <>
+      {
+        (isLoading) ? <span>Data is Loading</span>
+        :
+        <div class = 'url-preview-container'>
+          <img
+          style={{width:"100%"}}
+          src = {data.image} />
+
+          <span>{data.title}</span>
+
+          <span style={{fontSize:"14px", color:"#a8a8a8"}}>{data.description}</span>
+        
+          <div style={{display:"flex", flexDirection:"row", gap:"10px"}}>
+            <img style={{width:"20px"}} src = {data.favicon} />
+            <span style={{fontSize:"12px", color:"gray"}}>{data.query_url}</span>
+          </div>
+        </div>
+      }
+    </>
+  )
 }
 
-export default LinkPreview;
+export default LinkPreview

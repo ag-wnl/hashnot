@@ -514,3 +514,14 @@ input:focus {
 .timeline {
     font-family: 'Poppins', sans-serif;
 }
+
+.url-preview-container {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid rgb(49, 49, 49);
+    border-radius: 4px;
+    background-color: rgb(27, 27, 27);
+}

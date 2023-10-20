@@ -10,7 +10,6 @@ import userimg from "../imgs/user.png"
 import upvote from "../imgs/up.svg"
 import { Link } from 'react-router-dom';
 import LinkPreview from './LinkPreview';
-import { ReactTinyLink } from "react-tiny-link";
 const extractUrls = require("extract-urls");
 
 function Post({ post }) {
@@ -105,6 +104,15 @@ function Post({ post }) {
                     {post.desc}
                 </div>
                 
+                {/* Displaying url preview: */}
+                {
+                    (firstURL != "" && 
+                    <div>
+                        <LinkPreview url={firstURL}/>
+                    </div>
+                    )
+                }
+
                 <div style={{fontSize:'12px', display:'flex', flexDirection:'column', gap:'10px', color:'#8fb3ff'}}>
                     
                     <span style={{display:'flex', flexDirection:'row', gap:'10px', alignItems:'center'}}>
