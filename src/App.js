@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import Profile from './pages/Profile';
 import ScrollToTop from './components/ScrollToTop';
+import Chats from './pages/Chats';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
                 <Route index element = {<Home />} />
                 <Route path='/home' element = {<Home />} />
                 <Route path='/about' element = {<About />} />
+                <Route path='/chats' element = {<Chats />} />
                 <Route path='/account' element = {<Account />} />
                 <Route path='/explore' element = {<Explore />} />
                 <Route path='/register' element = {<Register />} />

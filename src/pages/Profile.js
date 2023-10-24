@@ -156,7 +156,7 @@ function Profile() {
                                         : "Follow"}
                                         </button> )}
         
-                                <button class='profile-btn'>Chat</button>
+                                <button class='profile-btn'>Messages</button>
                             </div>
                             
                         </div>

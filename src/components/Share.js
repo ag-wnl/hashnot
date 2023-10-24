@@ -84,7 +84,7 @@ function Share() {
                     rows="5" 
                     class = 'create-post-desc'
                     type="text"
-                    placeholder={`The Post description goes here!`}
+                    placeholder={`The Post description goes here! You can also add relevant links in here.`}
                     onChange={(e) => setDesc(e.target.value)}
                     // value={desc}
                     />

@@ -8,6 +8,7 @@ import send_dm from "../imgs/send_msg.svg"
 
 import { makeRequest } from "../axios";
 import moment from 'moment';
+import MessageBox from './MessageBox';
 
 const Messages = ({postId}) => {
 
@@ -67,24 +68,7 @@ const Messages = ({postId}) => {
                 : isLoading
                 ? "loading"
                 : data.map((message) => (
-                    <div className="message">
-                        
-                        <div className="msg-info">
-                            
-                            <div style={{display:'flex', gap:'0.7rem'}}>
-                                <img 
-                                class = 'msg-pfp'
-                                src={(message.pfp ? message.pfp : user_pfp)} alt="" />
-                                <span style={{fontSize:'14px', fontWeight:'700'}}>{message.name}</span>
-                            </div>
-
-                            <span style={{fontSize:'10px'}} className="date">
-                            {moment(message.createdAt).fromNow()}
-                            </span>
-                        </div>
-                        
-                        <p style={{fontSize:'16px'}}>{message.desc}</p>
-                    </div>
+                    <MessageBox pfp = {(message.pfp ? message.pfp : user_pfp)} senderName={message.name} createdAt={message.createdAt} messageString={message.desc} />
                 ))}
             </div>
         </>
