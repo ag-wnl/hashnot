@@ -1,11 +1,9 @@
 
 # hashnot
-The platform to find a team to win big!
+The platform to find a team to win big! Helping connect developers across the globe to work together and bring the big change!
 
-
-
-
-
+Backend:
+https://github.com/ag-wnl/hashnot-rest-nodejs
 
 
 ## Screenshots
