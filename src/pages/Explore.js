@@ -86,8 +86,9 @@ function Explore() {
                         </div>
                     </div>
                     
-                    <div class="custom-tooltip" title="Notifications">
-                        <img style={{width:"30px"}} src = {notificationIcon} />
+                    <div class="tooltip">
+                        <span class="tooltiptext">Notifications</span>
+                        <img style={{width:"25px"}} src = {notificationIcon} />
                     </div>
 
                     <button class = 'create-btn' 
