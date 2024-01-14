@@ -13,12 +13,12 @@ import banner_img from "../imgs/hackathon_banner.png"
 function SidePosts() {
     return (
         <>
-            <div class = 'side-post-container'>
-                <img 
-                style={{width:'300px', paddingBottom:'15px', borderBottom: '1px solid #727372'}}
-                src={banner_img} />
-                Explore the nexus of people looking to work towards solving problems and winning big!
-            </div>
+                <div class = 'side-post-container'>
+                    <img 
+                    style={{width:'300px', paddingBottom:'15px', borderBottom: '1px solid #727372'}}
+                    src={banner_img} />
+                    Explore the nexus of people looking to work towards solving problems and winning big!
+                </div>
         </>
     )
 }

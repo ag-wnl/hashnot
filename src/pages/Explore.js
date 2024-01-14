@@ -12,6 +12,7 @@ import { useQueries, useQuery } from 'react-query';
 import { makeRequest } from '../axios';
 import Post from '../components/Post';
 import NoResult from '../components/NoResult';
+import notificationIcon from '../imgs/notification-icon.png'
 
 function Explore() {
 
@@ -84,101 +85,110 @@ function Explore() {
                             onChange={(e) => setSearch(e.target.value)} />
                         </div>
                     </div>
-                        
+                    
+                    <div class="custom-tooltip" title="Notifications">
+                        <img style={{width:"30px"}} src = {notificationIcon} />
+                    </div>
+
                     <button class = 'create-btn' 
                     onClick={() => setsharePostOpen(!sharePostOpen)}>Create Post</button>
                 </div>
                 {
                     sharePostOpen && <Share />
                 }
-                <div class = 'side-by-side-posts'>
+
+
+                <div class = 'side-by-side-posts'> 
 
                     {/* search Filters */}
-                    <div class = 'filter-container'>
-                        <span 
-                        style={{fontSize:'18px', borderBottom:'1px solid #4d4d4d', paddingBottom:'8px'}}>
-                            Filters</span>
-                        
-                        <div class='filter-row'>
-                            <p>Sort by</p> 
-                            <form>
-                                <label htmlFor='sort'></label>
-                                
-                                <select name="sort" id="sort" value={sorter} onChange={handleSortChange}>
-                                    <option class = 'sort-selection' >No Selection</option>
-                                    <option value="recent">Most Recent</option>
-                                    <option value="highest">Upvotes</option>
-                                </select>
+                    <div class = 'filter-parent-box'>
+
+                        <div class = 'filter-container'>
+                            <span 
+                            style={{fontSize:'18px', borderBottom:'1px solid #4d4d4d', paddingBottom:'8px'}}>
+                                Filters</span>
                             
-                            </form>
-                        </div>
-                        <div class='filter-row'>
-                            <p>Skills</p> 
+                            <div class='filter-row'>
+                                <p>Sort by</p> 
+                                <form>
+                                    <label htmlFor='sort'></label>
+                                    
+                                    <select name="sort" id="sort" value={sorter} onChange={handleSortChange}>
+                                        <option class = 'sort-selection' >No Selection</option>
+                                        <option value="recent">Most Recent</option>
+                                        <option value="highest">Upvotes</option>
+                                    </select>
+                                
+                                </form>
+                            </div>
+                            <div class='filter-row'>
+                                <p>Skills</p> 
 
-                            <select name="sort" id="sort" 
-                            onChange={(e) => handleSkillSelect(e.target.value)}>
-                                    <option class = 'sort-selection' selected="selected" disabled >No Selection</option>
-                                    <option value="web-development">Web Development</option>
-                                    <option value="machine-learning">Machine Learning</option>
-                                    <option value="mobile-app-dev">Mobile App Development</option>
-                                    <option value="devops">DevOps</option>
-                                    <option value="database-mgmt">Database Management</option>
-                                    <option value="data-science">Data Science</option>
-                                    <option value="cloud-computing">Cloud Computing</option>
-                                    <option value="cybersecurity">Cybersecurity</option>
-                                    <option value="blockchain-dev">Blockchain Development</option>
-                                    <option value="game-dev">Game Development</option>
-                                    <option value="fintech">FinTech</option>
-                                    <option value="bioinformatics">Bioinformatics</option>
-                            </select>
-                        </div>
+                                <select name="sort" id="sort" 
+                                onChange={(e) => handleSkillSelect(e.target.value)}>
+                                        <option class = 'sort-selection' selected="selected" disabled >No Selection</option>
+                                        <option value="web-development">Web Development</option>
+                                        <option value="machine-learning">Machine Learning</option>
+                                        <option value="mobile-app-dev">Mobile App Development</option>
+                                        <option value="devops">DevOps</option>
+                                        <option value="database-mgmt">Database Management</option>
+                                        <option value="data-science">Data Science</option>
+                                        <option value="cloud-computing">Cloud Computing</option>
+                                        <option value="cybersecurity">Cybersecurity</option>
+                                        <option value="blockchain-dev">Blockchain Development</option>
+                                        <option value="game-dev">Game Development</option>
+                                        <option value="fintech">FinTech</option>
+                                        <option value="bioinformatics">Bioinformatics</option>
+                                </select>
+                            </div>
 
-                        {/* displaying skills selected by user */}
-                        <div class = 'skill-select-show'>
-                            {skills.map((skill, index) => (
-                                <span key={index}
-                                title='Remove'
-                                onClick={() => handleSkillClick(skill)}
-                                className="selected-skill">
-                                {skill}
-                                </span>
-                            ))}
-                        </div>
+                            {/* displaying skills selected by user */}
+                            <div class = 'skill-select-show'>
+                                {skills.map((skill, index) => (
+                                    <span key={index}
+                                    title='Remove'
+                                    onClick={() => handleSkillClick(skill)}
+                                    className="selected-skill">
+                                    {skill}
+                                    </span>
+                                ))}
+                            </div>
 
-                        <div class = 'filter-row'>
-                            <p>Team Size</p>
+                            <div class = 'filter-row'>
+                                <p>Team Size</p>
 
-                            <input 
-                            class = 'number-req-selector-filter'
-                            onChange={handleSliderChange}
-                            type="range" 
-                            id="slider"
-                            value={sliderValue}
-                            defaultValue={1} 
-                            min="1" max="12" step="1"/>
-                            <div className="slider-container">
-                                <span className="slider-value">{sliderValue}</span>
+                                <input 
+                                class = 'number-req-selector-filter'
+                                onChange={handleSliderChange}
+                                type="range" 
+                                id="slider"
+                                value={sliderValue}
+                                defaultValue={1} 
+                                min="1" max="12" step="1"/>
+                                <div className="slider-container">
+                                    <span className="slider-value">{sliderValue}</span>
+                                </div>
+                            </div>
+
+                            <div class='filter-row'>
+                                <p>Objective</p> 
+
+                                <form>                                
+                                    <select name="sort" id="sort" value={objective} onChange={handleObjectiveChange}>
+                                        <option class = 'sort-selection' value='nan'>No Selection</option>
+                                        <option value="Hackathon">Hackathon</option>
+                                        <option value="Project">Project</option>
+                                    </select>
+                                </form>
+
+                            </div>
+
+                            <div class = 'filter-row'>
+                                <button onClick={handleClearBtnClick} class = 'clear-filter-btn'>Clear Filters</button>
                             </div>
                         </div>
-
-                        <div class='filter-row'>
-                            <p>Objective</p> 
-
-                            <form>                                
-                                <select name="sort" id="sort" value={objective} onChange={handleObjectiveChange}>
-                                    <option class = 'sort-selection' value='nan'>No Selection</option>
-                                    <option value="Hackathon">Hackathon</option>
-                                    <option value="Project">Project</option>
-                                </select>
-                            </form>
-
-                        </div>
-
-                        <div class = 'filter-row'>
-                            <button onClick={handleClearBtnClick} class = 'clear-filter-btn'>Clear Filters</button>
-                        </div>
-                        
                     </div>
+                    
                     
                     {/* Fetching posts according to search result, or if not then default posts */}
                     <div>
@@ -188,7 +198,7 @@ function Explore() {
                         ( (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />
                         : data.map((post) => <Post post={post}  key={post.id} />))}
                     </div>
-                    <div>
+                    <div class = 'side-post-parent'>
                         <SidePosts />
                     </div>
                 </div>

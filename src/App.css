@@ -1,5 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Great+Vibes&family=Lora&family=Plus+Jakarta+Sans:wght@300&family=Poppins:wght@300&display=swap');
 
+.custom-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-tooltip:hover::after {
+  content: attr(title); /* Use the title attribute content as tooltip text */
+  display: block;
+  position: absolute;
+  background-color: #333; /* Customize background color */
+  color: #fff; /* Customize text color */
+  padding: 2px 6px 2px 6px;
+  border-radius: 5px;
+  font-size: 12px;
+  z-index: 1;
+  top: 100%; /* Position above the element */
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 .body{
   font-family: 'Poppins', sans-serif;
@@ -317,12 +336,24 @@ a {
   align-items: center;
 } 
 
+.filter-parent-box {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.side-post-parent {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
 .filter-container {
   margin-top: 2rem;
   background-color: #0e0f0f;
   border-radius: 6px;
   padding: 25px 25px 25px 25px;
-  width: 400px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   gap: 15px;
