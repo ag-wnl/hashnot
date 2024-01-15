@@ -87,7 +87,7 @@ function Explore() {
                     </div>
                     
                     <div class="tooltip">
-                        <span class="tooltiptext">Notifications</span>
+                            <span class="tooltiptext">Notifications</span>
                         <img style={{width:"25px"}} src = {notificationIcon} />
                     </div>
 

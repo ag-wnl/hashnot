@@ -4,8 +4,8 @@ import '../App.css';
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import userimg from "../imgs/user.png"
-import git_img from "../imgs/github.svg"
-import edit from "../imgs/edit.svg"
+import git_img from "../imgs/github-png.png"
+import settingIcon from "../imgs/settings-icon.png"
 import website_img from "../imgs/link.svg"
 import Posts from '../components/Posts';
 import Invites from '../components/Invites';
@@ -106,8 +106,12 @@ function Profile() {
                                 
                                 {/* Edit or Update Profile */}
                                 {!relationLoading && (userData.id === currentUser.id)
-                                    && (<button title='Edit' class='edit-btn' onClick={()=>setOpenUpdate(true)}>
-                                    <img src={edit} /></button>)}
+                                    && (
+                                    <div class="tooltip">
+                                        <span class="tooltiptext">Settings</span>
+                                        <img style={{width:"20px"}} onClick={()=>setOpenUpdate(true)} src={settingIcon} />
+                                    </div>
+                                    )}
                             </div>
                             <div class = 'profile-row'>
                                 <span>{userData.name}</span>
@@ -116,22 +120,22 @@ function Profile() {
                             <div class = 'profile-links'>
                                 {(userData.github) &&
                                 <Link 
-                                style={{color:'black'}}
+                                style={{color:"white"}}
                                 to='https://google.com/'>
                                     <span style={{display:'flex', alignItems:'center', gap:'5px'}}>
                                     <img 
-                                    style={{width:'20px'}}
+                                    style={{width:'30px'}}
                                     src={git_img} />
                                     <b>Github: </b>{userData.github}</span>
                                 </Link>
                                 }
                                 {(userData.website) &&
                                 <Link 
-                                style={{color:'black'}}
+                                style={{color:'white'}}
                                 to='https://google.com/'>
                                     <span  style={{display:'flex', alignItems:'center', gap:'5px'}}>
                                     <img
-                                    style={{width:'20px'}}
+                                    style={{width:'30px'}}
                                     src={website_img} />
                                     <b>Website: </b>{userData.website}</span>
                                 </Link>
@@ -162,10 +166,14 @@ function Profile() {
                         </div>
                     </div>
                     {openUpdate &&  <Update setOpenUpdate={setOpenUpdate} user = {userData} />}
-                    <Invites />
 
+                    {/* Only show requests/invites on user's own profile  */}
+                    {!relationLoading && (userData.id === currentUser.id) &&
+                        <Invites />
+                    }
+                    
                     {/* To show only posts by user whos profile we viewing */}
-                    <h2>Your Posts</h2>
+                    <h2>Posts</h2>
                     <Posts userId={userData.id} />
                 </div>
             )}

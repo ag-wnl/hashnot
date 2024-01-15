@@ -15,7 +15,7 @@ function Chats() {
                     <div class='left-chat-head'>
                          <div>Chats</div>
                         <div>Compose</div>
-                    </div>
+                    </div>  
 
                     <input placeholder="Search messages" class = 'chat-search' />
 
@@ -33,7 +33,7 @@ function Chats() {
                 <div class = 'chat-section-right'>
                     <div class = 'chat-rigth-head'>
                         <span style={{paddingLeft:'20px'}}>User Name</span>
-                    </div>
+                    </div>  
 
                     {/* This area will show the text messages */}
                     <div class = 'chat-message-show-container'>

@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import {FaSearch} from "react-icons/fa"
 import '../components/component.css';
 import { useQuery } from 'react-query'
-import { makeRequest } from "../axios"
+import { makeRequest, axios } from "../axios"
+
+
 
 // This is the search bar for the explore
 

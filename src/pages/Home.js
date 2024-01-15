@@ -36,7 +36,7 @@ function Home() {
                     onClick={()=> navigate(`/register`)}
                     class = 'sq-box'>
                         <span style={{fontSize:'20px'}}><strong>Start the Journey</strong></span>
-                        <span class = 'banner-sub-text'>Discover teams who are looking for exactly someone like you and hack the planet!</span>
+                        <span class = 'banner-sub-text'>Discover people who are looking for exactly someone like you</span>
                         <span class = 'go-btn'>
                             Let's Start!
                             <img src = {open_lnk}/>
