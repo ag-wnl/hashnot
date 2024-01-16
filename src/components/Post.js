@@ -106,41 +106,41 @@ function Post({ post }) {
                 
                 {/* Displaying url preview: */}
                 {
-                    (firstURL != "" && 
+                    (firstURL !== "" && 
                     <div>
                         <LinkPreview url={firstURL}/>
                     </div>
                     )
                 }
+                
 
+                {/* The skills and Domains section of the post  */}
                 <div style={{fontSize:'12px', display:'flex', flexDirection:'column', gap:'10px', color:'#8fb3ff'}}>
-                    
+
                     <span style={{display:'flex', flexDirection:'row', gap:'10px', alignItems:'center'}}>
                         Skills : 
-                        {post.skills && post.skills.split(',').map((skill, index) => (
+                        {post.skills ? 
+                        (post.skills.split(',').map((skill, index) => (
                             <span class = 'post-skills' key={index}> {skill}</span>
-                        ))}
+                        ))
+                        ) : (
+                            <span class='post-skills'> No specific skill</span>
+                        )}
                     </span>
 
                     <span style={{display:'flex', flexDirection:'row', gap:'10px', alignItems:'center'}}>
                         Domains:
-                        {post.domain && post.domain.split(',').map((currDomain, index) => (
+                        {post.domain ? 
+                        (post.domain.split(',').map((currDomain, index) => (
                             <span class = 'post-skills' key={index}> {currDomain}</span>
-                        ))}
+                        ))) : (
+                            <span class='post-skills'> No specific domain</span>
+                        )}
                     </span>
                 </div>
-                
-                {/* URL Preview Generator: */}
-                {/* {urls && <ReactTinyLink
-                    cardSize="small"
-                    showGraphic={true}
-                    maxLine={2}
-                    minLine={1}
-                    url = {firstURL}
-                />}  */}
 
+                {/* Bottom panel of the post */}
                 <div class = 'post-bottom-line'>
-
                     <span
                     style={{color:'#8fb3ff', cursor:'pointer'}}
                     >Team Size: {post.team_size}</span>

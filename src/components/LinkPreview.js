@@ -16,22 +16,25 @@ function LinkPreview({url}) {
   return (
     <>
       {
-        (isLoading) ? <span>Data is Loading</span>
-        :
-        <div class = 'url-preview-container'>
-          <img
-          style={{width:"100%"}}
-          src = {data.image} />
+          (isLoading) ? <span>Data is Loading</span>
+          :
+          <a 
+          style = {{color:"wheat"}} 
+          target = "_blank"
+          class = 'url-preview-container' href={data.query_url}>
+            <img
+            style={{width:"100%"}}
+            src = {data.image} />
 
-          <span>{data.title}</span>
+            <span>{data.title}</span>
 
-          <span style={{fontSize:"14px", color:"#a8a8a8"}}>{data.description}</span>
-        
-          <div style={{display:"flex", flexDirection:"row", gap:"10px"}}>
-            <img style={{width:"20px"}} src = {data.favicon} />
-            <span style={{fontSize:"12px", color:"gray"}}>{data.query_url}</span>
-          </div>
-        </div>
+            <span style={{fontSize:"14px", color:"#a8a8a8"}}>{data.description}</span>
+          
+            <div style={{display:"flex", flexDirection:"row", gap:"10px"}}>
+              <img style={{width:"20px"}} src = {data.favicon} />
+              <span style={{fontSize:"12px", color:"gray"}}>{data.query_url}</span>
+            </div>
+          </a>
       }
     </>
   )
