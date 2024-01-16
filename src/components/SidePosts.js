@@ -28,8 +28,7 @@ function SidePosts() {
                     src={banner_img} />
                     Explore the nexus of people looking to work towards solving problems and winning big! */}
 
-                    <h3>Top 5 Hackathons</h3>
-                    
+                    <h3 style={{fontSize:"18px", paddingBottom:"10px",borderBottom:"1px solid #3b3b3b"}}>Explore Hackathons</h3>
                     {/* Make sure all data loaded before mapping as useQuery is async  */}
                     {/* Hackathon Cards for right side view */}
                     { !hackathonDataLoading && data &&
@@ -40,7 +39,7 @@ function SidePosts() {
                         hackathon={hackathon}
                          />
                     )))
-                    }
+                    }   
                 </div>
         </>
     )

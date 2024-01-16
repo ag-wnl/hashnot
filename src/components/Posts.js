@@ -15,8 +15,6 @@ const Posts = ({userId, searchQuery, sorted, aim, domains, teamSize }) => {
       return res.data;
     })
   });
-  
-  console.log(data);
     
   return (
     <>

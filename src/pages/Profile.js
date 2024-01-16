@@ -31,17 +31,6 @@ function Profile() {
 
     let userId =  userData?.id;
 
-    // const { isLoading: relationLoading, data: relationData, refetch: relRefetch } = useQuery(
-    //     ["relation"],
-    //     () =>
-    //         makeRequest.get("/relations?followedUserId=" + userId).then((res) => {
-    //             return res.data;
-    //         }),
-    //     {
-    //         enabled: !!userId, // Only enable the query when userId is truthy (not null or undefined)
-    //     }
-    // );
-
     //I made the second query go only when first is done im so smart! Also i am using queryKeys to fetch whenever data change im extra smart boiiiii!
     const { isLoading: relationLoading, data: relationData, refetch: relRefetch } = useQuery({
         queryKey: ["userId", userId],
@@ -58,26 +47,32 @@ function Profile() {
             relRefetch();
         });
     }, [userName]);
-
-    console.log("refetched data for ID: " + userId);
-    console.log(relationData);
     
     const mutation = useMutation(
         (following) => {
-        if (following)
-            return makeRequest.delete("/relations?userId=" + userId);
-        return makeRequest.post("/relations", { userId });
+            if (following) {
+                return makeRequest.delete("/relations?userId=" + userId);
+            }
+            return makeRequest.post("/relations", { userId });
         },
         {
-        onSuccess: () => {
-            // Invalidate and refetch
-            queryClient.invalidateQueries(["relation"]);
-        },
+            onSuccess: () => {
+                // Invalidate and refetch
+                queryClient.refetchQueries(["relation"]);
+            },
         }
     );
 
-    const handleFollow = () => {
-        mutation.mutate(relationData.includes(currentUser.id));
+    const handleFollow = async() => {
+        // mutation.mutate(relationData.includes(currentUser.id));
+        try {
+            const following = relationData.includes(currentUser.id);
+            console.log("Before mutation - following:", following);
+            await mutation.mutateAsync(following);
+            console.log("After mutation - relationData:", relationData.includes(currentUser.id));
+        } catch (error) {
+            console.error("Error during mutation:", error);
+        }
     };
 
     return (
@@ -142,7 +137,8 @@ function Profile() {
                                 }
                             </div>
                         </div>
-
+                        
+                        {/* right side of the page */}
                         <div class = 'other-utils'>
                             <h2>Showcase</h2>
                             <div class = 'showcase'>
@@ -154,13 +150,13 @@ function Profile() {
                                 {relationLoading ? ("Loading") : (userData.id != currentUser.id 
                                     && <button class='profile-btn'
                                         onClick={handleFollow}
-                                        >
+                                             >
                                         {relationData.includes(currentUser.id) 
                                         ? "Following" 
                                         : "Follow"}
                                         </button> )}
         
-                                <button class='profile-btn'>Messages</button>
+                                <button class='profile-btn'>Chat</button>
                             </div>
                             
                         </div>
@@ -169,12 +165,12 @@ function Profile() {
 
                     {/* Only show requests/invites on user's own profile  */}
                     {!relationLoading && (userData.id === currentUser.id) &&
-                        <Invites />
+                        <Invites userId = {userData.id} />
                     }
                     
                     {/* To show only posts by user whos profile we viewing */}
                     <h2>Posts</h2>
-                    <Posts userId={userData.id} />
+                    <Posts userId = {userData.id} />
                 </div>
             )}
         </>

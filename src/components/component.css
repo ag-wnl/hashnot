@@ -280,19 +280,22 @@ input:focus {
 }
 
 .invite-container {
-    margin-top: 3rem;
+    margin-top: 10px;
     background-color: #232323;   
-    max-width: 60%;
-    padding: 20px;
-    border-radius: 12px; 
+    max-width: 100%;
+    padding: 0px 10px 0px 10px;
+    border-radius: 4px; 
+    box-shadow: -1px 4px 10px -8px rgba(219,219,219,1);
 }
 
 .review-btn {
+    margin: 5px;
     color: #101111;
     background-color: #BB86FC;
     font-weight: 700;
-    border-radius: 4px;
-    padding: 8px;
+    font-size: 12px;
+    border-radius: 14px;
+    padding: 0px 5px 0px 5px;
 }
 
 .review-btn:hover {
@@ -384,7 +387,7 @@ input:focus {
     font-size: 14px;
     background-color: #0e0f0f;
     border-radius: 6px;
-    padding: 15px 15px 10px 15px;
+    padding: 0px 15px 10px 15px;
     width: 300px;
     display: flex;
     flex-direction: column;
@@ -620,4 +623,18 @@ input:focus {
     flex-direction: row;
     align-items: center;
     color: white;
+}
+
+.profile-message-requests-parent{
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    gap: 10px;
+    overflow: auto;
+    background-color: rgb(10, 10, 10);
+    border-radius: 4px;
+    max-height: 300px;
+    padding: 0px 20px 0px 20px;
+    border: 1px solid rgb(30, 30, 30);
 }

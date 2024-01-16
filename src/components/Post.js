@@ -68,8 +68,9 @@ function Post({ post }) {
         <>
         <div class = 'post-box'>
             <div class = 'post-container'>
-                <div class = 'post-header'>
 
+                {/* The post upper panel section: pfp, username, options etc */}
+                <div class = 'post-header'>
                     <div class='post-header-left'>
                         {post.pfp ?
                                     <Link to={`/profile/${post.username}`}> 
@@ -95,11 +96,12 @@ function Post({ post }) {
                     
                     <div class = 'three-dot-container'>
                         <svg viewBox="0 0 24 24" aria-hidden="true" class="post-threedots"><g><path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path></g></svg>
-                    </div>
-                
-                    
+                    </div>    
                 </div>
-                <span style={{fontSize:'16px'}}>{post.title}</span>
+
+                {/* Post information section: heading onwards */}
+                <span style={{fontSize:'18px', color:"#e0deff"}}>{post.title}</span>
+
                 <div style={{fontSize:'14px'}}>
                     {post.desc}
                 </div>
@@ -208,6 +210,8 @@ function Post({ post }) {
                     && <button title='Delete Post' onClick={handleDelete} style={{backgroundColor:'#8f1818'}} class = 'post-bottom-btn'>Delete</button>}
                     
                 </div>
+
+                {/* This is the chat section of the post */}
                 {
                     chat && <Messages postId={post.id} /> 
                 }
