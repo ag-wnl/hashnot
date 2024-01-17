@@ -8,45 +8,58 @@ import git_img from "../imgs/github-png.png"
 import settingIcon from "../imgs/settings-icon.png"
 import website_img from "../imgs/link.svg"
 import Posts from '../components/Posts';
-import Invites from '../components/Invites';
+import Invites from '../components/InvitesContainer';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
 import Update from '../components/Update';
+import InvitesContainer from '../components/InvitesContainer';
 
-function Profile() {
+const Profile = () => {
 
     const { currentUser } = useContext(AuthContext);
     const { userName } = useParams();
     const queryClient = useQueryClient();
 
     const [openUpdate, setOpenUpdate] = useState(false);
+    const [userId, setUserId] = useState(null);
 
+    //{ refetchOnWindowFocus: false } helps not refetch data when tabs are switched 
     const { isLoading, error, data: userData, refetch: userRefetch } = useQuery({
-        queryKey: ["user", userName],
+        queryKey: ["user", userName, { refetchOnWindowFocus: false }],
         queryFn: () => makeRequest.get("users/find/" + userName).then(res => {
             return res.data;
         })
     });
 
-    let userId =  userData?.id;
+    useEffect(() => {
+        // Update userId when userData is available
+        if (!isLoading && userData) {
+            setUserId(userData.id);
+            console.log(userData.id);
+            relRefetch();
+        }
+    }, [isLoading, userData]);
 
-    //I made the second query go only when first is done im so smart! Also i am using queryKeys to fetch whenever data change im extra smart boiiiii!
-    const { isLoading: relationLoading, data: relationData, refetch: relRefetch } = useQuery({
-        queryKey: ["userId", userId],
+
+    // This is a dependednt query which depends on the previous userData fetcher, after userData recieved we execute it:
+    const {isIdle, isLoading: relationLoading, data: relationData, refetch: relRefetch } = useQuery({
+        queryKey: ["userId", userId, { refetchOnWindowFocus: false }],
         queryFn: () => makeRequest.get("/relations?followedUserId=" + userId).then((res) => {
             return res.data;
         }),
-        enabled: !!userId, // Only enable the query when userId is truthy (not null or undefined)
+        enabled: !!userId,  
     });
+
 
     //refetch user data and relation data again when username changes
     useEffect(() => {
         userRefetch().then((newUserData) => {
-            userId = newUserData?.id;
+            setUserId(newUserData?.id);
             relRefetch();
         });
     }, [userName]);
+
     
     const mutation = useMutation(
         (following) => {
@@ -67,9 +80,7 @@ function Profile() {
         // mutation.mutate(relationData.includes(currentUser.id));
         try {
             const following = relationData.includes(currentUser.id);
-            console.log("Before mutation - following:", following);
             await mutation.mutateAsync(following);
-            console.log("After mutation - relationData:", relationData.includes(currentUser.id));
         } catch (error) {
             console.error("Error during mutation:", error);
         }
@@ -147,10 +158,13 @@ function Profile() {
                             <span style={{fontSize:'14px'}}><b>Skills: </b>C++, JavaScript, Data Science, Databases</span>
                             
                             <div class = 'profile-row'>
-                                {relationLoading ? ("Loading") : (userData.id != currentUser.id 
+
+                                {/* This is the follow/following button section" */}
+                                {!isLoading && !relationLoading && userData && currentUser && 
+                                (userData.id !== currentUser.id 
                                     && <button class='profile-btn'
                                         onClick={handleFollow}
-                                             >
+                                        >
                                         {relationData.includes(currentUser.id) 
                                         ? "Following" 
                                         : "Follow"}
@@ -163,10 +177,17 @@ function Profile() {
                     </div>
                     {openUpdate &&  <Update setOpenUpdate={setOpenUpdate} user = {userData} />}
 
-                    {/* Only show requests/invites on user's own profile  */}
-                    {!relationLoading && (userData.id === currentUser.id) &&
-                        <Invites userId = {userData.id} />
-                    }
+
+                    {/* Message Requests */}
+                    <div>
+                        {(!isLoading && !relationLoading && userData && currentUser && (userData.id === currentUser.id) )
+                        ?
+                        <InvitesContainer userId = {userData.id} /> 
+                        :
+                        <span>"No Requests"</span>
+                        }
+                    </div>
+                   
                     
                     {/* To show only posts by user whos profile we viewing */}
                     <h2>Posts</h2>

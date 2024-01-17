@@ -22,7 +22,8 @@ const Posts = ({userId, searchQuery, sorted, aim, domains, teamSize }) => {
         ? "Something went wrong!"
         : isLoading
         ? "loading"
-        : ( data.length > 0 ? (data.map((post) => <Post post={post}  key={post.id} />)) : <NoResult /> )
+        // Note that here we could use post.id as unique index but somehow it shows 2 elements have same key in map so using default indexing
+        : ( data.length > 0 ? (data.map((post, index) => <Post post={post}  key={index} />)) : <NoResult /> )
       }
     </>
   )
