@@ -2,7 +2,7 @@ import React from 'react'
 import '../components/component.css';
 import userimg from "../imgs/user.png"
 
-function ChatPreview({ title, message, userId }) {
+function RequestPreview({ title, message, userId }) {
   return (
     <>
         <div class = 'chat-preview'>
@@ -13,11 +13,11 @@ function ChatPreview({ title, message, userId }) {
 
             <div style={{display:'flex',flexDirection:'column',gap:'1px'}}>
               <span>User Name</span>
-              <span style={{fontSize:'12px',color:'#ababab'}}>Text Message</span>
+              <span style={{fontSize:'12px',color:'#ababab'}}>{title}</span>
             </div>
         </div>
     </>
   )
 }
 
-export default ChatPreview
+export default RequestPreview;

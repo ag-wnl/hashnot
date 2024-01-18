@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../components/component.css';
 
 
-function IndividualRequestsPanel({ message, userId }) {
+function IndividualRequestsPanel({ title, message, userId }) {
 
     return (
         <div className='invite-container'>
@@ -15,7 +15,10 @@ function IndividualRequestsPanel({ message, userId }) {
                 alignItems: 'center'
             }}
             >
-            <div style={{ fontSize: '14px' }}>Post Title</div>
+            <div style={{ fontSize: '14px' }}>
+                {title && title.length > 20 ? `${title.slice(0, 20)}...` 
+                : 
+                title}</div>
     
             <span style={{ fontSize: '12px' }}>
                 {message && message.length > 30 ? `${message.slice(0, 30)}...` 

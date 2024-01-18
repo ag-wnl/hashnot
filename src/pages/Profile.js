@@ -8,15 +8,14 @@ import git_img from "../imgs/github-png.png"
 import settingIcon from "../imgs/settings-icon.png"
 import website_img from "../imgs/link.svg"
 import Posts from '../components/Posts';
-import Invites from '../components/InvitesContainer';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
 import Update from '../components/Update';
 import InvitesContainer from '../components/InvitesContainer';
 
 const Profile = () => {
-
+    const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
     const { userName } = useParams();
     const queryClient = useQueryClient();
@@ -85,6 +84,19 @@ const Profile = () => {
             console.error("Error during mutation:", error);
         }
     };
+
+    //for Chat/DM page:
+    const chatData = {
+        chaatUserId: userId
+    };
+
+    const handleChatButtonClick = () => {
+        const chatData = {
+          userId : userId
+        };
+      
+        navigate(`/chats`, { state: { chatData } });
+      };
 
     return (
         <>
@@ -170,7 +182,7 @@ const Profile = () => {
                                         : "Follow"}
                                         </button> )}
         
-                                <button class='profile-btn'>Chat</button>
+                                <button onClick={handleChatButtonClick} class='profile-btn'>Chat</button>
                             </div>
                             
                         </div>

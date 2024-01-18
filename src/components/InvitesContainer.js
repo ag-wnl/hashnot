@@ -25,9 +25,10 @@ const InvitesContainer = ({ userId }) => {
                     <div>
                         {!isLoading &&  data && data.map((request, index) => (
                             <IndividualRequestsPanel
-                            message={request.desc}
-                            userId={request.userId}
-                            key={index}   // we should ideally use request.createdAt or some unique combination for all messages to act as index, fix and update accordingly 
+                            title = {request.title}
+                            message = {request.desc}
+                            userId = {request.userId}
+                            key = {index}   // we should ideally use request.createdAt or some unique combination for all messages to act as index, fix and update accordingly 
                             />
                         ))}
                     </div>  
