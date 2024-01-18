@@ -59,7 +59,7 @@ function Chats() {
                     <input placeholder="Search messages" class = 'chat-search' />
 
                     <div class = 'chat-left-row'>
-                        <span onClick={FocusedButtonClick} class = 'text-hover-chat'>Focused</span>
+                        <span onClick={FocusedButtonClick} class = 'text-hover-chat'>Requests</span>
                         <span onClick={OthersButtonClick} class = 'text-hover-chat'>Others</span>
                     </div>
 
@@ -70,7 +70,7 @@ function Chats() {
                     'No data available'
                     ) : (   
                         showRequests &&
-                            <div>
+                            <div style={{width:"100%"}}>
                                 {!postRequestLoading && postRequestData && postRequestData.map((request, index) => (
                                     <RequestPreview
                                     title = {request.title}

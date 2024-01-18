@@ -542,13 +542,14 @@ input:focus {
     flex-direction: row;
     gap: 10px;
     padding: 15px 0px 15px 0px;
+    transition: 0.2s ease-in-out;
 }
 
 .chat-preview:hover {
     background-color: rgb(20, 20, 27);
     transition: 0.2s ease-in-out;
     box-shadow: 1px solid white;
-    box-shadow: 0px 0px 30px -5px rgb(139, 131, 255);
+    box-shadow: 0px 0px 15px -5px rgb(139, 131, 255);
 }
 
 .chat-pfp-div {

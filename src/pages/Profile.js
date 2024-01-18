@@ -13,6 +13,9 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
 import Update from '../components/Update';
 import InvitesContainer from '../components/InvitesContainer';
+import { Avatar, AvatarBadge, AvatarGroup, WrapItem } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -109,9 +112,9 @@ const Profile = () => {
                     </div> */}
                     <div class = 'profile-cards-row'>
                         <div class = 'profile-card'>
-                            <div class = 'profile-row'>
-                                
+                            <div class = 'profile-row'>                                
                                 {userData.pfp ? 
+                                
                                 <img 
                                 style={{width:'90px',height:'90px',borderRadius:'12px'}} 
                                 src={userData.pfp} />

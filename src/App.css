@@ -583,3 +583,13 @@ a {
 .chat-send-btn:hover {
   background-color: #a6c2ff;
 }
+
+.icon-bar-top-panel {
+  padding: 5px 15px 5px 15px;
+  border-radius: 6px;
+  border: 1px solid rgb(46, 46, 46);
+  background-color: rgb(15, 15, 15);
+  display: flex;
+  flex-direction: row;
+  gap: 1.7rem;
+}

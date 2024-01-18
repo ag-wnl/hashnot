@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import Profile from './pages/Profile';
 import ScrollToTop from './components/ScrollToTop';
 import Chats from './pages/Chats';
+import { ChakraProvider } from '@chakra-ui/react'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const queryClient = new QueryClient()
 
   return (
+    
   <QueryClientProvider client={queryClient}>
       <>
         <div>

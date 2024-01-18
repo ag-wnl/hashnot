@@ -12,7 +12,7 @@ import { useQueries, useQuery } from 'react-query';
 import { makeRequest } from '../axios';
 import Post from '../components/Post';
 import NoResult from '../components/NoResult';
-import notificationIcon from '../imgs/notification-icon.png'
+import { BellIcon, ChatIcon, AtSignIcon } from '@chakra-ui/icons'
 
 function Explore() {
 
@@ -86,9 +86,20 @@ function Explore() {
                         </div>
                     </div>
                     
-                    <div class="tooltip">
+                    <div class = "icon-bar-top-panel">
+                        <div class="tooltip">
+                            <BellIcon boxSize={22} />
                             <span class="tooltiptext">Notifications</span>
-                        <img style={{width:"25px"}} src = {notificationIcon} />
+                        </div>
+                        <div class="tooltip">
+                            <ChatIcon boxSize={20} />
+                            <span class="tooltiptext">Messages</span>
+                        </div>
+
+                        <div class="tooltip">
+                            <AtSignIcon boxSize={20} />
+                            <span class="tooltiptext">Profile</span>
+                        </div>
                     </div>
 
                     <button class = 'create-btn' 
@@ -194,7 +205,7 @@ function Explore() {
                     {/* Fetching posts according to search result, or if not then default posts */}
                     <div>
                         {(search === "" && <Posts sorted = {sorter} aim = {objective} domains = {skillString} teamSize = {sliderValue} />)}
-                        {(isLoading) ? "Loading Search Results..." 
+                        {(isLoading) ? "Loading ..."
                         : 
                         ( (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />
                         : data.map((post) => <Post post={post}  key={post.id} />))}

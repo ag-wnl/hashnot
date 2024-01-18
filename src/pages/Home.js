@@ -6,7 +6,6 @@ import Footer from "../components/Footer";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { Navigate, useNavigate } from "react-router-dom";
-import CustomizedTimeline from "../components/Timeline";
 
 
 function Home() {
@@ -75,7 +74,9 @@ function Home() {
                         onClick={()=> navigate(`/explore`)}
                         class='get-started-btn'>Get Started</button>
                     </div>
-                    <CustomizedTimeline />
+                    <div>
+                        [TimeLine goes here]
+                    </div>
                 </div>
 
                 <Footer />

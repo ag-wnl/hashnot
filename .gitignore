@@ -10,6 +10,8 @@ todo.txt
 # testing
 /coverage
 
+.env
+
 # production
 /build
 
