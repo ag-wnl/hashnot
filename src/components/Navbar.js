@@ -9,8 +9,9 @@ function Navbar() {
     const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
     var btn_text = 'Login';
+
     if(currentUser){
-        btn_text = currentUser.name
+        btn_text = currentUser.username
     }
 
     return (

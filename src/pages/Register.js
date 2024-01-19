@@ -13,22 +13,24 @@ function Register() {
         password: "",
         name: "",
     });
-    const [err, setErr] = useState(null);
-    
+    const [err, setErr] = useState(null)
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleClick = async e => {
+    const handleClick = async (e) => {
         e.preventDefault()
 
         try{
+            setLoading(true);
             await axios.post("http://localhost:8800/api/auth/register", inputs)
         }catch(err){
             setErr(err.response.data);
+        } finally {
+            setLoading(false);
         }
-
     }
 
     return (
@@ -42,7 +44,7 @@ function Register() {
                         <input class='register-field' type="password" placeholder="Password" name="password" onChange={handleChange}/>
                         <input class='register-field' type="text" placeholder="Name" name="name" onChange={handleChange}/>
                         {/* {err && err} */}
-                        <button class="login-page-btn" onClick={handleClick}>Register</button>
+                        <button class="login-page-btn" disabled={loading} onClick={handleClick}>{loading ? "Registering..." : "Register"}</button>
                         
                         <Link to='/login' class = 'link-react'>
                             <span class = 'login-bottom-text'>Already have an account? <b>Sign In</b></span>

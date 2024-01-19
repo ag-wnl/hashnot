@@ -14,13 +14,3 @@ root.render(
   
 );
 
-
-// <Auth0Provider
-// domain="dev-04wzgolmui7x1o88.us.auth0.com"
-// clientId="nB9iSelCY6IsFiw2Lb0bbz4fWS9ZzWWN"
-// authorizationParams={{
-//   redirect_uri: window.location.origin
-// }}
-// >
-// <App />
-// </Auth0Provider>

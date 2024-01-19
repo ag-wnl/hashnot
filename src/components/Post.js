@@ -57,7 +57,7 @@ function Post({ post }) {
     );
 
     const handleVote = () => {
-        mutation.mutate(data.includes(currentUser.id));
+        mutation.mutate(data.includes(currentUser.userId));
     };
     
     const handleDelete = () => {
@@ -155,7 +155,7 @@ function Post({ post }) {
     
                     {/* Upvote Icon */}
                     {isLoading ? ('Loading...') 
-                    : data.includes(currentUser.id) ? (
+                    : data.includes(currentUser.userId) ? (
                         <svg 
                         onClick={handleVote}
                         style={{cursor:'pointer'}}
@@ -206,7 +206,7 @@ function Post({ post }) {
                     )}
                     {data?.length} Upvotes
 
-                    {(post.userId === currentUser.id) 
+                    {(post.userId === currentUser.userId) 
                     && <button title='Delete Post' onClick={handleDelete} style={{backgroundColor:'#8f1818'}} class = 'post-bottom-btn'>Delete</button>}
                     
                 </div>

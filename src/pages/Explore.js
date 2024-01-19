@@ -156,7 +156,7 @@ function Explore() {
 
                             {/* displaying skills selected by user */}
                             <div class = 'skill-select-show'>
-                                {skills.map((skill, index) => (
+                                {skills && skills.map((skill, index) => (
                                     <span key={index}
                                     title='Remove'
                                     onClick={() => handleSkillClick(skill)}
@@ -208,7 +208,7 @@ function Explore() {
                         {(isLoading) ? "Loading ..."
                         : 
                         ( (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />
-                        : data.map((post) => <Post post={post}  key={post.id} />))}
+                        : (data && data.map((post) => <Post post={post}  key={post.id} />)))}
                     </div>
                     <div class = 'side-post-parent'>
                         <SidePosts />

@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 function Login() {
 
     const [inputs, setInputs] = useState({
-        username: "",
+        email: "",
         password: "",
     });
     const [err, setErr] = useState(null);
@@ -41,11 +41,11 @@ function Login() {
 
                 <form class = 'register-card'>
                     <h3>Log into your Account</h3>
-                    <input class='register-field' type="text" placeholder="Username" name="username" onChange={handleChange}/>
+                    <input class='register-field' type="text" placeholder="Email" name="email" onChange={handleChange}/>
                         
                     <input class='register-field' type="password" placeholder="Password" name="password" onChange={handleChange}/>
                         
-                    {/* {err && err} */}
+                    {err && <p className="error-message">{err}</p>}
                     <button class="login-page-btn" onClick={handleLogin}>Login</button>
 
                     <Link to='/register' class = 'link-react'>

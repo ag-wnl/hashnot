@@ -19,26 +19,29 @@ import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 
 const Profile = () => {
     const navigate = useNavigate();
+    
     const { currentUser } = useContext(AuthContext);
     const { userName } = useParams();
+    const userId = currentUser?.userId;
+    
     const queryClient = useQueryClient();
-
     const [openUpdate, setOpenUpdate] = useState(false);
-    const [userId, setUserId] = useState(null);
+    const [profileUserId, setUserId] = useState(null);
 
     //{ refetchOnWindowFocus: false } helps not refetch data when tabs are switched 
+    //Fetching current user using username from URL parameter:
     const { isLoading, error, data: userData, refetch: userRefetch } = useQuery({
-        queryKey: ["user", userName, { refetchOnWindowFocus: false }],
-        queryFn: () => makeRequest.get("users/find/" + userName).then(res => {
+        queryKey: ["user", userId, { refetchOnWindowFocus: false }],
+        queryFn: () => makeRequest.get("/users/findUserByUserName/" + userName).then(res => {
             return res.data;
         })
     });
+    console.log(userData);
 
     useEffect(() => {
         // Update userId when userData is available
         if (!isLoading && userData) {
             setUserId(userData.id);
-            console.log(userData.id);
             relRefetch();
         }
     }, [isLoading, userData]);
@@ -47,14 +50,14 @@ const Profile = () => {
     // This is a dependednt query which depends on the previous userData fetcher, after userData recieved we execute it:
     const {isIdle, isLoading: relationLoading, data: relationData, refetch: relRefetch } = useQuery({
         queryKey: ["userId", userId, { refetchOnWindowFocus: false }],
-        queryFn: () => makeRequest.get("/relations?followedUserId=" + userId).then((res) => {
+        queryFn: () => makeRequest.get("/relations?followedUserId=" + profileUserId).then((res) => {
             return res.data;
         }),
-        enabled: !!userId,  
+        enabled: !!userData,  
     });
 
 
-    //refetch user data and relation data again when username changes
+    // Refetch user data and relation data again when username changes, fetch new User ID:
     useEffect(() => {
         userRefetch().then((newUserData) => {
             setUserId(newUserData?.id);
@@ -66,9 +69,9 @@ const Profile = () => {
     const mutation = useMutation(
         (following) => {
             if (following) {
-                return makeRequest.delete("/relations?userId=" + userId);
+                return makeRequest.delete("/relations?userId=" + profileUserId);
             }
-            return makeRequest.post("/relations", { userId });
+            return makeRequest.post("/relations", { userId: profileUserId });
         },
         {
             onSuccess: () => {
@@ -79,9 +82,9 @@ const Profile = () => {
     );
 
     const handleFollow = async() => {
-        // mutation.mutate(relationData.includes(currentUser.id));
         try {
-            const following = relationData.includes(currentUser.id);
+
+            const following = relationData.includes(userId);
             await mutation.mutateAsync(following);
         } catch (error) {
             console.error("Error during mutation:", error);
@@ -104,8 +107,9 @@ const Profile = () => {
     return (
         <>
             <Navbar />
-            {isLoading ? ('Loading User Profile...')
+            {isLoading ? ('Loading User Profile...')    
             : (
+                userData && userId &&
                 <div class = 'profile-page'>
                     {/* <div class = 'profile-header'>
                         <h2>Profile</h2>
@@ -176,14 +180,14 @@ const Profile = () => {
 
                                 {/* This is the follow/following button section" */}
                                 {!isLoading && !relationLoading && userData && currentUser && 
-                                (userData.id !== currentUser.id 
-                                    && <button class='profile-btn'
-                                        onClick={handleFollow}
-                                        >
-                                        {relationData.includes(currentUser.id) 
+                                (userData.id !== userId)
+                                    && (<button class='profile-btn'
+                                        onClick={handleFollow}>
+                                        {relationData && relationData.includes(userId) 
                                         ? "Following" 
                                         : "Follow"}
-                                        </button> )}
+                                        </button>
+                                        )}
         
                                 <button onClick={handleChatButtonClick} class='profile-btn'>Chat</button>
                             </div>
