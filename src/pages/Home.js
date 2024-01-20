@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import banner_frame from '../imgs/banner_frame.png';
+import hackathonBanner from '../imgs/hackathon-bg.jpg'
 import '../App.css';
 import open_lnk from '../imgs/open_link.svg';
 import Footer from "../components/Footer";
@@ -27,7 +28,7 @@ function Home() {
                     onClick={()=> navigate(`/register`)}
                     class = 'banner-btn'>Join now</button>
 
-                    <img class = 'banner-frame' src = {banner_frame}/>
+                    {/* <img class = 'banner-frame' src = {banner_frame}/> */}
                 </div>
 
                 <div class = 'section-below-banner'>

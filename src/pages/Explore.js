@@ -13,9 +13,12 @@ import { makeRequest } from '../axios';
 import Post from '../components/Post';
 import NoResult from '../components/NoResult';
 import { BellIcon, ChatIcon, AtSignIcon } from '@chakra-ui/icons'
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 
 function Explore() {
-
+    const { currentUser } = useContext(AuthContext);
+    const userId = currentUser?.userId;
     const [sharePostOpen, setsharePostOpen] = useState(false);
     const [search, setSearch] = useState("")
     const [sorter, setSorter] = useState("")
@@ -67,8 +70,6 @@ function Explore() {
             return res.data;
         })
     });
-
-    console.log(data);
 
     return (
         <>
@@ -204,7 +205,9 @@ function Explore() {
                     
                     {/* Fetching posts according to search result, or if not then default posts */}
                     <div>
-                        {(search === "" && <Posts sorted = {sorter} aim = {objective} domains = {skillString} teamSize = {sliderValue} />)}
+                        {userId && currentUser && (search === "") && <Posts userId = {userId} sorted = {sorter} aim = {objective} domains = {skillString} teamSize = {sliderValue} />}
+
+                        
                         {(isLoading) ? "Loading ..."
                         : 
                         ( (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />

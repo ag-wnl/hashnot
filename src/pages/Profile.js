@@ -26,6 +26,7 @@ const Profile = () => {
     const queryClient = useQueryClient();
     const [openUpdate, setOpenUpdate] = useState(false);
     const [profileUserId, setUserId] = useState(null);
+    const [followButtonText, setFollowButtonText] = useState("Loading");
 
     //{ refetchOnWindowFocus: false } helps not refetch data when tabs are switched 
     //Fetching current user using username from URL parameter:
@@ -78,6 +79,16 @@ const Profile = () => {
         });
     }, [userName]);
 
+    useEffect(() => {
+        if(relationData && userId && !isLoading && currentUser) {
+            if(relationData && relationData.includes(userId)) {
+                setFollowButtonText("Following")
+            } else {
+                setFollowButtonText("Follow")
+            }
+        }
+    }, [relationData])
+
     
     const mutation = useMutation(
         async (following) => {
@@ -94,8 +105,7 @@ const Profile = () => {
         },
         {
             onSuccess: () => {
-                // Invalidate and refetch
-                queryClient.refetchQueries(["relation"]);
+                relRefetch(); // Refetch user relations to update follow/following status
             },
         }
     );
@@ -200,16 +210,13 @@ const Profile = () => {
                             <div class = 'profile-row'>
 
                                 {/* This is the follow/following button section" */}
-                                {!isLoading && userData && currentUser && 
-                                (userData.id !== userId)
+                                {(profileUserId !== userId)
                                     && (<button class='profile-btn'
                                         onClick={handleFollow}>
                                         {
-                                            relationLoading ? "Loading" 
+                                            (relationLoading)   ? "Loading" 
                                             : 
-                                            (relationData && relationData.includes(userId) 
-                                            ? "Following" 
-                                            : "Follow")
+                                            followButtonText
                                         }
                                         </button>
                                 )}

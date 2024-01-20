@@ -122,7 +122,11 @@ a {
 }
 
 .banner {
-  margin-top: 6rem;
+  background-image: url('./imgs/hackathon-bg.jpg');
+  background-attachment: fixed ;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   font-family: 'Poppins', sans-serif;
   color: white;
   display: flex;
@@ -130,6 +134,7 @@ a {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  padding: 120px 90px 120px 90px;
 }
 
 .banner-main-text {

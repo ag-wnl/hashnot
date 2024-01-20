@@ -10,6 +10,7 @@ import ReactSlider from 'react-slider'
 function Share() {
     const { currentUser } = useContext(AuthContext);
     const queryClient = useQueryClient();
+    const userId = currentUser?.userId;
 
     const [title, setTitle] = useState("")
     const [desc, setDesc] = useState("")
@@ -56,7 +57,7 @@ function Share() {
 
     const handleClick = e => {
         e.preventDefault()
-        mutation.mutate({title, desc, skills, sliderValue, objective, domainString})
+        mutation.mutate({title, desc, skills, sliderValue, objective, domainString, userId})
     }
 
     var user_pfp = userimg;
