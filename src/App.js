@@ -10,18 +10,19 @@ import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import Profile from './pages/Profile';
 import ScrollToTop from './components/ScrollToTop';
 import Chats from './pages/Chats';
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBOFmnkTjts4hEpC2adbmio7pnwzARntYI",
-  authDomain: "social-network-hashnot.firebaseapp.com",
-  projectId: "social-network-hashnot",
-  storageBucket: "social-network-hashnot.appspot.com",
-  messagingSenderId: "447512735402",
-  appId: "1:447512735402:web:967f3aff4b92d6e709ead3",
-  measurementId: "G-D1EXMKDTWL"
+  apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
+  authDomain: `${process.env.REACT_APP_FIREBASE_AUTH_DOMAIN}`,
+  projectId: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}`,
+  storageBucket: `${process.env.REACT_APP_FIREBASE_STORAGE_BUCKET}`,
+  messagingSenderId: `${process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID}`,
+  appId: `${process.env.REACT_APP_FIREBASE_APP_ID}`,
+  measurementId: `${process.env.REACT_APP_FIREBASE_MEASUREMENT_ID}`
 };
 
 const app = initializeApp(firebaseConfig);

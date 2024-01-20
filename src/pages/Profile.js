@@ -15,13 +15,12 @@ import Update from '../components/Update';
 import InvitesContainer from '../components/InvitesContainer';
 import { Avatar, AvatarBadge, AvatarGroup, WrapItem } from '@chakra-ui/react'
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
-
+import { getAuthHeader } from "../context/authHeader.js"
 
 const Profile = () => {
     const navigate = useNavigate();
-    
     const { currentUser } = useContext(AuthContext);
-    const { userName } = useParams();
+    const { userName } = useParams();   
     const userId = currentUser?.userId;
     
     const queryClient = useQueryClient();
@@ -32,17 +31,23 @@ const Profile = () => {
     //Fetching current user using username from URL parameter:
     const { isLoading, error, data: userData, refetch: userRefetch } = useQuery({
         queryKey: ["user", userId, { refetchOnWindowFocus: false }],
-        queryFn: () => makeRequest.get("/users/findUserByUserName/" + userName).then(res => {
-            return res.data;
-        })
+        queryFn: async() => {
+            try {
+                const authHeader = await getAuthHeader();
+                const response = await makeRequest.get("/users/findUserByUserName/" + userName, {
+                    headers: {Authorization: authHeader},
+                });
+                return response.data;
+            } catch (error) {
+                throw error;
+            }
+        } 
     });
-    console.log(userData);
 
     useEffect(() => {
         // Update userId when userData is available
         if (!isLoading && userData) {
             setUserId(userData.id);
-            relRefetch();
         }
     }, [isLoading, userData]);
 
@@ -50,10 +55,18 @@ const Profile = () => {
     // This is a dependednt query which depends on the previous userData fetcher, after userData recieved we execute it:
     const {isIdle, isLoading: relationLoading, data: relationData, refetch: relRefetch } = useQuery({
         queryKey: ["userId", userId, { refetchOnWindowFocus: false }],
-        queryFn: () => makeRequest.get("/relations?followedUserId=" + profileUserId).then((res) => {
-            return res.data;
-        }),
-        enabled: !!userData,  
+        queryFn: async() => {
+            try{
+                const authHeader = await getAuthHeader();
+                const response = await makeRequest.get(`/relations?followedUserId=${profileUserId}`, {
+                    headers: {Authorization: authHeader},
+                });
+                return response.data;
+            } catch (error) {
+                throw error;
+            }
+        },
+        enabled: !!profileUserId,  
     });
 
 
@@ -67,11 +80,17 @@ const Profile = () => {
 
     
     const mutation = useMutation(
-        (following) => {
-            if (following) {
-                return makeRequest.delete("/relations?userId=" + profileUserId);
+        async (following) => {
+            const authHeader = await getAuthHeader();
+            const config = { headers: { Authorization: authHeader } };
+            
+            if(profileUserId) {
+                if (following) {
+                    return makeRequest.delete(`/relations?userId=${profileUserId}&curUserId=${userId}`, config);
+                }
+    
+                return makeRequest.post(`/relations?userId=${profileUserId}&curUserId=${userId}`, null, config);
             }
-            return makeRequest.post("/relations", { userId: profileUserId });
         },
         {
             onSuccess: () => {
@@ -83,9 +102,11 @@ const Profile = () => {
 
     const handleFollow = async() => {
         try {
-
-            const following = relationData.includes(userId);
-            await mutation.mutateAsync(following);
+            if(relationData) {
+                console.log("Follow Button Clicked, RelationData:", relationData);
+                const following = relationData.includes(userId);
+                await mutation.mutateAsync(following);
+            }
         } catch (error) {
             console.error("Error during mutation:", error);
         }
@@ -179,15 +200,19 @@ const Profile = () => {
                             <div class = 'profile-row'>
 
                                 {/* This is the follow/following button section" */}
-                                {!isLoading && !relationLoading && userData && currentUser && 
+                                {!isLoading && userData && currentUser && 
                                 (userData.id !== userId)
                                     && (<button class='profile-btn'
                                         onClick={handleFollow}>
-                                        {relationData && relationData.includes(userId) 
-                                        ? "Following" 
-                                        : "Follow"}
+                                        {
+                                            relationLoading ? "Loading" 
+                                            : 
+                                            (relationData && relationData.includes(userId) 
+                                            ? "Following" 
+                                            : "Follow")
+                                        }
                                         </button>
-                                        )}
+                                )}
         
                                 <button onClick={handleChatButtonClick} class='profile-btn'>Chat</button>
                             </div>
@@ -209,8 +234,13 @@ const Profile = () => {
                    
                     
                     {/* To show only posts by user whos profile we viewing */}
-                    <h2>Posts</h2>
-                    <Posts userId = {userData.id} />
+                    <h2>Posts</h2> 
+                    
+                    {
+                        userData && 
+                        <Posts userId = {userData.id} />
+                    }
+                    
                 </div>
             )}
         </>
