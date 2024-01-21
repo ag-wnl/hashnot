@@ -13,6 +13,7 @@ import MessageBox from './MessageBox';
 const Messages = ({postId}) => {
 
     const { currentUser } = useContext(AuthContext);
+    const userId = currentUser?.userId;
     const [desc, setDesc] = useState("");
 
     const { isLoading, error, data } = useQuery(['messages', postId], () =>
@@ -37,7 +38,7 @@ const Messages = ({postId}) => {
 
     const handleClick = async (e) => {  
         e.preventDefault();
-        mutation.mutate({ desc, postId });
+        mutation.mutate({ desc, postId, userId });
         setDesc("");
     };
 
@@ -66,7 +67,7 @@ const Messages = ({postId}) => {
                 {error
                 ? "Something went wrong"
                 : isLoading
-                ? "loading"
+                ? "Loading..."
                 : data.map((message) => (
                     <MessageBox pfp = {(message.pfp ? message.pfp : user_pfp)} senderName={message.name} createdAt={message.createdAt} messageString={message.desc} />
                 ))}

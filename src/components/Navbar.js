@@ -15,9 +15,7 @@ function Navbar() {
     }
 
     return (
-
             <>
-            
                 <div class = 'navbar'>
                     
                     <div><Link to="/home" class = 'link-react'><h2>hashnot</h2></Link></div>
@@ -33,9 +31,7 @@ function Navbar() {
                         >{btn_text}</button>
                     </ul>
                 </div>
-            
             </>
-
     )
 } 
 

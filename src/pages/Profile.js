@@ -210,7 +210,7 @@ const Profile = () => {
                             <div class = 'profile-row'>
 
                                 {/* This is the follow/following button section" */}
-                                {(profileUserId !== userId)
+                                { profileUserId && userId && (profileUserId !== userId)
                                     && (<button class='profile-btn'
                                         onClick={handleFollow}>
                                         {
@@ -231,9 +231,9 @@ const Profile = () => {
 
                     {/* Message Requests */}
                     <div>
-                        {(!isLoading && !relationLoading && userData && currentUser && (userData.id === currentUser.id) )
+                        {(!isLoading && !relationLoading && userData && currentUser && (userData.id === userId) )
                         ?
-                        <InvitesContainer userId = {userData.id} /> 
+                        <InvitesContainer userId = {userId} /> 
                         :
                         <span>"No Requests"</span>
                         }

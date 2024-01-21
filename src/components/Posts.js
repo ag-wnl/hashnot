@@ -8,10 +8,17 @@ import Post from './Post';
 import NoResult from './NoResult';
 
 const Posts = ({userId, searchQuery, sorted, aim, domains, teamSize }) => {
+  
+  // Forming suitable URL:
+  var requestUrl = `/posts?userId=${userId}`;
+  if(sorted) {requestUrl += `&sort=${sorted}`}
+  if(aim) {requestUrl += `&objective=${aim}`}
+  if(domains) {requestUrl += `&domains=${domains}`}
+  if(teamSize) {requestUrl += `&teamSize=${teamSize}`}
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['userId', userId, 'sorted', sorted, 'aim', aim, 'domains', domains, 'teamSize', teamSize],
-    queryFn: () => makeRequest.get("/posts?userId="+userId+"&sort="+sorted+"&objective="+aim+"&domains="+domains+"&teamSize="+teamSize).then(res => {
+    queryFn: () => makeRequest.get(requestUrl).then(res => {
       return res.data;
     })
   });

@@ -645,6 +645,6 @@ input:focus {
     background-color: rgb(10, 10, 10);
     border-radius: 4px;
     max-height: 200 px;
-    padding: 0px 20px 0px 20px;
+    padding: 0px 20px 30px 20px;
     border: 1px solid rgb(30, 30, 30);
 }
