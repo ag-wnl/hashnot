@@ -3,6 +3,10 @@ import '../components/component.css';
 import userimg from "../imgs/user.png"
 
 function RequestPreview({ title, message, userId }) {
+  const handleClick = () => {
+    console.log('Clicked on RequestPreview');
+    // onClick(); // Call the provided onClick function
+  };
   return (
     <>
         <div class = 'chat-preview'>
@@ -15,7 +19,7 @@ function RequestPreview({ title, message, userId }) {
               <span>User Name</span>
               <span style={{fontSize:'12px',color:'#ababab'}}>{title}</span>
             </div>
-        </div>
+        </div>  
     </>
   )
 }

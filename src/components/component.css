@@ -98,17 +98,6 @@ textarea {
     color: #ffffff;
 }
 
-.search-wrap {
-    color: rgb(233, 233, 233);
-    background-color: #101111;
-    border: 1px solid rgb(125, 125, 125);
-    border-radius: 18px;
-    height: 2.2rem;
-    padding: 0 15px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
 
 input {
     background-color: transparent;

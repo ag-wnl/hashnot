@@ -8,12 +8,19 @@ import 'stream-chat-react/dist/css/index.css'
 import '../components/component.css';
 import { makeRequest } from '../axios';
 import { useQuery } from 'react-query';
-import { useLocation } from 'react-router-dom';
-import IndividualRequestsPanel from '../components/IndividualRequestsPanel';
+import { useAsyncError, useLocation } from 'react-router-dom';
 import RequestPreview from '../components/RequestPreview';
+import MessageBox from '../components/MessageBox';
 
-const API_KEY = process.env.REACT_APP_STREAM_CHAT_API_KEY;
 
+function ChatMessageBox({ messageContent }) {
+
+    return (
+        <div class = 'chat-message-box'>
+            <span>{messageContent}</span>
+        </div>
+    )
+}
 
 function Chats() {
     const location = useLocation();
@@ -42,6 +49,24 @@ function Chats() {
         setshowMessages(true);
         setshowRequests(false);
     };
+
+    const [chatBoxMessages, setchatBoxMessages] = useState([]);
+    const [chattingWithUserId, setchattingWithUserId] = useState(null);
+    const [chatBoxUserName, setchatBoxUserName] = useState("Explore Messages")
+
+    const handleRequestPreviewClick = (message) => {
+        //get information of user with whom we are chatting using message.userId:
+
+        setchatBoxUserName(message.userId);
+        const newMessage = { text: message.desc };
+
+        //Appending new message to the array of previous messages:
+        // setchatBoxMessages((prevMessages) => [...prevMessages, newMessage]);
+
+        //But for now, we just want current request message shown, so replacing it:
+        setchatBoxMessages([newMessage]);
+    };
+    
 
   return (
     <>
@@ -72,12 +97,23 @@ function Chats() {
                         showRequests &&
                             <div style={{width:"100%"}}>
                                 {!postRequestLoading && postRequestData && postRequestData.map((request, index) => (
-                                    <RequestPreview
-                                    title = {request.title}
-                                    message = {request.desc}
-                                    userId = {request.userId}
-                                    key = {index}   // we should ideally use request.createdAt or some unique combination for all messages to act as index, fix and update accordingly 
-                                    />
+                                    <div 
+                                    onClick = {() => {
+                                        console.log('Clicked on RequestPreview in Chats');
+                                        handleRequestPreviewClick(request);
+                                    }}
+
+                                    key = {index}
+                                    // we should ideally use request.createdAt or some unique combination for all messages to act as index, fix and update accordingly 
+                                    > 
+
+                                        <RequestPreview
+                                        title = {request.title  }
+                                        message = {request.desc}
+                                        userId = {request.userId}
+                                        />
+
+                                    </div>
                                 ))}
                             </div>  
                         
@@ -91,19 +127,21 @@ function Chats() {
                         <ChatPreview />
                     </div>
                     }
-
-
                 </div>
 
                 {/* This is the right section which by default opens most recent convo, its use is to view and chat with people you want to! */}
+
                 <div class = 'chat-section-right'>
                     <div class = 'chat-rigth-head'>
-                        <span style={{paddingLeft:'20px'}}>User Name</span>
+                        <span style={{paddingLeft:'20px'}}> {chatBoxUserName} </span>
                     </div>  
 
                     {/* This area will show the text messages */}
                     <div class = 'chat-message-show-container'>
-                        test
+                        {chatBoxMessages &&  chatBoxMessages.map((message, index) => (
+                            // <div key = {index}> {message.text} </div>
+                            <ChatMessageBox key = { index } messageContent = { message.text } />
+                        ))}
                     </div>
 
                     <div class = 'chat-input-box'>

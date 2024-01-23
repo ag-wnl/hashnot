@@ -15,6 +15,7 @@ import NoResult from '../components/NoResult';
 import { BellIcon, ChatIcon, AtSignIcon } from '@chakra-ui/icons'
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
+import { SearchIcon } from '@chakra-ui/icons'
 
 function Explore() {
     const { currentUser } = useContext(AuthContext);
@@ -66,9 +67,17 @@ function Explore() {
     
     const {isLoading, error, data} = useQuery({
         queryKey: ['search', search],
-        queryFn: () => makeRequest.get("/search?q="+search).then(res => {
-            return res.data;
-        })
+        // queryFn: () => makeRequest.get("/search?q="+search).then(res => {
+        //     return res.data;
+        // })
+        queryFn: async() => {
+            try {
+                const response = await makeRequest.get("/search?q="+search);
+                return response.data;
+            } catch (error) {
+                console.log("Error in fetching results: ", error);
+            }
+        } 
     });
 
     return (
@@ -81,8 +90,8 @@ function Explore() {
                         {/* <ExploreSearch setResults={setResults} />
                         <SearchResults  results = {results} /> */}
                         <div class = 'search-wrap' >
-                            <FaSearch class = 'search-icon' />
-                            <input placeholder="Search Posts" 
+                            <SearchIcon />
+                            <input placeholder="Search" 
                             onChange={(e) => setSearch(e.target.value)} />
                         </div>
                     </div>
@@ -210,7 +219,7 @@ function Explore() {
                         
                         {(isLoading) ? "Loading ..."
                         : 
-                        ( (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />
+                        ( data && (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />
                         : (data && data.map((post) => <Post post={post}  key={post.id} />)))}
                     </div>
                     <div class = 'side-post-parent'>
