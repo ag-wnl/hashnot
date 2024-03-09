@@ -1,12 +1,10 @@
 import Navbar from "../components/Navbar";
-import banner_frame from '../imgs/banner_frame.png';
-import hackathonBanner from '../imgs/hackathon-bg.jpg'
 import '../App.css';
 import open_lnk from '../imgs/open_link.svg';
 import Footer from "../components/Footer";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 function Home() {
@@ -17,16 +15,19 @@ function Home() {
     return (
 
         <>
-            <div>
-                <Navbar /> 
+            <Navbar />
+            <div class = 'page-parent'> 
                 <div class = 'banner'>
-                    <h1 class = 'banner-main-text'>Find your Dream Team and Create a Better Future</h1>
-                    <span class = 'banner-sub-text'>Find the perfect team to join and develop amazing things</span>
+                    <h1 class = 'banner-main-text'>
+                        <span>Find your dream team</span>
+                        <span>and start building</span>    
+                    </h1>
+                    <span class = 'banner-sub-text'>Find a group to join and develop amazing things</span>
                     <span class = 'banner-sub-text'>no boundaries when it comes to tech</span>
 
                     <button 
                     onClick={()=> navigate(`/register`)}
-                    class = 'banner-btn'>Join now</button>
+                    class = 'banner-btn'>Get Started</button>
 
                     {/* <img class = 'banner-frame' src = {banner_frame}/> */}
                 </div>
@@ -36,10 +37,10 @@ function Home() {
                     onClick={()=> navigate(`/register`)}
                     class = 'sq-box'>
                         <span style={{fontSize:'20px'}}><strong>Start the Journey</strong></span>
-                        <span class = 'banner-sub-text'>Discover people who are looking for exactly someone like you</span>
+                        <span class = 'banner-sub-text-box'>Discover people who are looking for exactly someone like you</span>
                         <span class = 'go-btn'>
                             Let's Start!
-                            <img src = {open_lnk}/>
+                            <img src = {open_lnk} alt = "banner"/>
                         </span>
                     </div>
 
@@ -47,7 +48,7 @@ function Home() {
                     onClick={()=> navigate(`/explore`)}
                     class = 'sq-box'>
                         <span style={{fontSize:'20px'}}><strong>Find the Team</strong></span>
-                        <span class = 'banner-sub-text'>Filter out posts to see exactly what you want and send a request!</span>
+                        <span class = 'banner-sub-text-box'>Filter out posts to see exactly what you want and send a request!</span>
                         <span class = 'go-btn'>
                             Let's Explore!
                             <img src = {open_lnk}/>
@@ -58,7 +59,7 @@ function Home() {
                     onClick={()=> navigate(`/about`)}
                     class = 'sq-box'>
                         <span style={{fontSize:'20px'}}><strong>Become a Part</strong></span>
-                        <span class = 'banner-sub-text'>Send request to join a team and chat with the Original Poster!</span>
+                        <span class = 'banner-sub-text-box'>Send request to join a team and chat with the Original Poster!</span>
                         <span class = 'go-btn'>
                             Let's Go!
                             <img src = {open_lnk}/>
@@ -68,12 +69,21 @@ function Home() {
                 </div>
 
                 <div class = 'timeline-block'>
-                    <div style={{display:'flex', flexDirection:'column', width:'60%'}}>
+                    <div class = 'banner-column-sub-section'>
+                        <div>
                         <h1>There are always people looking for you!</h1>
+                        </div>
+                        
+                        <div>
                         <span style={{fontSize:'20px'}}>There are people looking for exactly someone like you to join them and work on amazing projects</span>
+                        </div>
+                        
+                        <div>
                         <button 
                         onClick={()=> navigate(`/explore`)}
-                        class='get-started-btn'>Get Started</button>
+                        class='banner-btn'>Start exploring</button>
+                        </div>
+                        
                     </div>
                     <div>
                         [TimeLine goes here]

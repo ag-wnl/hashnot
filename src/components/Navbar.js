@@ -18,7 +18,7 @@ function Navbar() {
             <>
                 <div class = 'navbar'>
                     
-                    <div><Link to="/home" class = 'link-react'><h2>hashnot</h2></Link></div>
+                    <div><Link to="/home" class = 'link-react' style={{fontSize:"26px"}}>hashnot</Link></div>
                     <ul class = 'nav-right'>
                         <li><Link to="/about" class = 'link-react'>About</Link></li>
                         <li>FAQ</li>
@@ -26,7 +26,6 @@ function Navbar() {
 
                         <button 
                         class='login-btn'
-                        // <Link to={`/profile/${post.userId}`}></Link>
                         onClick={currentUser ? ()=> navigate(`/profile/${currentUser.username}`) :  ()=>navigate("/login")}
                         >{btn_text}</button>
                     </ul>

@@ -6,7 +6,7 @@
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
     "@dhaiwat10/react-link-preview": "^1.15.0",
-    "@emotion/react": "^11.11.3",
+    "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@firebase/auth": "^1.5.1",
     "@mui/lab": "^5.0.0-alpha.161",

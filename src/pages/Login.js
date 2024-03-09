@@ -5,6 +5,7 @@ import axios from "axios";
 import { AuthContext } from "../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { Input } from "@chakra-ui/react";
 
 function Login() {
 
@@ -37,16 +38,17 @@ function Login() {
         <>
             <Navbar />
             <div class = 'login-head'>
-                <h2>Welcome Back!</h2>
+                <h1 style={{fontWeight:'700'}}>Welcome Back!</h1>
 
                 <form class = 'register-card'>
-                    <h3>Log into your Account</h3>
-                    <input class='register-field' type="text" placeholder="Email" name="email" onChange={handleChange}/>
+                    <h3 style={{fontWeight:'500'}}>Log into your Account</h3>
+                    
+                    <Input width='320px' focusBorderColor='purple.400' type="text" placeholder="Email" name="email" onChange={handleChange}/>
                         
-                    <input class='register-field' type="password" placeholder="Password" name="password" onChange={handleChange}/>
+                    <Input width='320px'type="password" placeholder="Password" name="password" onChange={handleChange}/>
                         
                     {err && <p className="error-message">{err}</p>}
-                    <button class="login-page-btn" onClick={handleLogin}>Login</button>
+                    <button class="banner-btn" onClick={handleLogin}>Let's go</button>
 
                     <Link to='/register' class = 'link-react'>
                         <span class = 'login-bottom-text'>Dont have an account? <b>Register here</b></span>

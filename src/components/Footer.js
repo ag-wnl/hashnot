@@ -16,10 +16,10 @@ function Footer() {
                 </ul>
             </div>
             <div class = 'below-footer'>
-                <span>2023 Copyright hashnot. All right reserved.</span>
-                <span>Privacy Policy</span>
-                <span>Terms of Service</span>
-                <span>Cookie Settings</span>
+                <div>2023 Copyright hashnot. All right reserved.</div>
+                <div>Privacy Policy</div>
+                <div>Terms of Service</div>
+                <div>Cookie Settings</div>
             </div>
         
         </>

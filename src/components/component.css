@@ -7,27 +7,23 @@ h2 {
 }
 
 button {
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
     cursor: pointer;
     border: none;
     border-radius: 4px;
     transition: 0.3s ease-in
 }
 
-textarea {
-    font-family: 'Poppins', sans-serif;
-}
 
 .navbar {
+    font-family: InterVariable, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
     color: white;
-    font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: row;
+    font-weight: 500;
     align-items: center;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding: 20px 80px 20px 80px;
     justify-content: space-between;
-    border-bottom: 1px solid rgb(60, 60, 60);
 }
 
 .nav-right {
@@ -41,28 +37,28 @@ textarea {
 }
 
 .login-btn {
-    background-color: #8fb3ff;
-    color: rgb(0, 0, 0);
-    font-size: 16px;
-    border-radius: 4px;
-    padding: 10px 15px 10px 15px;
-    box-shadow: 0px 0px 0px 0px #8fb3ff;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgb(13, 17, 70);
+  background-color: white;
+  padding: 6px 16px 6px 16px;
+  border-radius: 60px;
+  transition: 0.2s ease-in-out;
 }
 
 .login-btn:hover {
-    box-shadow: 0px 1px 15px 0px #8fb3ff;
+    background-color: rgb(186, 199, 255);
 }
 
 .footer {
-    font-family: 'Poppins', sans-serif;
-    color: white;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-top: 5rem;
     padding: 50px;
-    border-top: 1px solid rgb(34, 34, 34);
+    width: 100%;
+    border-top: 1px solid rgb(145, 145, 145);
 }
 
 .footer-mid-section {
@@ -70,19 +66,14 @@ textarea {
 }
 
 .below-footer {
-    padding: 20px;
-    margin: 0 auto 0 auto;
-    max-width: 90%;
-    padding-top: 50px;
-    font-family: 'Poppins', sans-serif;
-    color: rgb(221, 221, 221);
-    font-size: 12px;
-    border-top: 1px solid rgb(81, 81, 81);
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    justify-content: space-evenly;
-    margin-bottom: 4rem;
+    color : rgb(155, 155, 155);
+    padding: 50px;
+    font-size: 12px;
+    width: 90%;
 }
 
 .footer-right {
@@ -102,7 +93,7 @@ textarea {
 input {
     background-color: transparent;
     color: rgb(233, 233, 233);
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
     border: none;
     height: 100%;
     font-size: 1rem;
@@ -373,12 +364,12 @@ input:focus {
 }
 
 .side-post-container {
+    font-weight: 500;
     margin-top: 2rem;
     font-size: 14px;
-    background-color: #0e0f0f;
     border-radius: 6px;
-    padding: 0px 15px 10px 15px;
-    width: 300px;
+    padding-top: 40px;
+    width: auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -507,9 +498,6 @@ input:focus {
     border-radius: 6px;
 }
 
-.timeline {
-    font-family: 'Poppins', sans-serif;
-}
 
 .url-preview-container {
     padding: 15px;

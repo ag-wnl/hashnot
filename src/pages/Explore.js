@@ -1,21 +1,19 @@
 import '../App.css';
 import Navbar from '../components/Navbar';
-import ExploreSearch from '../components/ExploreSearch';
 import { useState } from 'react';
-import { SearchResults } from '../components/SearchResults';
 import Posts from '../components/Posts';
 import Share from '../components/Share';
 import SidePosts from '../components/SidePosts';
 import Footer from "../components/Footer";
-import {FaSearch} from "react-icons/fa"
-import { useQueries, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { makeRequest } from '../axios';
 import Post from '../components/Post';
 import NoResult from '../components/NoResult';
-import { BellIcon, ChatIcon, AtSignIcon } from '@chakra-ui/icons'
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
-import { SearchIcon } from '@chakra-ui/icons'
+import { AddIcon, PhoneIcon, Search2Icon, SearchIcon } from '@chakra-ui/icons'
+import { Button, Input, InputGroup, InputLeftAddon, InputLeftElement } from '@chakra-ui/react';
+
 
 function Explore() {
     const { currentUser } = useContext(AuthContext);
@@ -65,7 +63,7 @@ function Explore() {
         console.log("emptied!")
     }
     
-    const {isLoading, error, data} = useQuery({
+    const {isLoading, error, data, refetch } = useQuery({
         queryKey: ['search', search],
         // queryFn: () => makeRequest.get("/search?q="+search).then(res => {
         //     return res.data;
@@ -77,43 +75,48 @@ function Explore() {
             } catch (error) {
                 console.log("Error in fetching results: ", error);
             }
-        } 
+        },
+        refetchOnWindowFocus: false 
     });
 
     return (
         <>
             <Navbar />
-            <div class = 'account-head'>
+            <div class = 'page-parent'>
+                
                 <div class = 'explore-header'>
-                    <h2>Join teams or create one!</h2>
-                    <div class = 'search-bar'>
-                        {/* <ExploreSearch setResults={setResults} />
-                        <SearchResults  results = {results} /> */}
+                    <h2 style={{fontWeight:'700'}}>Explore</h2>
+                    
+                    {/* <div class = 'search-bar'>
+                        <ExploreSearch setResults={setResults} />
+                        <SearchResults  results = {results} />
                         <div class = 'search-wrap' >
                             <SearchIcon />
                             <input placeholder="Search" 
                             onChange={(e) => setSearch(e.target.value)} />
                         </div>
-                    </div>
-                    
-                    <div class = "icon-bar-top-panel">
-                        <div class="tooltip">
-                            <BellIcon boxSize={22} />
-                            <span class="tooltiptext">Notifications</span>
-                        </div>
-                        <div class="tooltip">
-                            <ChatIcon boxSize={20} />
-                            <span class="tooltiptext">Messages</span>
-                        </div>
+                    </div> */}
 
-                        <div class="tooltip">
-                            <AtSignIcon boxSize={20} />
-                            <span class="tooltiptext">Profile</span>
-                        </div>
+                    <div>
+                        <InputGroup>
+                            <InputLeftAddon>
+                                <Search2Icon />
+                            </InputLeftAddon>
+                            <Input 
+                            onChange={(e) => setSearch(e.target.value)}
+                            type='text' placeholder='Search' />
+                        </InputGroup>
+
                     </div>
 
-                    <button class = 'create-btn' 
-                    onClick={() => setsharePostOpen(!sharePostOpen)}>Create Post</button>
+                    <Button 
+                    leftIcon={<AddIcon />}
+                    style={{borderRadius:'60px'}}
+                    onClick={() => setsharePostOpen(!sharePostOpen)}>
+                        Create
+                    </Button>
+                    {/* <button class = 'create-btn' 
+                    onClick={() => setsharePostOpen(!sharePostOpen)}>Create Post</button> */}
                 </div>
                 {
                     sharePostOpen && <Share />
@@ -124,10 +127,9 @@ function Explore() {
 
                     {/* search Filters */}
                     <div class = 'filter-parent-box'>
-
                         <div class = 'filter-container'>
                             <span 
-                            style={{fontSize:'18px', borderBottom:'1px solid #4d4d4d', paddingBottom:'8px'}}>
+                            style={{fontSize:'20px', borderBottom:'1px solid #4750ad', paddingBottom:'8px'}}>
                                 Filters</span>
                             
                             <div class='filter-row'>
@@ -222,6 +224,8 @@ function Explore() {
                         ( data && (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />
                         : (data && data.map((post) => <Post post={post}  key={post.id} />)))}
                     </div>
+                    
+                    {/* Side posts : for ads and hackathon promos */}
                     <div class = 'side-post-parent'>
                         <SidePosts />
                     </div>

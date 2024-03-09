@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react'
 import '../App.css';
 import Navbar from '../components/Navbar'
 import ChatPreview from '../components/ChatPreview';
-import { StreamChat } from 'stream-chat';
-import {Chat, Channel, Window, ChannelHeader, MessageList, MessageInput, Thread, LoadingIndicator} from "stream-chat-react"
 import 'stream-chat-react/dist/css/index.css'
 import '../components/component.css';
 import { makeRequest } from '../axios';
 import { useQuery } from 'react-query';
-import { useAsyncError, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import RequestPreview from '../components/RequestPreview';
-import MessageBox from '../components/MessageBox';
 
 
 function ChatMessageBox({ messageContent }) {

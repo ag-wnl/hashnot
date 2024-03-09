@@ -64,11 +64,11 @@ To add a text when hovering an icon : to give information add:
 }
 
 .body{
-  font-family: 'Poppins', sans-serif;
+  /* font-family: 'Poppins', sans-serif; */
 }
 
 button {
-  font-family: 'Poppins', sans-serif;
+  /* font-family: 'Poppins', sans-serif; */
   cursor: pointer;
   border: none;
   border-radius: 4px;
@@ -76,7 +76,7 @@ button {
 }
 
 select {
-  font-family: 'Poppins', sans-serif;
+  /* font-family: 'Poppins', sans-serif; */
   background-color: #1e1e1e;
   color: white;
   border: 1px solid rgb(48, 48, 48);
@@ -99,13 +99,21 @@ a {
 }
 
 .login-bottom-text {
-  font-size: 12px;
+  font-weight: 500;
+  font-size: 14px;
   color: rgb(146, 146, 146);
   cursor: pointer;
   transition: 0.2s ease-in-out;
 }
 .login-bottom-text:hover {
   color: rgb(197, 197, 197);
+}
+
+.page-parent {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 80px 4px 80px;
 }
 
 .create-btn {
@@ -122,45 +130,47 @@ a {
 }
 
 .banner {
-  background-image: url('./imgs/hackathon-bg.jpg');
-  background-attachment: fixed ;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  font-family: 'Poppins', sans-serif;
-  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  padding: 140px 90px 140px 90px;
+  padding: 80px 20px 80px 20px;
 }
 
 .banner-main-text {
-  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 78px;
   margin-bottom: 2rem;
   font-weight: 700;
 }
 
 .banner-sub-text{
   color: rgb(255, 255, 255);
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.banner-sub-text-box{
+  color: rgb(255, 255, 255);
+  font-size: 16px;
 }
 
 .banner-btn {
   margin-top: 2rem;
   font-size: 18px;
-  font-weight: bolder;
-  color: black;
+  font-weight: 500;
+  color: rgb(13, 17, 70);
   background-color: white;
-  padding: 14px 24px 14px 24px;
-  border-radius: 4px;
+  padding: 10px 20px 10px 20px;
+  border-radius: 60px;
 }
 
 .banner-btn:hover {
   transition: 0.2s ease-in-out;
-  background-color: rgb(176, 239, 255);
+  background-color: rgb(186, 199, 255);
 }
 
 .banner-frame {
@@ -169,29 +179,31 @@ a {
 }
 
 .section-below-banner {
-  background-image: url('./imgs/hackathon-bg-second.jpg');
+  /* background-image: url('./imgs/hackathon-bg-second.jpg'); */
   background-attachment: fixed ;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  padding: 100px 20px 100px 20px;
-  font-family: 'Poppins', sans-serif;
+  padding: 100px 60px 100px 60px;
+  /* font-family: 'Poppins', sans-serif; */
   color: rgb(233, 233, 233);
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center ;
-  gap: 10rem;
+  gap: 5rem;
 }
 
 .sq-box {
-  background-color: #0F121B;
+  background-color: transparent;
+  border: 1px solid rgb(99, 99, 255);
+  opacity: 0.7;
   padding: 30px;
   border-radius: 8px;
-  max-width: 230px;
+  max-width: 30%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem ;
+  gap: 2rem ;
   transition: 0.3s ease-in-out;
   -webkit-box-shadow: 2px -1px 43px 6px rgba(0,0,0,0.62);
   -moz-box-shadow: 2px -1px 43px 6px rgba(0,0,0,0.62);
@@ -200,11 +212,12 @@ a {
 }
 
 .sq-box:hover {
-  background-color: #191f2d;
-  box-shadow: 0px 2px 20px 1px #1D2433;
+  opacity: 1;
+  box-shadow: 0px 2px 20px 1px #0e1064;
 }
 
 .go-btn {
+  font-weight: 500;
   border-top: 1px solid rgb(204, 204, 204);
   padding-top: 20px;
   display: flex;
@@ -244,9 +257,10 @@ a {
 .explore-header {
   display: flex;
   flex-direction: row;
+  padding-top: 40px;
   justify-content: space-between;
   align-items: first baseline;
-  gap: 1rem;
+  gap: 5rem;
   align-items: center;
 }
 
@@ -258,37 +272,15 @@ a {
 
 .register-card {
   margin-top: 1rem;
-  padding: 20px 5px 40px 5px;
-  width: 40%;
-  background-color: #111111;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;  
   align-items: center;
-  gap: 1.7rem;
+  gap: 1.5rem;
   border-radius: 6px;
 }
 
-.register-field {
-  background-color: #000000;
-  display: flex;
-  padding-bottom: 10px;
-  padding: 6px 10px 6px 10px;
-  width: 60%;
-}
-
-.register-page-card {
-  margin-top: 1rem;
-  padding: 20px 5px 20px 5px;
-  width: 40%;
-  background-color: #111111;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;  
-  align-items: center;
-  gap: 1.7rem;
-  border-radius: 6px;
-}
 
 .profile-page {
   padding: 10px 50px 50px 50px;
@@ -369,7 +361,7 @@ a {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: center ;
+  justify-content: space-between;
   gap: 2rem;
 }
 
@@ -385,6 +377,7 @@ a {
 }
 
 .login-head {
+  margin-top: 50px;
   padding: 10px 50px 50px 50px;
   display: flex;
   flex-direction: column;
@@ -418,23 +411,24 @@ a {
 }
 
 .filter-container {
+  font-weight: 500;
   margin-top: 2rem;
-  background-color: #0e0f0f;
   border-radius: 6px;
-  padding: 25px 25px 25px 25px;
-  width: 250px;
+  padding-top: 40px;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
 .filter-row {
+  color: rgb(193, 193, 255);
+  font-weight: 500;
   display: flex;
   flex-direction: row;
   gap: 2.5rem;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: 14px;
   width: 250px
 }
 
@@ -472,26 +466,17 @@ a {
 }
 
 .timeline-block {
-  background-color: white;
-  color: black;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 100px;
+  gap: 10rem;
 }
 
-.get-started-btn {
-  margin-top: 2rem;
-  font-size: 20px;
-  color: rgb(255, 255, 255);
-  background-color: rgb(14, 14, 14);
-  padding: 14px 20px 14px 20px;
-  border-radius: 4px;
-  max-width: 200px;
-}
-
-.get-started-btn:hover {
-  background-color: #000000;
+.banner-column-sub-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .chat-page-bounds {
@@ -624,7 +609,7 @@ a {
 }
 
 .chat-message-box {
-  font-family: helvetica;
+  /* font-family: helvetica; */
   background-color: #b3e3ff;
   color: black;
   width: 200px;
