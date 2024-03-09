@@ -30,7 +30,7 @@ const app = initializeApp(firebaseConfig);
 function App() {
 
   const queryClient = new QueryClient()
-
+  initializeApp(firebaseConfig);
   return (
     
   <QueryClientProvider client={queryClient}>

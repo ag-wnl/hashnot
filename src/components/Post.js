@@ -10,6 +10,7 @@ import userimg from "../imgs/user.png"
 import upvote from "../imgs/up.svg"
 import { Link } from 'react-router-dom';
 import LinkPreview from './LinkPreview';
+import { Button } from '@chakra-ui/react';
 const extractUrls = require("extract-urls");
 
 function Post({ post }) {
@@ -75,11 +76,13 @@ function Post({ post }) {
                         {post.pfp ?
                                     <Link to={`/profile/${post.username}`}> 
                                     <img 
+                                    alt = "User pfp"
                                     style={{width:'40px',height:'40px',borderRadius:'50%'}} 
                                     src={post.pfp} /></Link>
                                     :
                                     <Link to={`/profile/${post.username}`}> 
                                     <img 
+                                    alt = "User pfp"
                                     style={{width:'40px',height:'40px',borderRadius:'50%'}} 
                                     src={userimg} /></Link>
                                     }
@@ -100,7 +103,7 @@ function Post({ post }) {
                 </div>
 
                 {/* Post information section: heading onwards */}
-                <span style={{fontSize:'18px', color:"#e0deff"}}>{post.title}</span>
+                <span style={{fontSize:'18px', color:"#e0deff", fontWeight:'500'}}>{post.title}</span>
 
                 <div style={{fontSize:'14px'}}>
                     {post.desc}
@@ -150,8 +153,10 @@ function Post({ post }) {
                     <span
                     style={{color:'#8fb3ff', cursor:'pointer'}}
                     >Purpose: {post.objective}</span>
-
-                    <button class = 'post-bottom-btn' onClick={() => setChat(!chat)}>Chat</button>
+                    
+                    <Button size='xs' 
+                    onClick={() => setChat(!chat)}
+                    >Chat</Button>
     
                     {/* Upvote Icon */}
                     {isLoading ? ('Loading...') 

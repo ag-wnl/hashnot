@@ -28,7 +28,7 @@ function Register() {
             setLoading(true);
             await axios.post("http://localhost:8800/api/auth/register", inputs)
         }catch(err){
-            setErr(err.response.data);
+            setErr(err.response.data || "An error occurred");
         } finally {
             setLoading(false);
         }

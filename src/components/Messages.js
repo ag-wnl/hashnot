@@ -7,8 +7,9 @@ import userimg from "../imgs/user.png"
 import send_dm from "../imgs/send_msg.svg"
 
 import { makeRequest } from "../axios";
-import moment from 'moment';
 import MessageBox from './MessageBox';
+import { Button, Input } from '@chakra-ui/react';
+import { ArrowRightIcon, CheckIcon } from '@chakra-ui/icons';
 
 const Messages = ({postId}) => {
 
@@ -54,15 +55,20 @@ const Messages = ({postId}) => {
                     <img 
                     class = 'pfp'
                     src={user_pfp} alt="" />
-                    <input
+                    <Input
                     type="text"
                     placeholder="Send a request message"
                     value={desc}
                     onChange={(e) => setDesc(e.target.value)}
                     />
-                    <img
-                    style={{width:'25px', cursor:'pointer'}} 
-                    onClick={handleClick} src={send_dm} />
+
+                    <Button rightIcon={<CheckIcon />} 
+                    style={{padding:'2px 20px 2px 20px'}}
+                    onClick={handleClick} src={send_dm}
+                    variant='outline'>
+                        Send
+                    </Button>
+
                 </div>
                 {error
                 ? "Something went wrong"
