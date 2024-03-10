@@ -13,6 +13,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { AddIcon, Search2Icon } from '@chakra-ui/icons'
 import { Button, Input, InputGroup, InputLeftAddon, Select } from '@chakra-ui/react';
+import axios from 'axios';
 
 
 function Explore() {
@@ -25,6 +26,8 @@ function Explore() {
     const [skills, setSkills] = useState([]);
     const [objective, setObjective] = useState("");
     const [sliderValue, setSliderValue] = useState(1);
+    const [searchedPosts, setSearchedPosts] = useState([]);
+    const [dataLoading, setDataLoading] = useState(false);
 
     const handleClearBtnClick = () => {
         setSkills([]);
@@ -64,31 +67,26 @@ function Explore() {
         console.log("emptied!")
     }
     
-    const {isLoading, error, data, refetch } = useQuery({
-        queryKey: ['search', search],
-        // queryFn: () => makeRequest.get("/search?q="+search).then(res => {
-        //     return res.data;
-        // })
-        queryFn: async() => {
-            try {
-                const response = await makeRequest.get("/search?q="+search);
-                return response.data;
-            } catch (error) {
-                console.log("Error in fetching results: ", error);
+
+    useEffect(() => {
+        
+        if(search === "") {
+            setSearchedPosts([]);
+        } else {
+            const fetchData = async() => {
+                try {
+                    const searchPostData = await axios.get(`http://localhost:8800/api/search?q=${search}`);
+                    setSearchedPosts(searchPostData.data);
+                    console.log(searchPostData.data);
+        
+                } catch (error) {
+                    console.log("Error occured : ", error);
+                }
             }
-        },
-        refetchOnWindowFocus: false 
-    });
-
-    // useEffect(() => {
-    //     try {
-
-    //         const postsToShowUser = 
-
-    //     } catch (error) {
-    //         console.log("Error occured : ", error);
-    //     }
-    // })
+    
+            fetchData();
+        }
+    }, [search])
 
     return (
         <>
@@ -241,10 +239,11 @@ function Explore() {
                         {userId && currentUser && (search === "") && <Posts userId = {userId} sorted = {sorter} aim = {objective} domains = {skillString} teamSize = {sliderValue} />}
 
                         
-                        {(isLoading) ? "Loading ..."
+                        {(dataLoading) ? "Searched posts loading..."
                         : 
-                        ( data && (search !== "" && data.length === 0) ? <NoResult searchQ = {search} />
-                        : (data && data.map((post) => <Post post={post}  key={post.id} />)))}
+                        ( 
+                            (search !== "" && searchedPosts.length === 0) ? <NoResult searchQ = {search} />
+                        : (searchedPosts.length !== 0 &&  searchedPosts.map((post) => <Post post={post} key={post.id} />)))}
                     </div>
                     
                     {/* Side posts : for ads and hackathon promos */}

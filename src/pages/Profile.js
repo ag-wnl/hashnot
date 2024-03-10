@@ -5,7 +5,6 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import userimg from "../imgs/user.png"
 import git_img from "../imgs/github-png.png"
-import settingIcon from "../imgs/settings-icon.png"
 import website_img from "../imgs/link.svg"
 import Posts from '../components/Posts';
 import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -13,7 +12,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
 import Update from '../components/Update';
 import InvitesContainer from '../components/InvitesContainer';
-import { Avatar, Button} from '@chakra-ui/react'
+import { Avatar, Button, Card} from '@chakra-ui/react'
 import { getAuthHeader } from "../context/authHeader.js"
 
 const Profile = () => {

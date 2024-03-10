@@ -211,7 +211,9 @@ function Post({ post }) {
                     {data?.length} Upvotes
 
                     {(post.userId === currentUser.userId) 
-                    && <button title='Delete Post' onClick={handleDelete} style={{backgroundColor:'#8f1818'}} class = 'post-bottom-btn'>Delete</button>}
+                    && <Button size='xs'  title='Delete Post' 
+                    colorScheme='red'
+                    onClick={handleDelete}>Delete</Button>}
                     
                 </div>
 
