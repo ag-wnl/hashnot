@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 
 
 export const AuthContext = createContext();
@@ -25,6 +25,35 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const signup = async (inputs) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        inputs.email,
+        inputs.password
+      );
+      const user = userCredential.user;
+
+      // Create user data on your backend (replace with your actual API call)
+      const userData =  await axios.post("http://localhost:8800/api/auth/register", {
+        email: user.email,
+        userAccountId: user.uid,
+        name: inputs.name,
+        username: inputs.username
+      });
+
+      setCurrentUser({
+        uid: user.uid,
+        email: user.email,
+        username: inputs.username, // Assuming username is returned from the API
+        userId: "", // Assuming an ID is returned from the API
+      });
+      console.log("User created successfully:", userData);
+    } catch (error) {
+      console.error("Firebase Signup Error:", error);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async(user) => {
       if (user) {
@@ -44,9 +73,8 @@ export const AuthContextProvider = ({ children }) => {
   }, [auth]);
 
 
-
   return (
-    <AuthContext.Provider value={{ currentUser, login }}>
+    <AuthContext.Provider value={{ currentUser, login, signup }}>
       {children}
     </AuthContext.Provider>
   );

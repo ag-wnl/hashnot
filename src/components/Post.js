@@ -7,7 +7,6 @@ import { makeRequest } from "../axios"
 import moment from "moment";
 import Messages from './Messages';
 import userimg from "../imgs/user.png"
-import upvote from "../imgs/up.svg"
 import { Link } from 'react-router-dom';
 import LinkPreview from './LinkPreview';
 import { Button } from '@chakra-ui/react';

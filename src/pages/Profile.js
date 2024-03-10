@@ -13,8 +13,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
 import Update from '../components/Update';
 import InvitesContainer from '../components/InvitesContainer';
-import { Avatar, AvatarBadge, AvatarGroup, WrapItem } from '@chakra-ui/react'
-import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+import { Avatar, Button} from '@chakra-ui/react'
 import { getAuthHeader } from "../context/authHeader.js"
 
 const Profile = () => {
@@ -23,7 +22,6 @@ const Profile = () => {
     const { userName } = useParams();   
     const userId = currentUser?.userId;
     
-    const queryClient = useQueryClient();
     const [openUpdate, setOpenUpdate] = useState(false);
     const [profileUserId, setUserId] = useState(null);
     const [followButtonText, setFollowButtonText] = useState("Loading");
@@ -150,29 +148,28 @@ const Profile = () => {
                             <div class = 'profile-row'>                                
                                 {userData.pfp ? 
                                 
-                                <img 
-                                style={{width:'90px',height:'90px',borderRadius:'12px'}} 
-                                src={userData.pfp} />
+                                <Avatar name={userData.name} src={userData.pfp} />
                                 :
-                                <img 
-                                style={{width:'70px',height:'70px',borderRadius:'12px'}} 
+                                <Avatar 
+                                name="Display Picture"
                                 src={userimg} />}
                                 
-                                <h2>@{userData.username}</h2>
+                                <h2 style={{fontWeight:'500'}}>@{userData.username}</h2>
                                 
                                 {/* Edit or Update Profile */}
                                 {!relationLoading && (userData.id === currentUser.id)
                                     && (
-                                    <div class="tooltip">
-                                        <span class="tooltiptext">Settings</span>
-                                        <img style={{width:"20px"}} onClick={()=>setOpenUpdate(true)} src={settingIcon} />
+                                    <div>
+                                        <span onClick={()=>setOpenUpdate(true)}>Settings</span>
                                     </div>
                                     )}
                             </div>
                             <div class = 'profile-row'>
-                                <span>{userData.name}</span>
+                                <span style={{fontWeight:'500'}}>{userData.name}</span>
                             </div>
+                            
                             {(userData.about) && <span>{userData.about}</span>}
+                            
                             <div class = 'profile-links'>
                                 {(userData.github) &&
                                 <Link 
@@ -180,17 +177,20 @@ const Profile = () => {
                                 to='https://google.com/'>
                                     <span style={{display:'flex', alignItems:'center', gap:'5px'}}>
                                     <img 
+                                    alt = 'github'
                                     style={{width:'30px'}}
                                     src={git_img} />
                                     <b>Github: </b>{userData.github}</span>
                                 </Link>
                                 }
+
                                 {(userData.website) &&
                                 <Link 
                                 style={{color:'white'}}
                                 to='https://google.com/'>
                                     <span  style={{display:'flex', alignItems:'center', gap:'5px'}}>
                                     <img
+                                    alt = 'website'
                                     style={{width:'30px'}}
                                     src={website_img} />
                                     <b>Website: </b>{userData.website}</span>
@@ -201,7 +201,7 @@ const Profile = () => {
                         
                         {/* right side of the page */}
                         <div class = 'other-utils'>
-                            <h2>Showcase</h2>
+                            <h2 style={{fontWeight:'500'}}>Showcase</h2>
                             <div class = 'showcase'>
                                 #1 in Google Kickstart 2040, Won Facebook HackerCup
                             </div>
@@ -211,17 +211,19 @@ const Profile = () => {
 
                                 {/* This is the follow/following button section" */}
                                 { profileUserId && userId && (profileUserId !== userId)
-                                    && (<button class='profile-btn'
-                                        onClick={handleFollow}>
+                                    && 
+                                    <Button
+                                    onClick={handleFollow}>
                                         {
                                             (relationLoading)   ? "Loading" 
                                             : 
                                             followButtonText
                                         }
-                                        </button>
-                                )}
+                                    </Button>
+                                }
         
-                                <button onClick={handleChatButtonClick} class='profile-btn'>Chat</button>
+                                <Button 
+                                onClick={handleChatButtonClick}>Chat</Button>
                             </div>
                             
                         </div>
@@ -232,16 +234,14 @@ const Profile = () => {
                     {/* Message Requests */}
                     <div>
                         {(!isLoading && !relationLoading && userData && currentUser && (userData.id === userId) )
-                        ?
+                        &&
                         <InvitesContainer userId = {userId} /> 
-                        :
-                        <span>"No Requests"</span>
                         }
                     </div>
                    
                     
                     {/* To show only posts by user whos profile we viewing */}
-                    <h2>Posts</h2> 
+                    <h2 style={{marginTop:'50px', fontWeight:'500'}}>Posts</h2> 
                     
                     {
                         userData && 

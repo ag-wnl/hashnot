@@ -1,7 +1,5 @@
 import React from 'react'
 import '../components/component.css';
-import { useContext } from "react";
-import { AuthContext } from "../context/authContext";
 import { useQuery } from 'react-query'
 import { makeRequest } from "../axios"
 import Post from './Post';
@@ -10,7 +8,8 @@ import NoResult from './NoResult';
 const Posts = ({userId, searchQuery, sorted, aim, domains, teamSize }) => {
   
   // Forming suitable URL:
-  var requestUrl = `/posts?userId=${userId}`;
+  let requestUrl = `/posts?userId=${userId}`;
+
   if(sorted) {requestUrl += `&sort=${sorted}`}
   if(aim) {requestUrl += `&objective=${aim}`}
   if(domains) {requestUrl += `&domains=${domains}`}

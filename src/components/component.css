@@ -235,9 +235,10 @@ input:focus {
 }
 
 .share-card {
-    background-color: #161616;
+    margin-top: 50px;
     max-width: 60%;
     padding: 15px 15px 20px 20px;
+    border: 1px solid rgb(32, 25, 92);
     border-radius: 4px;
     display: flex;
     flex-direction: column;
@@ -256,6 +257,7 @@ input:focus {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     gap: 1.5rem;
     cursor: pointer;
     padding: 0px 30px 0px 30px;

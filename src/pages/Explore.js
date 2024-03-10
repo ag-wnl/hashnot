@@ -1,6 +1,6 @@
 import '../App.css';
 import Navbar from '../components/Navbar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Posts from '../components/Posts';
 import Share from '../components/Share';
 import SidePosts from '../components/SidePosts';
@@ -11,13 +11,14 @@ import Post from '../components/Post';
 import NoResult from '../components/NoResult';
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
-import { AddIcon, PhoneIcon, Search2Icon, SearchIcon } from '@chakra-ui/icons'
-import { Button, Input, InputGroup, InputLeftAddon, InputLeftElement } from '@chakra-ui/react';
+import { AddIcon, Search2Icon } from '@chakra-ui/icons'
+import { Button, Input, InputGroup, InputLeftAddon, Select } from '@chakra-ui/react';
 
 
 function Explore() {
     const { currentUser } = useContext(AuthContext);
     const userId = currentUser?.userId;
+    // const [userId, setUserId] = useState(currentUser?.userId)
     const [sharePostOpen, setsharePostOpen] = useState(false);
     const [search, setSearch] = useState("")
     const [sorter, setSorter] = useState("")
@@ -79,6 +80,16 @@ function Explore() {
         refetchOnWindowFocus: false 
     });
 
+    // useEffect(() => {
+    //     try {
+
+    //         const postsToShowUser = 
+
+    //     } catch (error) {
+    //         console.log("Error occured : ", error);
+    //     }
+    // })
+
     return (
         <>
             <Navbar />
@@ -118,8 +129,12 @@ function Explore() {
                     {/* <button class = 'create-btn' 
                     onClick={() => setsharePostOpen(!sharePostOpen)}>Create Post</button> */}
                 </div>
+
                 {
-                    sharePostOpen && <Share />
+                    sharePostOpen && 
+                    <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                        <Share />
+                    </div>
                 }
 
 
@@ -137,18 +152,23 @@ function Explore() {
                                 <form>
                                     <label htmlFor='sort'></label>
                                     
-                                    <select name="sort" id="sort" value={sorter} onChange={handleSortChange}>
-                                        <option class = 'sort-selection' >No Selection</option>
+                                    <Select
+                                    size='sm'
+                                    name="sort" id="sort" 
+                                    value={sorter} onChange={handleSortChange}>
+                                        <option>No Selection</option>
                                         <option value="recent">Most Recent</option>
                                         <option value="highest">Upvotes</option>
-                                    </select>
+                                    </Select>
                                 
                                 </form>
                             </div>
                             <div class='filter-row'>
                                 <p>Skills</p> 
 
-                                <select name="sort" id="sort" 
+                                <Select
+                                size='sm' 
+                                name="sort" id="sort" 
                                 onChange={(e) => handleSkillSelect(e.target.value)}>
                                         <option class = 'sort-selection' selected="selected" disabled >No Selection</option>
                                         <option value="web-development">Web Development</option>
@@ -163,7 +183,7 @@ function Explore() {
                                         <option value="game-dev">Game Development</option>
                                         <option value="fintech">FinTech</option>
                                         <option value="bioinformatics">Bioinformatics</option>
-                                </select>
+                                </Select>
                             </div>
 
                             {/* displaying skills selected by user */}
@@ -198,17 +218,19 @@ function Explore() {
                                 <p>Objective</p> 
 
                                 <form>                                
-                                    <select name="sort" id="sort" value={objective} onChange={handleObjectiveChange}>
+                                    <Select
+                                    size='sm' name="sort" id="sort" value={objective} onChange={handleObjectiveChange}>
                                         <option class = 'sort-selection' value='nan'>No Selection</option>
                                         <option value="Hackathon">Hackathon</option>
                                         <option value="Project">Project</option>
-                                    </select>
+                                    </Select>
                                 </form>
 
                             </div>
 
                             <div class = 'filter-row'>
-                                <button onClick={handleClearBtnClick} class = 'clear-filter-btn'>Clear Filters</button>
+                                <Button size='sm' 
+                                onClick={handleClearBtnClick}>Clear Filters</Button>
                             </div>
                         </div>
                     </div>

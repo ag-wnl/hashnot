@@ -5,7 +5,7 @@ import { AuthContext } from "../context/authContext";
 import userimg from "../imgs/user.png"
 import { useMutation, useQueryClient } from 'react-query';
 import { makeRequest } from "../axios";
-import ReactSlider from 'react-slider'
+import { Avatar, Button, Input, Textarea } from '@chakra-ui/react';
 
 function Share() {
     const { currentUser } = useContext(AuthContext);
@@ -69,19 +69,19 @@ function Share() {
         <>
             <div class = 'share-card'>
                 <div class = 'share-card-header'>
-                    <img class = 'pfp' src={user_pfp} alt="" />
-                    <span>{currentUser.username}</span>
+                    <Avatar size='sm' src={user_pfp} alt="" />
+                    <span style={{fontSize:'18px', fontWeight:'500', color:'rgb(193, 193, 255)'}}>@{currentUser.username}</span>
                 </div>
                 
                 <div class = 'post-inp-area'>
-                    <input
+                    <Input
                     class = 'create-post-title'
                     type="text"
                     placeholder={`Type your amazing post Title here!`}
                     onChange={(e) => setTitle(e.target.value)}
                     // value={desc}
                     />
-                    <textarea
+                    <Textarea 
                     rows="5" 
                     class = 'create-post-desc'
                     type="text"
@@ -91,7 +91,7 @@ function Share() {
                     />
 
                     
-                    <input
+                    <Input
                         class = 'create-post-skills'
                         type="text"
                         placeholder={`Mention desired skills, seperated by ,`}
@@ -100,7 +100,7 @@ function Share() {
 
                     <div class = 'inp-row'>
                         <div class = 'req-members-cnt'>
-                            <span>Required Members</span>
+                            <span style={{fontWeight:'500'}}>Required Members</span>
                             <input 
                             class = 'number-req-selector'
                             onChange={handleSliderChange}
@@ -112,7 +112,7 @@ function Share() {
                         </div>
 
                         <div class = 'obj-type-inp'>
-                            <span>Objective Type</span>
+                            <span style={{fontWeight:'500'}}>Objective</span>
                             <form>                                
                                 <select name="sort" id="sort" value={objective} onChange={handleObjectiveChange}>
                                     <option class = 'sort-selection' >No Selection</option>
@@ -125,7 +125,7 @@ function Share() {
 
                     {/* domain selection: */}
                     <div style={{display:'flex', flexDirection:'row', alignItems:'center', gap:'1rem',fontSize:'14px'}}>
-                        <p>Select Skill Domain</p>
+                        <p style={{fontWeight:'500'}}>Select Skill Domain</p>
                         <select name="sort" id="sort" onChange={(e) => handleDomainSelect(e.target.value)}>
                                         <option selected="selected" disabled>No Selection</option>
                                         <option value="web-development">Web Development</option>
@@ -158,16 +158,11 @@ function Share() {
                 </div>
 
                 <div class = 'share-bottom-bar'>
-                    <input type = "file" 
-                        style={{display: "none"}}
-                        onChange={(e) => setTitle(e.target.files[0])}
-                    />
-
-                    <p style={{fontSize:'10px', color:'gray'}}>*The more post options you fill out, the easier it is for users to find it!</p>
+                    <p style={{fontSize:'10px', color:'gray', fontWeight:'500'}}>*The more post options you fill out, the easier it is for users to find it!</p>
                             
-                    <button class = 'green-btn'
+                    <Button
                     onClick={handleClick}
-                    >Share Post</button>
+                    >Share Post</Button>
 
                 </div>
             </div>

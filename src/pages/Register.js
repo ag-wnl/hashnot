@@ -1,12 +1,15 @@
 import Navbar from "../components/Navbar";
 import '../App.css';
-import { useState } from "react";
-import axios from "axios";
+import { useContext, useState } from "react";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "@chakra-ui/react";
+import { AuthContext } from "../context/authContext";
 
 function Register() {
+
+    const { signup } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const [inputs, setInputs] = useState({
         username: "",
@@ -14,7 +17,7 @@ function Register() {
         password: "",
         name: "",
     });
-    const [err, setErr] = useState(null)
+    const [err, setErr] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
@@ -22,16 +25,15 @@ function Register() {
     };
 
     const handleClick = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         try{
-            setLoading(true);
-            await axios.post("http://localhost:8800/api/auth/register", inputs)
-        }catch(err){
-            setErr(err.response.data || "An error occurred");
-        } finally {
-            setLoading(false);
+            await signup(inputs);
+            navigate("/");
+        }catch(err) {
+            setErr(err.response.data);
         }
+        
     }
 
     return (
