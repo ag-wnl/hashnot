@@ -17,20 +17,25 @@ function Home() {
         <>
             <Navbar />
             <div class = 'page-parent'> 
-                <div class = 'banner'>
-                    <h1 class = 'banner-main-text'>
-                        <span>Find your dream team</span>
-                        <span>and start building</span>    
-                    </h1>
-                    <span class = 'banner-sub-text'>Find a group to join and develop amazing things</span>
-                    <span class = 'banner-sub-text'>no boundaries when it comes to tech</span>
 
-                    <button 
-                    onClick={()=> navigate(`/register`)}
-                    class = 'banner-btn'>Get Started</button>
+                <div style={{position:'relative'}}>
+                    <div class = 'banner'>
+                        <h1 class = 'banner-main-text'>
+                            <span>Find your dream team</span>
+                            <span>and start building</span>    
+                        </h1>
+                        <span class = 'banner-sub-text'>Find a group to join and develop amazing things</span>
+                        <span class = 'banner-sub-text'>no boundaries when it comes to tech</span>
 
-                    {/* <img class = 'banner-frame' src = {banner_frame}/> */}
+                        <button 
+                        onClick={()=> navigate(`/register`)}
+                        class = 'banner-btn'>Get Started</button>
+
+                        {/* <img class = 'banner-frame' src = {banner_frame}/> */}
+                    </div>
+
                 </div>
+                
 
                 <div class = 'section-below-banner'>
                     <div 

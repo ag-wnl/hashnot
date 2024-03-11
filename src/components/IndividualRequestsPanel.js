@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../components/component.css';
+import { Alert, AlertIcon } from '@chakra-ui/react';
 
 
 function IndividualRequestsPanel({ title, message, userId }) {
@@ -14,29 +15,22 @@ function IndividualRequestsPanel({ title, message, userId }) {
     }
 
     return (
-        <div className='invite-container'>
-            <div
-            style={{
-                display: 'flex',
-                flexDirection: 'row',
-                gap: '4rem',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-            }}
-            >
-                <div style={{ fontSize: '14px' }}>
+        <div>
+            <Alert status='info' variant='left-accent' style={{cursor:'pointer'}}>
+                <AlertIcon />
+                <div>
                     {title && title.length > 20 ? `${title.slice(0, 20)}...` 
                     : 
-                    title}</div>
+                    title}
+                </div>
         
-                <span style={{ fontSize: '12px' }}>
+                <span style={{ fontSize: '14px'}}>
                     {message && message.length > 30 ? `${message.slice(0, 30)}...` 
                     : 
                     message}   
-                </span>
-        
-                <button className='review-btn'>Open</button>
-            </div>
+                </span>        
+            </Alert>
+            
         </div>
     )
 }

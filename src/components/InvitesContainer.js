@@ -4,10 +4,14 @@ import { makeRequest } from '../axios';
 import { useQuery } from 'react-query';
 import IndividualRequestsPanel from './IndividualRequestsPanel';
 import { Alert, AlertIcon } from '@chakra-ui/react';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
 
 const InvitesContainer = ({ userId }) => {
     
+    const navigate = useNavigate();
+
     const { isLoading, error, data } = useQuery({
         queryKey: ['userId', userId],
         queryFn: () => makeRequest.get('/showrequest?userId=' + userId).then(res => {
@@ -20,8 +24,10 @@ const InvitesContainer = ({ userId }) => {
             {!data ? (
             'No data available'
             ) : (
-                <div className='profile-message-requests-parent'>
-                    <span style={{ fontSize: '24px', paddingTop: '20px', fontWeight:'500' }}>Requests</span>
+                <div className='profile-message-requests-parent'
+                onClick={()=> navigate(`/chats`)}
+                >
+                    <span style={{color:'#e0deff', fontSize: '24px', paddingTop: '20px', fontWeight:'500', cursor:'pointer', display:'flex', alignItems:'center', gap:'5px' }}>Requests <ExternalLinkIcon /> </span>
 
                     <div>
                         {!isLoading &&  data && data.map((request, index) => (

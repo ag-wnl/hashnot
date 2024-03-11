@@ -273,19 +273,10 @@ input:focus {
     box-shadow: -1px 4px 10px -8px rgba(219,219,219,1);
 }
 
-.review-btn {
-    margin: 5px;
-    color: #101111;
-    background-color: #BB86FC;
-    font-weight: 700;
-    font-size: 12px;
-    border-radius: 14px;
-    padding: 0px 5px 0px 5px;
-}
-
 .review-btn:hover {
     background-color: #a576df;
 }
+
 
 .green-btn {
     background-color: #7463f4;
