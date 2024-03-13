@@ -7,6 +7,8 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+
   const auth = getAuth(); // Firebase auth instance
 
   const login = async (inputs) => {
@@ -16,6 +18,10 @@ export const AuthContextProvider = ({ children }) => {
       
       //Getting essential user information to cache:
       const userData = await axios.get("http://localhost:8800/api/users/find/" + user.uid)
+      
+      const token = await user.getIdToken();
+      localStorage.setItem('token', token); 
+      setToken(token);
       
       setCurrentUser({ uid: user.uid, email: user.email, username: userData.data.username, userId: userData.data.id });
       console.log(userData);
@@ -42,6 +48,10 @@ export const AuthContextProvider = ({ children }) => {
         username: inputs.username
       });
 
+      const token = await user.getIdToken();
+      localStorage.setItem('token', token);
+      setToken(token);
+
       setCurrentUser({
         uid: user.uid,
         email: user.email,
@@ -53,6 +63,12 @@ export const AuthContextProvider = ({ children }) => {
       console.error("Firebase Signup Error:", error);
     }
   };
+
+  const logout = () => {
+    localStorage.removeItem('token'); 
+    setToken(null);
+    setCurrentUser(null);
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async(user) => {
@@ -73,8 +89,22 @@ export const AuthContextProvider = ({ children }) => {
   }, [auth]);
 
 
+  // Adding tokens to request headers to verify user:
+  axios.interceptors.request.use(
+    config => {
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
+
+
   return (
-    <AuthContext.Provider value={{ currentUser, login, signup }}>
+    <AuthContext.Provider value={{ currentUser, login, signup, logout }}>
       {children}
     </AuthContext.Provider>
   );

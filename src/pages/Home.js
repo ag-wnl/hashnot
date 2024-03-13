@@ -24,7 +24,7 @@ function Home() {
                             <span>Find your dream team</span>
                             <span>and start building</span>    
                         </h1>
-                        <span class = 'banner-sub-text'>Find a group to join and develop amazing things</span>
+                        <span class = 'banner-sub-text'>Find people trying to build things you would love to be a part of</span>
                         <span class = 'banner-sub-text'>no boundaries when it comes to tech</span>
 
                         <button 

@@ -7,13 +7,12 @@ import userimg from "../imgs/user.png"
 import git_img from "../imgs/github-png.png"
 import website_img from "../imgs/link.svg"
 import Posts from '../components/Posts';
-import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { makeRequest } from '../axios';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Update from '../components/Update';
 import InvitesContainer from '../components/InvitesContainer';
-import { Avatar, Button, Card} from '@chakra-ui/react'
+import { Avatar, Button } from '@chakra-ui/react'
 import { getAuthHeader } from "../context/authHeader.js"
+import axios from 'axios';
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -22,106 +21,94 @@ const Profile = () => {
     const userId = currentUser?.userId;
     
     const [openUpdate, setOpenUpdate] = useState(false);
-    const [profileUserId, setUserId] = useState(null);
-    const [followButtonText, setFollowButtonText] = useState("Loading");
-
-    //{ refetchOnWindowFocus: false } helps not refetch data when tabs are switched 
-    //Fetching current user using username from URL parameter:
-    const { isLoading, error, data: userData, refetch: userRefetch } = useQuery({
-        queryKey: ["user", userId, { refetchOnWindowFocus: false }],
-        queryFn: async() => {
-            try {
-                const authHeader = await getAuthHeader();
-                const response = await makeRequest.get("/users/findUserByUserName/" + userName, {
-                    headers: {Authorization: authHeader},
-                });
-                return response.data;
-            } catch (error) {
-                throw error;
-            }
-        } 
-    });
+    const [profileUserId, setProfileUserId] = useState(null);
+    // const [followButtonText, setFollowButtonText] = useState("Loading");
+    const [followButtonText, setFollowButtonText] = useState(
+        currentUser?.following?.includes(profileUserId) ? "Following" : "Follow"
+      );
+    const [profileData, setProfileData] = useState();
+    const [currentUserOwnProfile, setCurrentUserOwnProfile] = useState(false);
+    const [followingUser, setFollowingUser] = useState(false);
+    const [loadingState, setLoadingState] = useState(false);
 
     useEffect(() => {
-        // Update userId when userData is available
-        if (!isLoading && userData) {
-            setUserId(userData.id);
-        }
-    }, [isLoading, userData]);
-
-
-    // This is a dependednt query which depends on the previous userData fetcher, after userData recieved we execute it:
-    const {isIdle, isLoading: relationLoading, data: relationData, refetch: relRefetch } = useQuery({
-        queryKey: ["userId", userId, { refetchOnWindowFocus: false }],
-        queryFn: async() => {
-            try{
-                const authHeader = await getAuthHeader();
-                const response = await makeRequest.get(`/relations?followedUserId=${profileUserId}`, {
-                    headers: {Authorization: authHeader},
-                });
-                return response.data;
-            } catch (error) {
-                throw error;
-            }
-        },
-        enabled: !!profileUserId,  
-    });
-
-
-    // Refetch user data and relation data again when username changes, fetch new User ID:
-    useEffect(() => {
-        userRefetch().then((newUserData) => {
-            setUserId(newUserData?.id);
-            relRefetch();
-        });
-    }, [userName]);
-
-    useEffect(() => {
-        if(relationData && userId && !isLoading && currentUser) {
-            if(relationData && relationData.includes(userId)) {
-                setFollowButtonText("Following")
-            } else {
-                setFollowButtonText("Follow")
-            }
-        }
-    }, [relationData])
-
-    
-    const mutation = useMutation(
-        async (following) => {
+        const fetchProfileData = async() => {
             const authHeader = await getAuthHeader();
-            const config = { headers: { Authorization: authHeader } };
-            
-            if(profileUserId) {
-                if (following) {
-                    return makeRequest.delete(`/relations?userId=${profileUserId}&curUserId=${userId}`, config);
+            try {
+                setLoadingState(true);
+                const profileUserData = await axios.get(`http://localhost:8800/api/users/findUserByUserName/${userName}`, {
+                    headers: {Authorization: authHeader},
+                });
+                setProfileData(profileUserData.data);
+                setProfileUserId(profileUserData.data.id);
+                console.log(profileUserData.data);
+
+                const profileUserRelationData = await axios.get(`http://localhost:8800/api/relations?followedUserId=${profileUserData.data.id}`, {
+                    headers: {Authorization: authHeader},
+                });
+
+                console.log(profileUserRelationData.data);
+
+                if(userId && profileUserData.data.id === userId) {
+                    setCurrentUserOwnProfile(true);
                 }
-    
-                return makeRequest.post(`/relations?userId=${profileUserId}&curUserId=${userId}`, null, config);
+                if(userId && profileUserRelationData.data.includes(userId)) {
+                    setFollowingUser(true);
+                } else {
+                    setFollowingUser(false);
+                }
+
+                setLoadingState(false);
+            } catch (error) {
+                console.log("Error in fetching profile and relation data: ", error);
+                setLoadingState(false);
             }
-        },
-        {
-            onSuccess: () => {
-                relRefetch(); // Refetch user relations to update follow/following status
-            },
         }
-    );
+
+        fetchProfileData();
+    }, [userName, userId]);
+
+
+    useEffect(() => {
+        if(followingUser) {
+            setFollowButtonText("Following")
+        } else {
+            setFollowButtonText("Follow")
+            
+        }
+    }, [followingUser])
+
 
     const handleFollow = async() => {
         try {
-            if(relationData) {
-                console.log("Follow Button Clicked, RelationData:", relationData);
-                const following = relationData.includes(userId);
-                await mutation.mutateAsync(following);
+
+            if (!profileUserId) {
+                console.error("Profile user ID not found.");
+                return;
+            }
+
+            const authHeader = await getAuthHeader();
+            const config = { headers: { Authorization: authHeader } };
+            
+            if(followingUser) {
+                axios.delete(`http://localhost:8800/api/relations?userId=${profileUserId}&curUserId=${userId}`, config)
+                .then(() => {
+                    console.log("unfollowed");
+                    console.log('profile User id: ' ,profileUserId);
+                    console.log('user id : ', userId);
+                    setFollowingUser(!followingUser)
+                });
+
+            } else {
+                axios.post(`http://localhost:8800/api/relations?userId=${profileUserId}&curUserId=${userId}`, config)
+                .then(() => {
+                    console.log("followed");
+                    setFollowingUser(!followingUser)
+                });
             }
         } catch (error) {
-            console.error("Error during mutation:", error);
+            console.error("Error during follow/unfollow request:", error);
         }
-    };
-
-    //for Chat/DM page:
-    const chatData = {
-        chaatUserId: userId
     };
 
     const handleChatButtonClick = () => {
@@ -135,9 +122,9 @@ const Profile = () => {
     return (
         <>
             <Navbar />
-            {isLoading ? ('Loading User Profile...')    
+            {loadingState ? ('Loading User Profile...')    
             : (
-                userData && userId &&
+                profileData && userId &&
                 <div class = 'profile-page'>
                     {/* <div class = 'profile-header'>
                         <h2>Profile</h2>
@@ -145,18 +132,18 @@ const Profile = () => {
                     <div class = 'profile-cards-row'>
                         <div class = 'profile-card'>
                             <div class = 'profile-row'>                                
-                                {userData.pfp ? 
+                                {profileData.pfp ? 
                                 
-                                <Avatar name={userData.name} src={userData.pfp} />
+                                <Avatar name={profileData.name} src={profileData.pfp} />
                                 :
                                 <Avatar 
                                 name="Display Picture"
                                 src={userimg} />}
                                 
-                                <h2 style={{fontWeight:'500'}}>@{userData.username}</h2>
+                                <h2 style={{fontWeight:'500'}}>@{profileData.username}</h2>
                                 
                                 {/* Edit or Update Profile */}
-                                {!relationLoading && (userData.id === currentUser.id)
+                                {(profileData.id === currentUser.id)
                                     && (
                                     <div>
                                         <span onClick={()=>setOpenUpdate(true)}>Settings</span>
@@ -164,13 +151,13 @@ const Profile = () => {
                                     )}
                             </div>
                             <div class = 'profile-row'>
-                                <span style={{fontWeight:'500'}}>{userData.name}</span>
+                                <span style={{fontWeight:'500'}}>{profileData.name}</span>
                             </div>
                             
-                            {(userData.about) && <span>{userData.about}</span>}
+                            {(profileData.about) && <span>{profileData.about}</span>}
                             
                             <div class = 'profile-links'>
-                                {(userData.github) &&
+                                {(profileData.github) &&
                                 <Link 
                                 style={{color:"white"}}
                                 to='https://google.com/'>
@@ -179,11 +166,11 @@ const Profile = () => {
                                     alt = 'github'
                                     style={{width:'30px'}}
                                     src={git_img} />
-                                    <b>Github: </b>{userData.github}</span>
+                                    <b>Github: </b>{profileData.github}</span>
                                 </Link>
                                 }
 
-                                {(userData.website) &&
+                                {(profileData.website) &&
                                 <Link 
                                 style={{color:'white'}}
                                 to='https://google.com/'>
@@ -192,7 +179,7 @@ const Profile = () => {
                                     alt = 'website'
                                     style={{width:'30px'}}
                                     src={website_img} />
-                                    <b>Website: </b>{userData.website}</span>
+                                    <b>Website: </b>{profileData.website}</span>
                                 </Link>
                                 }
                             </div>
@@ -209,15 +196,11 @@ const Profile = () => {
                             <div class = 'profile-row'>
 
                                 {/* This is the follow/following button section" */}
-                                { profileUserId && userId && (profileUserId !== userId)
+                                { profileUserId && userId && !currentUserOwnProfile
                                     && 
                                     <Button
                                     onClick={handleFollow}>
-                                        {
-                                            (relationLoading)   ? "Loading" 
-                                            : 
-                                            followButtonText
-                                        }
+                                        {followButtonText}
                                     </Button>
                                 }
         
@@ -227,12 +210,12 @@ const Profile = () => {
                             
                         </div>
                     </div>
-                    {openUpdate &&  <Update setOpenUpdate={setOpenUpdate} user = {userData} />}
+                    {openUpdate &&  <Update setOpenUpdate={setOpenUpdate} user = {profileData} />}
 
 
                     {/* Message Requests */}
                     <div>
-                        {(!isLoading && !relationLoading && userData && currentUser && (userData.id === userId) )
+                        {(!loadingState && profileData && currentUser && (profileData.id === userId) )
                         &&
                         <InvitesContainer userId = {userId} /> 
                         }
@@ -243,8 +226,8 @@ const Profile = () => {
                     <h2 style={{marginTop:'50px', fontWeight:'500'}}>Posts</h2> 
                     
                     {
-                        userData && 
-                        <Posts userId = {userData.id} />
+                        profileData && 
+                        <Posts userId = {profileData.id} />
                     }
                     
                 </div>
