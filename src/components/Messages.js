@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../components/component.css';
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
@@ -9,38 +9,57 @@ import send_dm from "../imgs/send_msg.svg"
 import { makeRequest } from "../axios";
 import MessageBox from './MessageBox';
 import { Button, Input } from '@chakra-ui/react';
-import { ArrowRightIcon, CheckIcon } from '@chakra-ui/icons';
+import { CheckIcon } from '@chakra-ui/icons';
+import axios from 'axios';
 
-const Messages = ({postId}) => {
+const Messages = ({postId, postOwnerId}) => {
 
     const { currentUser } = useContext(AuthContext);
     const userId = currentUser?.userId;
     const [desc, setDesc] = useState("");
+    const [data, setRequestData] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const { isLoading, error, data } = useQuery(['messages', postId], () =>
-    makeRequest.get("/messages?postId=" + postId).then((res) => {
-        return res.data;
-        })
-    );  
+    // const { isLoading, error, data } = useQuery(['messages', postId], () =>
+    // makeRequest.get("/messages?postId=" + postId).then((res) => {
+    //     return res.data;
+    //     })
+    // ); 
+    
+    useEffect(() => {
+        setIsLoading(true);
+        const getMessages = async() => {
+            try {
+                axios.get(`http://localhost:8800/api/messages?postId=${postId}`)
+                .then((response) => {
+                    setRequestData(response.data);
+                    setIsLoading(false);
+                })
+            } catch (err) {
+                setIsLoading(false);
+                console.log(err);
+            }
+        }
 
-    const queryClient = useQueryClient();
+        getMessages();
+    }, [postId])
 
-    const mutation = useMutation(
-      (newMessage) => {
-        return makeRequest.post("/messages", newMessage);
-      },
-      {
-        onSuccess: () => {
-          // Invalidate and refetch
-          queryClient.invalidateQueries(["messages"]);
-        },
-      }
-    );
 
     const handleClick = async (e) => {  
-        e.preventDefault();
-        mutation.mutate({ desc, postId, userId });
-        setDesc("");
+        // axios.post(`http://localhost:8800/api/messages`, { desc, postId, userId, postOwnerId })
+        // .then(() => {
+        //     setDesc("");
+        // })
+        try {
+            await Promise.all([
+                axios.post(`http://localhost:8800/api/messages`, { desc, postId, userId, postOwnerId }),
+                axios.post(`http://localhost:8800/api/chats`, { message: desc, postId, userId, sendToUser : postOwnerId })
+            ]);
+    
+            setDesc("");
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     var user_pfp = userimg;
@@ -70,11 +89,9 @@ const Messages = ({postId}) => {
                     </Button>
 
                 </div>
-                {error
-                ? "Something went wrong"
-                : isLoading
+                {isLoading
                 ? "Loading..."
-                : data.map((message) => (
+                : data && data.map((message) => (
                     <MessageBox pfp = {(message.pfp ? message.pfp : user_pfp)} senderName={message.name} createdAt={message.createdAt} messageString={message.desc} />
                 ))}
             </div>

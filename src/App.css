@@ -151,13 +151,15 @@ a {
   font-weight: 500;
   color: rgb(13, 17, 70);
   background-color: white;
+  border: 1px solid white;
   padding: 10px 20px 10px 20px;
   border-radius: 60px;
 }
 
 .banner-btn:hover {
   transition: 0.2s ease-in-out;
-  background-color: rgb(186, 199, 255);
+  background-color: black;
+  color: white;
 }
 
 .banner-frame {

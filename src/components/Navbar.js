@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../components/component.css';
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
+import { Button } from '@chakra-ui/react';
 
 
 function Navbar() {
@@ -24,10 +25,10 @@ function Navbar() {
                         <li>FAQ</li>
                         <li><Link to="/explore" class = 'link-react'>Explore</Link></li>                    
 
-                        <button 
-                        class='login-btn'
+                        <Button
+                        class = 'login-btn'
                         onClick={currentUser ? ()=> navigate(`/profile/${currentUser.username}`) :  ()=>navigate("/login")}
-                        >{btn_text}</button>
+                        >{btn_text}</Button>
                     </ul>
                 </div>
             </>

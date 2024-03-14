@@ -47,7 +47,7 @@ button {
 }
 
 .login-btn:hover {
-    background-color: rgb(186, 199, 255);
+    background-color: rgb(179, 179, 179);
 }
 
 .footer {
@@ -63,6 +63,7 @@ button {
 
 .footer-mid-section {
     color: #c4c4c4;
+    font-weight: 500;
 }
 
 .below-footer {
@@ -77,11 +78,13 @@ button {
 }
 
 .footer-right {
+    color: #c4c4c4;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     list-style: none;
     gap: 2rem;
     font-size: 14px;
+    font-weight: 500;
 }
 
 .link-react {
@@ -367,29 +370,11 @@ input:focus {
 }
 
 .update-box {
-    position: absolute;
-    background-color: rgb(19, 19, 19);
-    color: rgb(255, 255, 255);
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 50%;
-    height: 90%;
-    border-radius: 6px;
-    padding: 10px 40px 30px 40px;
-    z-index: 999;
-    box-shadow: 0 0 4px rgb(118, 154, 255);
+    margin: 40px 20px 40px 20px;
 }
 
 .upd-inp-field {
-    overflow: auto;
-    height: 70%;
-    padding: 30px;
-    background-color: #101010;
-    color: white; 
-    border: 1px solid rgb(44, 44, 44);
+    margin: 20px 0px 20px 0px;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
@@ -398,10 +383,13 @@ input:focus {
 }
 
 .upd-row {
+    padding-bottom: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    font-size: 26px;
+    border-bottom: 1px solid rgb(37, 37, 37);
 }
 
 .upd-inp-txt {

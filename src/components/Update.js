@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import '../components/component.css';
 import { useMutation, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
+import { Input } from '@chakra-ui/react';
+import { CloseIcon } from '@chakra-ui/icons';
 
 // This is a component which is used in profile section and acts as a form 
 // to update user profile
@@ -48,36 +50,38 @@ function Update({ setOpenUpdate, user }) {
         <>
             <div class = 'update-box'>
                 <div class = 'upd-row'>
-                    <h3>Update Profile</h3>
-                    <button class='close-btn' onClick={() => setOpenUpdate(false)}>Close</button>
+                    <h3 style={{fontWeight:'500'}}>Update Profile</h3>
+                    <CloseIcon 
+                    style={{cursor:'pointer'}}
+                    size='xs' onClick={() => setOpenUpdate(false)} />
                 </div>    
-                <form class = 'upd-inp-field'>
 
+
+                <form class = 'upd-inp-field'>
                     <div class = "profile-update-fields">
-                    <span>Profile Picture</span>
-                        <input class = 'upd-inp-txt' type = "text" name = "pfp" placeholder="Pfp  Link"  onChange={handleChange}></input>
+                    <span style={{fontWeight:'500'}}>Profile Picture</span>
+                        <Input class = 'upd-inp-txt' type = "text" name = "pfp" placeholder="Profile Picture Link"  onChange={handleChange} />
                     </div>
                     
                     <div class = "profile-update-fields">
-                        <span>Display Name</span>
-                        <input class = 'upd-inp-txt' type = "text" name= "name" placeholder="Name" onChange={handleChange}></input>
+                        <span style={{fontWeight:'500'}}>Display Name</span>
+                        <Input class = 'upd-inp-txt' type = "text" name= "name" placeholder="Name" onChange={handleChange} />
                     </div>
                     
                     <div class = "profile-update-fields">
-                        <span>About</span>
-                        <input class = 'upd-inp-txt' type = "text" name = "about" placeholder="About" onChange={handleChange}></input>
+                        <span style={{fontWeight:'500'}}>About</span>
+                        <Input class = 'upd-inp-txt' type = "text" name = "about" placeholder="About" onChange={handleChange} />
                     </div>
                     
                     <div class = "profile-update-fields">
-                        <span>Social Links</span>
-                        <input class = 'upd-inp-txt' type = "text" name= "github" placeholder="Github Profile Link" onChange={handleChange}></input>    
-                        <input class = 'upd-inp-txt' style={{marginTop:"5px"}} type = "text" name= "website" placeholder="Personal Website Link" onChange={handleChange}></input>
+                        <span style={{fontWeight:'500'}}>Social Links</span>
+                        <Input class = 'upd-inp-txt' type = "text" name= "github" placeholder="Github Profile Link" onChange={handleChange} />   
+                        <Input class = 'upd-inp-txt' style={{marginTop:"5px"}} type = "text" name= "website" placeholder="Personal Website Link" onChange={handleChange} />
                     </div>
-                    
-        
                 </form>
+
+
                 <button 
-                    style={{marginTop:'4rem', position:"absolute", right:"40px", bottom:"20px"}}
                     onClick={handleClick}
                     class = 'login-btn'
                     >Update Profile</button>

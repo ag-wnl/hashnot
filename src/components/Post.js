@@ -31,6 +31,8 @@ function Post({ post }) {
 
     const queryClient = useQueryClient();
 
+    //post.userId : Person who created the post
+
     const mutation = useMutation(
         (voted) => {
             if (voted) return makeRequest.delete("/upvotes?postId=" + post.id);
@@ -219,7 +221,7 @@ function Post({ post }) {
 
                 {/* This is the chat section of the post */}
                 {
-                    chat && <Messages postId={post.id} /> 
+                    chat && <Messages postId={post.id} postOwnerId={post.userId} /> 
                 }
             </div>
         </div>

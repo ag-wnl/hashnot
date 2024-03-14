@@ -11,6 +11,7 @@ import RequestPreview from '../components/RequestPreview';
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Avatar, Button, Input, Textarea } from '@chakra-ui/react';
 import { AuthContext } from '../context/authContext';
 import moment from 'moment';
+import axios from 'axios';
 
 
 function ChatMessageBox({ messageContent }) {
@@ -28,7 +29,7 @@ function ChatMessageBox({ messageContent }) {
                     <span style={{fontSize:'12px'}}>{timeAgo}</span>
                 </div>
             </div>
-            <span>{messageContent.text}</span>
+            <span>{messageContent.message}</span>
         </div>
     )
 }
@@ -40,10 +41,9 @@ function Chats() {
     const { currentUser } = useContext(AuthContext);
     const userId = currentUser?.userId;
 
-    console.log(userId);
     const { isLoading: postRequestLoading , error, data: postRequestData } = useQuery({
         queryKey: ['userId', userId],
-        queryFn: () => makeRequest.get('/showrequest?userId=' + userId).then(res => {
+        queryFn: () => makeRequest.get(`/chats/getChatList?userId=${userId}`).then(res => {
             return res.data;
         }),
         enabled : !!userId,
@@ -71,19 +71,21 @@ function Chats() {
         setshowRequests(false);
     };
 
-    const handleRequestPreviewClick = (message) => {
+    const handleRequestPreviewClick = async(message) => {
         //get information of user with whom we are chatting using message.userId:
 
         setchatBoxUserName(message.name);
         setCurrentUserPfp(message.pfp);
-        const newMessage = { text: message.desc, name: message.name, pfp: message.pfp, 
-            time: message.createdAt };
-
-        //Appending new message to the array of previous messages:
-        // setchatBoxMessages((prevMessages) => [...prevMessages, newMessage]);
-
-        //But for now, we just want current request message shown, so replacing it:
-        setchatBoxMessages([newMessage]);
+        
+        axios.get(`http://localhost:8800/api/chats?firstUser=${userId}&secondUser=${message.userId}`)
+        .then((response) => {
+            console.log(`first user : ${userId} and second user : ${message.userId}`)
+            console.log(response.data);
+            setchatBoxMessages(response.data);
+        })
+        .catch((error) => {
+            console.error('Error fetching chat messages:', error);
+        });
     };
     
 
@@ -127,12 +129,10 @@ function Chats() {
                         </Alert>
                     </div>
                     ) : (   
-                        showRequests &&
                             <div style={{width:"100%"}}>
                                 {!postRequestLoading && postRequestData && postRequestData.map((request, index) => (
                                     <div 
                                     onClick = {() => {
-                                        console.log('Clicked on RequestPreview in Chats');
                                         handleRequestPreviewClick(request);
                                     }}
 
@@ -142,9 +142,8 @@ function Chats() {
 
                                         <RequestPreview
                                         name = {request.name}
-                                        title = {request.title}
-                                        message = {request.desc}
                                         userId = {request.userId}
+                                        username = {request.username}
                                         pfp = {request.pfp}
                                         />
 

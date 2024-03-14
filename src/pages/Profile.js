@@ -10,9 +10,10 @@ import Posts from '../components/Posts';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Update from '../components/Update';
 import InvitesContainer from '../components/InvitesContainer';
-import { Avatar, Button } from '@chakra-ui/react'
+import { Avatar, Button, Tooltip } from '@chakra-ui/react'
 import { getAuthHeader } from "../context/authHeader.js"
 import axios from 'axios';
+import { EditIcon, SettingsIcon } from '@chakra-ui/icons';
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -22,7 +23,6 @@ const Profile = () => {
     
     const [openUpdate, setOpenUpdate] = useState(false);
     const [profileUserId, setProfileUserId] = useState(null);
-    // const [followButtonText, setFollowButtonText] = useState("Loading");
     const [followButtonText, setFollowButtonText] = useState(
         currentUser?.following?.includes(profileUserId) ? "Following" : "Follow"
       );
@@ -143,11 +143,13 @@ const Profile = () => {
                                 <h2 style={{fontWeight:'500'}}>@{profileData.username}</h2>
                                 
                                 {/* Edit or Update Profile */}
-                                {(profileData.id === currentUser.id)
+                                {(currentUserOwnProfile)
                                     && (
-                                    <div>
-                                        <span onClick={()=>setOpenUpdate(true)}>Settings</span>
-                                    </div>
+                                    <Tooltip label='Edit'>
+                                        <EditIcon 
+                                        style={{cursor:'pointer'}}
+                                        size='sm' onClick={()=>setOpenUpdate(!openUpdate)} />
+                                    </Tooltip>
                                     )}
                             </div>
                             <div class = 'profile-row'>
