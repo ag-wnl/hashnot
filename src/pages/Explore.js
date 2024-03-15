@@ -12,7 +12,7 @@ import NoResult from '../components/NoResult';
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { AddIcon, Search2Icon } from '@chakra-ui/icons'
-import { Button, Input, InputGroup, InputLeftAddon, Select } from '@chakra-ui/react';
+import { Button, Input, InputGroup, InputLeftAddon, Select, Spinner } from '@chakra-ui/react';
 import axios from 'axios';
 
 
@@ -67,24 +67,31 @@ function Explore() {
         console.log("emptied!")
     }
     
-
     useEffect(() => {
         
         if(search === "") {
             setSearchedPosts([]);
         } else {
+            setDataLoading(true);
             const fetchData = async() => {
                 try {
                     const searchPostData = await axios.get(`http://localhost:8800/api/search?q=${search}`);
                     setSearchedPosts(searchPostData.data);
                     console.log(searchPostData.data);
-        
+                    setDataLoading(false);
                 } catch (error) {
+                    setDataLoading(false);
                     console.log("Error occured : ", error);
                 }
             }
+
+            const getData = setTimeout(() => {
+                fetchData();
+            }, 500)
+
+            return () => clearTimeout(getData)
     
-            fetchData();
+            // fetchData();
         }
     }, [search])
 
@@ -95,16 +102,6 @@ function Explore() {
                 
                 <div class = 'explore-header'>
                     <h2 style={{fontWeight:'700'}}>Explore</h2>
-                    
-                    {/* <div class = 'search-bar'>
-                        <ExploreSearch setResults={setResults} />
-                        <SearchResults  results = {results} />
-                        <div class = 'search-wrap' >
-                            <SearchIcon />
-                            <input placeholder="Search" 
-                            onChange={(e) => setSearch(e.target.value)} />
-                        </div>
-                    </div> */}
 
                     <div>
                         <InputGroup>
@@ -112,6 +109,7 @@ function Explore() {
                                 <Search2Icon />
                             </InputLeftAddon>
                             <Input 
+                            // onKeyUp={debounceSearch(200)}   
                             onChange={(e) => setSearch(e.target.value)}
                             type='text' placeholder='Search' />
                         </InputGroup>
@@ -235,11 +233,11 @@ function Explore() {
                     
                     
                     {/* Fetching posts according to search result, or if not then default posts */}
-                    <div>
+                    <div style={{marginTop:'40px'}}>
                         {userId && currentUser && (search === "") && <Posts userId = {userId} sorted = {sorter} aim = {objective} domains = {skillString} teamSize = {sliderValue} />}
 
                         
-                        {(dataLoading) ? "Searched posts loading..."
+                        {(dataLoading) ? <Spinner />
                         : 
                         ( 
                             (search !== "" && searchedPosts.length === 0) ? <NoResult searchQ = {search} />

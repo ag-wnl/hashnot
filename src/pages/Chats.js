@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import '../App.css';
 import Navbar from '../components/Navbar'
-import ChatPreview from '../components/ChatPreview';
 import 'stream-chat-react/dist/css/index.css'
 import '../components/component.css';
 import { makeRequest } from '../axios';
 import { useQuery } from 'react-query';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import RequestPreview from '../components/RequestPreview';
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Avatar, Button, Input, Textarea } from '@chakra-ui/react';
 import { AuthContext } from '../context/authContext';
@@ -14,32 +13,35 @@ import moment from 'moment';
 import axios from 'axios';
 
 
+
 function ChatMessageBox({ messageContent }) {
+    const navigate = useNavigate();
     const timeAgo = moment(messageContent.createdAt).fromNow();
+   
     return (
         <div class = 'chat-message-box'>
             <div style={{display:'flex', flexDirection:'row', gap:'10px', justifyContent:'space-between', alignItems:'center'}}>
 
-                <div style={{display:'flex', flexDirection:'row', gap:'10px', alignItems:'center'}}>
+                <div 
+                onClick={()=> navigate(`/profile/${messageContent.username}`)}
+                style={{display:'flex', flexDirection:'row', gap:'10px', alignItems:'center', cursor:'pointer'}}>
                     <Avatar size='sm' name={messageContent.name} src={messageContent.pfp} />
                     <span style={{fontWeight:'500', color:'#e0deff'}}>{messageContent.name}</span>
                 </div>
                 
                 <div>
-                    <span style={{fontSize:'12px'}}>{timeAgo}</span>
+                    <span style={{fontSize:'12px', marginRight:'10px', color:'grey'}}>{timeAgo}</span>
                 </div>
             </div>
-            <span>{messageContent.message}</span>
+            <span style={{marginLeft:'20px'}}>{messageContent.message}</span>
         </div>
     )
 }
 
 function Chats() {
-    const location = useLocation();
-    const chatData = location.state?.chatData;
-
     const { currentUser } = useContext(AuthContext);
     const userId = currentUser?.userId;
+    const navigate = useNavigate();
 
     const { isLoading: postRequestLoading , error, data: postRequestData } = useQuery({
         queryKey: ['userId', userId],
@@ -50,37 +52,24 @@ function Chats() {
     });
 
 
-    //send chat: 
-    // need : desc, userId , postId, url POST : http://localhost:8800/api/messages ?desc=&userId= &postId= 
-
-    // Handling Focused and Other message button Switch
-    const [showRequests, setshowRequests] = useState(true);
-    const [showMessages, setshowMessages] = useState(true);
     const [chatBoxMessages, setchatBoxMessages] = useState([]);
-    const [chattingWithUserId, setchattingWithUserId] = useState(null);
     const [chatBoxUserName, setchatBoxUserName] = useState("Explore Messages")
     const [currentUserPfp, setCurrentUserPfp] = useState();
-
-    const FocusedButtonClick = () => {
-        setshowMessages(false);
-        setshowRequests(true);
-    };
-    
-    const OthersButtonClick = () => {
-        setshowMessages(true);
-        setshowRequests(false);
-    };
+    const [chatBoxUserUsername, setChatBoxUserUsername] = useState();
+    const [typedMessage, setTypedMessage] = useState();
+    const [chattingWithUserId, setChattingWithUserId] = useState();
+    const [noMessagePreviewClicked, setNoMessagePreviewClicked] = useState(true);
 
     const handleRequestPreviewClick = async(message) => {
         //get information of user with whom we are chatting using message.userId:
-
         setchatBoxUserName(message.name);
         setCurrentUserPfp(message.pfp);
+        setChattingWithUserId(message.userId);
+        setChatBoxUserUsername(message.username);
+        setNoMessagePreviewClicked(false);
         
         axios.get(`http://localhost:8800/api/chats?firstUser=${userId}&secondUser=${message.userId}`)
         .then((response) => {
-            console.log(`first user : ${userId} and second user : ${message.userId}`)
-            console.log(response.data);
             setchatBoxMessages(response.data);
         })
         .catch((error) => {
@@ -88,6 +77,30 @@ function Chats() {
         });
     };
     
+    const handleSendMessage = async() => {
+        console.log(`Message data : ${typedMessage}`);
+
+        try {
+            axios.post(`http://localhost:8800/api/chats`, {
+            sendToUser : chattingWithUserId,
+            userId : userId,
+            message: typedMessage
+            }).then(() => {
+                setTypedMessage();
+                
+                axios.get(`http://localhost:8800/api/chats?firstUser=${userId}&secondUser=${chattingWithUserId}`)
+                .then((response) => {
+                    setchatBoxMessages(response.data);
+                })
+                .catch((error) => {
+                    console.error('Error fetching chat messages:', error);
+                });
+            })
+        } catch (error) {
+            console.log("Error : ", error);
+        }
+        
+    }
 
   return (
     <>
@@ -100,14 +113,7 @@ function Chats() {
                     <div style={{width:'90%'}}>
                         <Input size='sm' placeholder="Search messages"/>
                     </div>
-                    {/* <div class = 'chat-left-row'>
-                        <span onClick={FocusedButtonClick} class = 'text-hover-chat'>Requests</span>
-                        <span onClick={OthersButtonClick} class = 'text-hover-chat'>Others</span>
-                    </div> */}
-
-                    {/* This shows the previews of the chats */}
-
-                    {/* This shows the Request from posts posted by logged in user */}
+  
                     {!postRequestData ? (
                     <div style={{padding:'0px'}}>
                         <Alert
@@ -141,6 +147,7 @@ function Chats() {
                                     > 
 
                                         <RequestPreview
+                                        onClick
                                         name = {request.name}
                                         userId = {request.userId}
                                         username = {request.username}
@@ -157,23 +164,48 @@ function Chats() {
                 {/* This is the right section which by default opens most recent convo, its use is to view and chat with people you want to! */}
 
                 <div class = 'chat-section-right'>
-                    <div class = 'chat-rigth-head'>
-                        <Avatar size='sm' src={currentUserPfp} name={chatBoxUserName} />
-                        <span style={{paddingLeft:'20px', fontWeight:'500'}}> {chatBoxUserName} </span>
-                    </div>  
-
-                    {/* This area will show the text messages */}
-                    <div class = 'chat-message-show-container'>
-                        {chatBoxMessages &&  chatBoxMessages.map((message, index) => (
-                            // <div key = {index}> {message.text} </div>
-                            <ChatMessageBox key = { index } messageContent = { message } />
-                        ))}
+                    {(noMessagePreviewClicked)
+                    ?
+                    <div> 
+                        <div class = 'chat-rigth-head'>
+                        <span 
+                        style={{paddingLeft:'20px', fontWeight:'500', cursor:'pointer'}}> {chatBoxUserName} </span>
+                        </div>  
                     </div>
+                    :
+                    <div>
+                        <div class = 'chat-rigth-head'>
+                        <Avatar 
+                        style={{cursor:'pointer'}}
+                        onClick={()=> navigate(`/profile/${chatBoxUserUsername}`)}
+                        size='sm' src={currentUserPfp} name={chatBoxUserName} />
+ 
+                        <span 
+                        onClick={()=> navigate(`/profile/${chatBoxUserUsername}`)}
+                        style={{paddingLeft:'20px', fontWeight:'500', cursor:'pointer'}}> {chatBoxUserName} </span>
+                        </div>  
 
-                    <div class = 'chat-input-box'>
-                        <Textarea class = 'chat-input-area' placeholder='Type message' />
-                        <Button>Send</Button>
+                        {/* This area will show the text messages */}
+                        <div class = 'chat-message-show-container'>
+                            {chatBoxMessages &&  chatBoxMessages.map((message, index) => (
+                                // <div key = {index}> {message.text} </div>
+                                <ChatMessageBox key = { index } messageContent = { message } />
+                            ))}
+                        </div>
+
+                        <div class = 'chat-input-box'>
+                            <Textarea 
+                            onChange={(e) => setTypedMessage(e.target.value)}
+
+                            class = 'chat-input-area' placeholder='Type message' />
+                            
+                            <Button
+                            onClick={handleSendMessage}
+                            >Send</Button>
+                        </div>
                     </div>
+                    }
+                    
                 </div>
 
             </div>

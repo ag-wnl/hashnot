@@ -1,15 +1,12 @@
 import React from 'react'
 import '../components/component.css';
-import { useContext } from "react";
-import { AuthContext } from "../context/authContext";
 import { useQuery} from 'react-query'
 import { makeRequest } from "../axios"
 import HackathonCard from './HackathonCard';
-
+import { Spinner } from '@chakra-ui/react';
 
 
 function SidePosts() {
-
     const url = "https://devpost.com/api/hackathons/";
     const { isLoading: hackathonDataLoading, error, data } = useQuery(["hackathon", url], () =>
         makeRequest.get("/hackathon?url=" + url).then((res) => {
@@ -28,9 +25,11 @@ function SidePosts() {
 
                     <h3 style={{fontSize:"18px", paddingBottom:"10px", borderBottom:"1px solid #4750ad"}}>Explore Hackathons</h3>
 
-                    {/* Make sure all data loaded before mapping as useQuery is async  */}
+                   
                     {/* Hackathon Cards for right side view */}
-                    { !hackathonDataLoading && data &&
+                    { hackathonDataLoading ? <Spinner />
+                    : 
+                    data &&
                     (data.hackathons.map((hackathon, index) => (
                         
                         <HackathonCard

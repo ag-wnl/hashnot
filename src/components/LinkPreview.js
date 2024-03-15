@@ -21,8 +21,12 @@ function LinkPreview({url}) {
           <a 
           style = {{color:"wheat"}} 
           target = "_blank"
-          class = 'url-preview-container' href={data.query_url}>
+          rel="noreferrer"
+          class = 'url-preview-container' 
+          href={data.query_url}>
+            
             <img
+            alt = "Website Banner"
             style={{width:"100%"}}
             src = {data.image} />
 

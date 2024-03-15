@@ -24,8 +24,10 @@ function Home() {
                             <span>Find your dream team</span>
                             <span>and start building</span>    
                         </h1>
-                        <span class = 'banner-sub-text'>Find people trying to build things you would love to be a part of</span>
-                        <span class = 'banner-sub-text'>no boundaries when it comes to tech</span>
+                        <span class = 'banner-sub-text'>
+                            Find people trying to build things you would love to be a part of</span>
+                        <span class = 'banner-sub-text'>
+                            no boundaries when it comes to tech</span>
 
                         <button 
                         onClick={()=> navigate(`/register`)}
@@ -76,7 +78,7 @@ function Home() {
                 <div class = 'timeline-block'>
                     <div class = 'banner-column-sub-section'>
                         <div>
-                        <h1>There are always people looking for you!</h1>
+                            <h1>There are always people looking for you!</h1>
                         </div>
                         
                         <div>

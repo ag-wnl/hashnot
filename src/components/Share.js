@@ -161,6 +161,7 @@ function Share() {
                     <p style={{fontSize:'10px', color:'gray', fontWeight:'500'}}>*The more post options you fill out, the easier it is for users to find it!</p>
                             
                     <Button
+                    isDisabled = {(title === "" || title.length > 150 ) || (desc === "" || desc.length < 2 || desc.length > 240)}
                     onClick={handleClick}
                     >Share Post</Button>
 

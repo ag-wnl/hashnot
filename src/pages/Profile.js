@@ -10,7 +10,7 @@ import Posts from '../components/Posts';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Update from '../components/Update';
 import InvitesContainer from '../components/InvitesContainer';
-import { Avatar, Button, Tooltip } from '@chakra-ui/react'
+import { Avatar, Button, Spinner, Tooltip } from '@chakra-ui/react'
 import { getAuthHeader } from "../context/authHeader.js"
 import axios from 'axios';
 import { EditIcon, SettingsIcon } from '@chakra-ui/icons';
@@ -122,13 +122,10 @@ const Profile = () => {
     return (
         <>
             <Navbar />
-            {loadingState ? ('Loading User Profile...')    
+            {loadingState ? <div class = 'profile-page'><Spinner /></div>
             : (
                 profileData && userId &&
                 <div class = 'profile-page'>
-                    {/* <div class = 'profile-header'>
-                        <h2>Profile</h2>
-                    </div> */}
                     <div class = 'profile-cards-row'>
                         <div class = 'profile-card'>
                             <div class = 'profile-row'>                                
@@ -191,7 +188,7 @@ const Profile = () => {
                         <div class = 'other-utils'>
                             <h2 style={{fontWeight:'500'}}>Showcase</h2>
                             <div class = 'showcase'>
-                                #1 in Google Kickstart 2040, Won Facebook HackerCup
+                                {profileData.about}
                             </div>
                             <span style={{fontSize:'14px'}}><b>Skills: </b>C++, JavaScript, Data Science, Databases</span>
                             
@@ -205,9 +202,13 @@ const Profile = () => {
                                         {followButtonText}
                                     </Button>
                                 }
-        
-                                <Button 
-                                onClick={handleChatButtonClick}>Chat</Button>
+
+                                {
+                                    !currentUserOwnProfile && 
+                                    <Button 
+                                    onClick={handleChatButtonClick}>Chat</Button>
+                                }
+                                
                             </div>
                             
                         </div>
@@ -229,7 +230,7 @@ const Profile = () => {
                     
                     {
                         profileData && 
-                        <Posts userId = {profileData.id} />
+                        <Posts userId = {profileData.id} onlyShowCurrentUserPosts = {true} />
                     }
                     
                 </div>

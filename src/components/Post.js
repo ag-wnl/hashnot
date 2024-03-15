@@ -9,7 +9,7 @@ import Messages from './Messages';
 import userimg from "../imgs/user.png"
 import { Link } from 'react-router-dom';
 import LinkPreview from './LinkPreview';
-import { Button } from '@chakra-ui/react';
+import { Button, Spinner } from '@chakra-ui/react';
 const extractUrls = require("extract-urls");
 
 function Post({ post }) {
@@ -160,7 +160,7 @@ function Post({ post }) {
                     >Chat</Button>
     
                     {/* Upvote Icon */}
-                    {isLoading ? ('Loading...') 
+                    {isLoading ? <Spinner />
                     : data.includes(currentUser.userId) ? (
                         <svg 
                         onClick={handleVote}
@@ -221,7 +221,7 @@ function Post({ post }) {
 
                 {/* This is the chat section of the post */}
                 {
-                    chat && <Messages postId={post.id} postOwnerId={post.userId} /> 
+                    chat && <Messages postId={post.id} postOwnerId={post.userId} postTitle={post.title} /> 
                 }
             </div>
         </div>
