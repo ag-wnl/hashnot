@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import '../components/component.css';
 import { useMutation, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
-import { Box, CloseButton, Input, InputGroup, InputLeftElement, List, ListItem, Tag, TagCloseButton } from '@chakra-ui/react';
+import { Box, Input, InputGroup, InputLeftElement, List, ListItem, Tag, TagCloseButton } from '@chakra-ui/react';
 import { AddIcon, CloseIcon } from '@chakra-ui/icons';
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
@@ -71,7 +71,13 @@ function Update({ setOpenUpdate, user }) {
 
     const handleClick = async (e) => {
         e.preventDefault();
-        mutation.mutate({ ...texts });
+
+        const updatedUser = {
+            ...texts,
+            skills: selectedSkills.map(skill => skill.id) // Extract skill names from selectedSkills
+        };
+
+        mutation.mutate(updatedUser);
         setOpenUpdate(false);
     }
 

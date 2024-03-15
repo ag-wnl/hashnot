@@ -10,13 +10,12 @@ import Posts from '../components/Posts';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Update from '../components/Update';
 import InvitesContainer from '../components/InvitesContainer';
-import { Avatar, Button, Spinner, Tooltip } from '@chakra-ui/react'
+import { Avatar, Button, Spinner, Tag, Tooltip } from '@chakra-ui/react'
 import { getAuthHeader } from "../context/authHeader.js"
 import axios from 'axios';
-import { EditIcon, SettingsIcon } from '@chakra-ui/icons';
+import { EditIcon } from '@chakra-ui/icons';
 
 const Profile = () => {
-    const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
     const { userName } = useParams();   
     const userId = currentUser?.userId;
@@ -30,6 +29,7 @@ const Profile = () => {
     const [currentUserOwnProfile, setCurrentUserOwnProfile] = useState(false);
     const [followingUser, setFollowingUser] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
+
 
     useEffect(() => {
         const fetchProfileData = async() => {
@@ -111,13 +111,6 @@ const Profile = () => {
         }
     };
 
-    const handleChatButtonClick = () => {
-        const chatData = {
-          userId : userId
-        };
-      
-        navigate(`/chats`, { state: { chatData } });
-      };
 
     return (
         <>
@@ -157,22 +150,28 @@ const Profile = () => {
                             
                             <div class = 'profile-links'>
                                 {(profileData.github) &&
-                                <Link 
+                                <a
+                                href={`${profileData.website}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 style={{color:"white"}}
-                                to='https://google.com/'>
+                                >
                                     <span style={{display:'flex', alignItems:'center', gap:'5px'}}>
                                     <img 
                                     alt = 'github'
                                     style={{width:'30px'}}
                                     src={git_img} />
                                     <b>Github: </b>{profileData.github}</span>
-                                </Link>
+                                </a>
                                 }
 
                                 {(profileData.website) &&
                                 <Link 
                                 style={{color:'white'}}
-                                to='https://google.com/'>
+                                to={profileData.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >
                                     <span  style={{display:'flex', alignItems:'center', gap:'5px'}}>
                                     <img
                                     alt = 'website'
@@ -190,8 +189,30 @@ const Profile = () => {
                             <div class = 'showcase'>
                                 {profileData.about}
                             </div>
-                            <span style={{fontSize:'14px'}}><b>Skills: </b>C++, JavaScript, Data Science, Databases</span>
                             
+                            <div>
+                                <div>
+                                    <span  style={{fontWeight:'500'}}>Skills</span>
+                                </div>
+
+                                <div>
+                                    {profileData.skills.length === 0 ? 
+                                        <Tag colorScheme='red'>No skills mentioned</Tag>
+                                    :
+                                    <div class='profile-skills-display'>
+                                        {
+                                            profileData.skills.map((skill, index) => (
+                                                <Tag colorScheme='cyan' key={index}>{skill}</Tag>
+                                            )) 
+                                        }
+                                    </div>                                                                       
+                                    }
+                                </div>
+
+                            </div>
+                            <div>
+                                
+                            </div>
                             <div class = 'profile-row'>
 
                                 {/* This is the follow/following button section" */}
@@ -201,12 +222,6 @@ const Profile = () => {
                                     onClick={handleFollow}>
                                         {followButtonText}
                                     </Button>
-                                }
-
-                                {
-                                    !currentUserOwnProfile && 
-                                    <Button 
-                                    onClick={handleChatButtonClick}>Chat</Button>
                                 }
                                 
                             </div>

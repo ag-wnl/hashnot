@@ -56,6 +56,11 @@ a {
   background-color: rgb(79, 131, 255);
 }
 
+.headings {
+  font-weight: 500;
+  font-size: 48px;
+}
+
 .login-bottom-text {
   font-weight: 500;
   font-size: 14px;
@@ -436,6 +441,11 @@ a {
   width: 110px;
 }
 
+.profile-skills-display {
+  display: flex;
+  gap: 10px;
+}
+
 .clear-filter-btn {
   border: none;
   font-size: 12px;
@@ -453,7 +463,7 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 100px;
+  padding: 100px 50px 100px 50px;
   gap: 10rem;
 }
 
@@ -536,6 +546,7 @@ a {
   flex-direction: row;
   align-items: center;
 }
+
 
 .chat-rigth-head:hover {
   background-color: #18191f;

@@ -5,7 +5,8 @@ import Footer from "../components/Footer";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-
+import userProfileGraphic from "../imgs/userProfileGraphic.png"
+import explorePostGraphic from "../imgs/postsGraphic.png"
 
 function Home() {
 
@@ -78,11 +79,11 @@ function Home() {
                 <div class = 'timeline-block'>
                     <div class = 'banner-column-sub-section'>
                         <div>
-                            <h1>There are always people looking for you!</h1>
+                            <span class = 'headings'>Find amazing people</span>
                         </div>
                         
                         <div>
-                        <span style={{fontSize:'20px'}}>There are people looking for exactly someone like you to join them and work on amazing projects</span>
+                            <span style={{fontSize:'18px', color:'grey'}}>Discover talented individuals to team up with and build something amazin</span>
                         </div>
                         
                         <div>
@@ -93,8 +94,31 @@ function Home() {
                         
                     </div>
                     <div>
-                        [TimeLine goes here]
+                        <img width='500px' src={userProfileGraphic} />
                     </div>
+                </div>
+
+                <div class = 'timeline-block'>
+                    <div>
+                        <img width='500px' src={userProfileGraphic} />
+                    </div>
+                    <div class = 'banner-column-sub-section'>
+                        <div>
+                            <span class = 'headings'>Find amazing people</span>
+                        </div>
+                        
+                        <div>
+                            <span style={{fontSize:'18px', color:'grey'}}>Discover talented individuals to team up with and build something amazin</span>
+                        </div>
+                        
+                        <div>
+                        <button 
+                        onClick={()=> navigate(`/explore`)}
+                        class='banner-btn'>Start exploring</button>
+                        </div>
+                        
+                    </div>
+                    
                 </div>
 
                 <Footer />

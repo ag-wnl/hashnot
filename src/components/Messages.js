@@ -4,8 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import userimg from "../imgs/user.png"
 import send_dm from "../imgs/send_msg.svg"
-import MessageBox from './MessageBox';
-import { Alert, AlertIcon, Button, Input, Spinner } from '@chakra-ui/react';
+import { Alert, AlertIcon, Button, Input    } from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 

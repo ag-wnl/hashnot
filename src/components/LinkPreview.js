@@ -1,8 +1,6 @@
 import React from 'react'
 import '../components/component.css';
-import { useContext } from "react";
-import { AuthContext } from "../context/authContext";
-import { useQuery, useQueryClient, useMutation } from 'react-query'
+import { useQuery, } from 'react-query'
 import { makeRequest } from "../axios"
 
 function LinkPreview({url}) {
