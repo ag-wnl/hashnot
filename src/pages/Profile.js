@@ -130,7 +130,11 @@ const Profile = () => {
                                 name="Display Picture"
                                 src={userimg} />}
                                 
-                                <h2 style={{fontWeight:'500'}}>@{profileData.username}</h2>
+                                <div style={{display:'flex', flexDirection:'column', gap:'5px'}}>
+                                    <h2 style={{fontWeight:'500'}}>{profileData.name}</h2>
+                                    <span style={{color:'grey', fontSize:'16px', fontWeight:'500'}}>@{profileData.username}</span>
+                                </div>
+                                
                                 
                                 {/* Edit or Update Profile */}
                                 {(currentUserOwnProfile)
@@ -141,9 +145,6 @@ const Profile = () => {
                                         size='sm' onClick={()=>setOpenUpdate(!openUpdate)} />
                                     </Tooltip>
                                     )}
-                            </div>
-                            <div class = 'profile-row'>
-                                <span style={{fontWeight:'500'}}>{profileData.name}</span>
                             </div>
                             
                             {(profileData.about) && <span>{profileData.about}</span>}
@@ -185,11 +186,7 @@ const Profile = () => {
                         
                         {/* right side of the page */}
                         <div class = 'other-utils'>
-                            <h2 style={{fontWeight:'500'}}>Showcase</h2>
-                            <div class = 'showcase'>
-                                {profileData.about}
-                            </div>
-                            
+
                             <div>
                                 <div>
                                     <span  style={{fontWeight:'500'}}>Skills</span>

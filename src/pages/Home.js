@@ -83,7 +83,7 @@ function Home() {
                         </div>
                         
                         <div>
-                            <span style={{fontSize:'18px', color:'grey'}}>Discover talented individuals to team up with and build something amazin</span>
+                            <span style={{fontSize:'18px', color:'grey'}}>Discover talented individuals to team up with and build something wonderful</span>
                         </div>
                         
                         <div>
@@ -108,7 +108,7 @@ function Home() {
                         </div>
                         
                         <div>
-                            <span style={{fontSize:'18px', color:'grey'}}>Discover talented individuals to team up with and build something amazin</span>
+                            <span style={{fontSize:'18px', color:'grey'}}>Discover talented individuals to team up with and build something wonderful</span>
                         </div>
                         
                         <div>

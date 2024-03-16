@@ -7,7 +7,7 @@ import { makeRequest } from '../axios';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import RequestPreview from '../components/RequestPreview';
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Avatar, Button, Input, Textarea } from '@chakra-ui/react';
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Avatar, Button, Input, Spinner, Textarea } from '@chakra-ui/react';
 import { AuthContext } from '../context/authContext';
 import moment from 'moment';
 import axios from 'axios';
@@ -59,6 +59,7 @@ function Chats() {
     const [typedMessage, setTypedMessage] = useState();
     const [chattingWithUserId, setChattingWithUserId] = useState();
     const [noMessagePreviewClicked, setNoMessagePreviewClicked] = useState(true);
+    const [chatIsLoading, setChatIsLoading] = useState(false);
 
     const handleRequestPreviewClick = async(message) => {
         //get information of user with whom we are chatting using message.userId:
@@ -67,10 +68,14 @@ function Chats() {
         setChattingWithUserId(message.userId);
         setChatBoxUserUsername(message.username);
         setNoMessagePreviewClicked(false);
+
+        setChatIsLoading(true);
         
         axios.get(`http://localhost:8800/api/chats?firstUser=${userId}&secondUser=${message.userId}`)
         .then((response) => {
             setchatBoxMessages(response.data);
+            console.log(chatBoxMessages);
+            setChatIsLoading(false);
         })
         .catch((error) => {
             console.error('Error fetching chat messages:', error);
@@ -164,25 +169,27 @@ function Chats() {
                 {/* This is the right section which by default opens most recent convo, its use is to view and chat with people you want to! */}
 
                 <div class = 'chat-section-right'>
-                    {(noMessagePreviewClicked)
+                    {chatIsLoading ? <Spinner /> 
+                    :
+                    (noMessagePreviewClicked)
                     ?
                     <div> 
                         <div class = 'chat-rigth-head'>
                         <span 
-                        style={{paddingLeft:'20px', fontWeight:'500', cursor:'pointer'}}> {chatBoxUserName} </span>
+                        style={{paddingLeft:'10px', fontWeight:'500', cursor:'pointer'}}> {chatBoxUserName} </span>
                         </div>  
                     </div>
                     :
                     <div>
                         <div class = 'chat-rigth-head'>
-                        <Avatar 
-                        style={{cursor:'pointer'}}
-                        onClick={()=> navigate(`/profile/${chatBoxUserUsername}`)}
-                        size='sm' src={currentUserPfp} name={chatBoxUserName} />
- 
-                        <span 
-                        onClick={()=> navigate(`/profile/${chatBoxUserUsername}`)}
-                        style={{paddingLeft:'20px', fontWeight:'500', cursor:'pointer'}}> {chatBoxUserName} </span>
+                            <Avatar 
+                            style={{cursor:'pointer'}}
+                            onClick={()=> navigate(`/profile/${chatBoxUserUsername}`)}
+                            size='sm' src={currentUserPfp} name={chatBoxUserName} />
+    
+                            <span 
+                            onClick={()=> navigate(`/profile/${chatBoxUserUsername}`)}
+                            style={{paddingLeft:'10px', fontWeight:'500', cursor:'pointer'}}> {chatBoxUserName} </span>
                         </div>  
 
                         {/* This area will show the text messages */}
@@ -194,18 +201,19 @@ function Chats() {
                         </div>
 
                         <div class = 'chat-input-box'>
-                            <Textarea 
-                            onChange={(e) => setTypedMessage(e.target.value)}
+                            <div style={{width:'100%'}}>
+                                <Textarea 
+                                onChange={(e) => setTypedMessage(e.target.value)}
+                                class = 'chat-input-area' placeholder='Type message' />
+                            </div>
 
-                            class = 'chat-input-area' placeholder='Type message' />
+                            <div>
+                                <Button onClick={handleSendMessage}>Send</Button>
+                            </div>
                             
-                            <Button
-                            onClick={handleSendMessage}
-                            >Send</Button>
                         </div>
                     </div>
-                    }
-                    
+                    }                   
                 </div>
 
             </div>

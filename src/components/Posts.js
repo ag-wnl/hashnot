@@ -30,13 +30,16 @@ const Posts = ({userId, onlyShowCurrentUserPosts, searchQuery, sorted, aim, doma
     
   return (
     <>
-      {error
-        ? "Something went wrong!"
-        : isLoading
-        ? <Spinner />
-        // Note that here we could use post.id as unique index but somehow it shows 2 elements have same key in map so using default indexing
-        : ( data.length > 0 ? (data.map((post, index) => <Post post={post}  key={index} />)) : <NoResult /> )
-      }
+      <div class = 'posts-parent-container'>
+        {error
+          ? "Something went wrong!"
+          : isLoading
+          ? <div><Spinner /></div>
+          // Note that here we could use post.id as unique index but somehow it shows 2 elements have same key in map so using default indexing
+          : ( data.length > 0 ? (data.map((post, index) => <Post post={post}  key={index} />)) : <NoResult /> )
+        }
+      </div>
+      
     </>
   )
 };

@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import '../components/component.css';
 import { useMutation, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
-import { Box, Input, InputGroup, InputLeftElement, List, ListItem, Tag, TagCloseButton } from '@chakra-ui/react';
+import { Box, Button, Input, InputGroup, InputLeftElement, List, ListItem, Tag, TagCloseButton } from '@chakra-ui/react';
 import { AddIcon, CloseIcon } from '@chakra-ui/icons';
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
+import ImageUploading from 'react-images-uploading';
+
 
 // This is a component which is used in profile section and acts as a form 
 // to update user profile
@@ -17,15 +19,20 @@ function Update({ setOpenUpdate, user }) {
     const [filteredSkills, setFilteredSkills] = useState([]);
     const [skillsInputValue, setSkillsInputValue] = useState('');
     const [selectedSkills, setSelectedSkills] = useState([]);
-
+    const [profilePicture, setProfilePicture] = useState([]);
+ 
     const [texts, setTexts] = useState({
-        pfp: "",
         name: "",
         about: "",
         github: "",
         website: "",
         userId: userId
     })
+
+    const handleImageChangeStuff = (imageToUpload) => {
+        setProfilePicture(imageToUpload);
+        console.log(imageToUpload);
+    } 
 
     const handleSkillInputChange = (e) => {
         const value = e.target.value;
@@ -74,11 +81,18 @@ function Update({ setOpenUpdate, user }) {
 
         const updatedUser = {
             ...texts,
-            skills: selectedSkills.map(skill => skill.id) // Extract skill names from selectedSkills
+            skills: selectedSkills.map(skill => skill.id),  // Extract skill names from selectedSkills
+            pfp: profilePicture[0] ? profilePicture[0].data_url : null
         };
 
-        mutation.mutate(updatedUser);
-        setOpenUpdate(false);
+        try {
+            await mutation.mutate(updatedUser);
+            setOpenUpdate(false);
+            window.location.reload();
+        }catch(err) {
+            console.log(err);
+        }
+        
     }
 
     useEffect(() => {
@@ -170,6 +184,49 @@ function Update({ setOpenUpdate, user }) {
                     </div>
                 </form>
 
+                <div style={{margin:'40px 0px 40px 0px'}}>
+                    <ImageUploading
+                        value={profilePicture}
+                        onChange={handleImageChangeStuff}
+                        maxNumber={1}
+                        dataURLKey="data_url"
+                    >
+                        {({
+                        imageToUpload,
+                        onImageUpload,
+                        onImageRemoveAll,
+                        onImageUpdate,
+                        onImageRemove,
+                        isDragging,
+                        dragProps,
+                        }) => (
+                        // write your building UI
+                        <div className="upload__image-wrapper">
+                            
+                            <Button
+                            colorScheme='blue'
+                            // box-shadow: 0px 0px 22px 1px rgba(96,119,212,1);
+                            style={isDragging ? { color: 'blue', boxShadow:'0px 0px 22px 1px rgba(96,119,212,1)' } : undefined}
+                            onClick={onImageUpload}
+                            {...dragProps}
+                            >
+                            Click or Drop here
+                            </Button>
+                            &nbsp;
+                            <Button colorScheme='red' onClick={onImageRemoveAll}>Remove image</Button>
+                            {profilePicture.map((image, index) => (
+                                <div key={index} className="image-item">
+                                    <img src={image['data_url']} alt="" width="100" />
+                                    <div className="image-item__btn-wrapper">
+                                    <button onClick={() => onImageUpdate(index)}>Update</button>
+                                    <button onClick={() => onImageRemove(index)}>Remove</button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        )}
+                    </ImageUploading>
+                </div>
 
                 <button 
                     onClick={handleClick}

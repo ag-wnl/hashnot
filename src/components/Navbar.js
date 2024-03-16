@@ -32,6 +32,18 @@ function Navbar() {
         btn_text = currentUser.username
     }
 
+
+    const {logout} = useContext(AuthContext);
+    
+    const handleLogout = async() => {
+        try{
+            await logout();
+            navigate("/")
+        }catch(err) {
+            console.log('error: ', err);
+        }
+    }
+
     return (
             <>
                 <div class = 'navbar'>
@@ -56,12 +68,12 @@ function Navbar() {
                             <MenuList>
                                 <MenuItem 
                                 icon={<ExternalLinkIcon />}
-                                command='⌘T'
                                 onClick={currentUser ? ()=> navigate(`/profile/${currentUser.username}`) :  ()=>navigate("/login")}
-                                >Profile</MenuItem>
+                                >{currentUser ? "Profile" : "Sign In"}</MenuItem>
 
                                 <MenuItem
                                 icon = {<UnlockIcon />}
+                                onClick={handleLogout}
                                 >Logout</MenuItem>
                             </MenuList>
                         </Menu>
@@ -113,6 +125,7 @@ function Navbar() {
 
                                             <MenuItem
                                             icon = {<UnlockIcon />}
+                                            onClick={handleLogout}
                                             >Logout</MenuItem>
                                         </MenuList>
                                     </Menu>

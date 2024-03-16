@@ -1,12 +1,12 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState();
   const [token, setToken] = useState(localStorage.getItem('token'));
 
   const auth = getAuth(); // Firebase auth instance
@@ -64,10 +64,18 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem('token'); 
-    setToken(null);
-    setCurrentUser(null);
+  const logout = async() => {
+    try {
+      signOut(auth).then(() => {
+        localStorage.removeItem('token'); 
+        localStorage.removeItem('firebaseUser');
+        setToken(null);
+        setCurrentUser(null);
+      })
+    } catch (err) {
+      console.error("Firebase Logout Error:", err);
+    }
+
   }
 
   useEffect(() => {
@@ -92,7 +100,7 @@ export const AuthContextProvider = ({ children }) => {
   // Adding tokens to request headers to verify user:
   axios.interceptors.request.use(
     config => {
-      if (token) {
+      if (token) {  
         config.headers.Authorization = `Bearer ${token}`;
       }
       return config;

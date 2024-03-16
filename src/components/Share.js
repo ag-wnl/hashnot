@@ -124,42 +124,43 @@ function Share() {
                     </div>
 
                     {/* domain selection: */}
-                    <div style={{display:'flex', flexDirection:'row', alignItems:'center', gap:'1rem',fontSize:'14px'}}>
-                        <p style={{fontWeight:'500'}}>Select Skill Domain</p>
-                        <select name="sort" id="sort" onChange={(e) => handleDomainSelect(e.target.value)}>
-                                        <option selected="selected" disabled>No Selection</option>
-                                        <option value="web-development">Web Development</option>
-                                        <option value="machine-learning">Machine Learning</option>
-                                        <option value="mobile-app-dev">Mobile App Development</option>
-                                        <option value="devops">DevOps</option>
-                                        <option value="database-mgmt">Database Management</option>
-                                        <option value="data-science">Data Science</option>
-                                        <option value="cloud-computing">Cloud Computing</option>
-                                        <option value="cybersecurity">Cybersecurity</option>
-                                        <option value="blockchain-dev">Blockchain Development</option>
-                                        <option value="game-dev">Game Development</option>
-                                        <option value="fintech">FinTech</option>
-                                        <option value="bioinformatics">Bioinformatics</option>
-                        </select>
+                    <div>
+                        <div style={{display:'flex', flexDirection:'row', alignContent:'center', gap:'1rem',fontSize:'14px'}}>
+                            <p style={{fontWeight:'500'}}>Select Skill Domain</p>
+                            <select name="sort" id="sort" onChange={(e) => handleDomainSelect(e.target.value)}>
+                                            <option selected="selected" disabled>No Selection</option>
+                                            <option value="web-development">Web Development</option>
+                                            <option value="machine-learning">Machine Learning</option>
+                                            <option value="mobile-app-dev">Mobile App Development</option>
+                                            <option value="devops">DevOps</option>
+                                            <option value="database-mgmt">Database Management</option>
+                                            <option value="data-science">Data Science</option>
+                                            <option value="cloud-computing">Cloud Computing</option>
+                                            <option value="cybersecurity">Cybersecurity</option>
+                                            <option value="blockchain-dev">Blockchain Development</option>
+                                            <option value="game-dev">Game Development</option>
+                                            <option value="fintech">FinTech</option>
+                                            <option value="bioinformatics">Bioinformatics</option>
+                            </select>
 
-                        {/* show domains selected */}
-                        <div class = 'skill-select-show'>
-                            {domains.map((domain, index) => (
-                                <span key={index}
-                                title='Remove'
-                                onClick={() => handleDomainClick(domain)}
-                                className="selected-skill">
-                                {domain}
-                                </span>
-                            ))}
+                            {/* show domains selected */}
+                            <div class = 'skill-select-show'>
+                                {domains.map((domain, index) => (
+                                    <span key={index}
+                                    title='Remove'
+                                    onClick={() => handleDomainClick(domain)}
+                                    className="selected-skill">
+                                    {domain}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
                     </div>
+                    
                         
                 </div>
 
-                <div class = 'share-bottom-bar'>
-                    <p style={{fontSize:'10px', color:'gray', fontWeight:'500'}}>*The more post options you fill out, the easier it is for users to find it!</p>
-                            
+                <div>
                     <Button
                     isDisabled = {(title === "" || title.length > 150 ) || (desc === "" || desc.length < 2 || desc.length > 240)}
                     onClick={handleClick}
