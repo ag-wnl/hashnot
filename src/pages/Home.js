@@ -6,7 +6,9 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import userProfileGraphic from "../imgs/userProfileGraphic.png"
+import codingAlone from "../imgs/codingAlone.png"
 import explorePostGraphic from "../imgs/postsGraphic.png"
+import explorePagePhoneGraphic from "../imgs/phone-mockup.png"
 
 function Home() {
 
@@ -23,13 +25,10 @@ function Home() {
                     <div class = 'banner'>
                         <h1 class = 'banner-main-text'>
                             <span>Find your dream team</span>
-                            <span>and start building</span>    
+                            <span>make magic happen</span>    
                         </h1>
                         <span class = 'banner-sub-text'>
-                            Find people trying to build things you would love to be a part of</span>
-                        <span class = 'banner-sub-text'>
-                            no boundaries when it comes to tech</span>
-
+                            Discover talented teams and passionate individuals, no boundaries when it comes to tech</span>
                         <button 
                         onClick={()=> navigate(`/register`)}
                         class = 'banner-btn'>Get Started</button>
@@ -40,42 +39,6 @@ function Home() {
                 </div>
                 
 
-                <div class = 'section-below-banner'>
-                    <div 
-                    onClick={()=> navigate(`/register`)}
-                    class = 'sq-box'>
-                        <span style={{fontSize:'20px'}}><strong>Start the Journey</strong></span>
-                        <span class = 'banner-sub-text-box'>Discover people who are looking for exactly someone like you</span>
-                        <span class = 'go-btn'>
-                            Let's Start!
-                            <img src = {open_lnk} alt = "banner"/>
-                        </span>
-                    </div>
-
-                    <div 
-                    onClick={()=> navigate(`/explore`)}
-                    class = 'sq-box'>
-                        <span style={{fontSize:'20px'}}><strong>Find the Team</strong></span>
-                        <span class = 'banner-sub-text-box'>Filter out posts to see exactly what you want and send a request!</span>
-                        <span class = 'go-btn'>
-                            Let's Explore!
-                            <img src = {open_lnk}/>
-                        </span>
-                    </div>
-
-                    <div 
-                    onClick={()=> navigate(`/about`)}
-                    class = 'sq-box'>
-                        <span style={{fontSize:'20px'}}><strong>Become a Part</strong></span>
-                        <span class = 'banner-sub-text-box'>Send request to join a team and chat with the Original Poster!</span>
-                        <span class = 'go-btn'>
-                            Let's Go!
-                            <img src = {open_lnk}/>
-                        </span>
-                    </div>
-                    
-                </div>
-
                 <div class = 'timeline-block'>
                     <div class = 'banner-column-sub-section'>
                         <div>
@@ -83,7 +46,9 @@ function Home() {
                         </div>
                         
                         <div>
-                            <span style={{fontSize:'18px', color:'grey'}}>Discover talented individuals to team up with and build something wonderful</span>
+                            <span style={{fontSize:'18px', color:'grey'}}>
+                            Looking to shake things up and collaborate with some awesome peeps? Find awesome folks who share your passion and drive.
+                            </span>
                         </div>
                         
                         <div>
@@ -94,21 +59,26 @@ function Home() {
                         
                     </div>
                     <div>
-                        <img width='500px' src={userProfileGraphic} />
+                        <img class = 'home-show-images' src={userProfileGraphic} />
                     </div>
                 </div>
 
+
                 <div class = 'timeline-block'>
+                    
                     <div>
-                        <img width='500px' src={userProfileGraphic} />
+                        <img class='home-show-images' src={explorePagePhoneGraphic} />
                     </div>
                     <div class = 'banner-column-sub-section'>
                         <div>
-                            <span class = 'headings'>Find amazing people</span>
+                            <span class = 'headings'>Sick of flying solo? </span>
                         </div>
                         
                         <div>
-                            <span style={{fontSize:'18px', color:'grey'}}>Discover talented individuals to team up with and build something wonderful</span>
+                            <span style={{fontSize:'18px', color:'grey'}}>
+                            Join the party and connect with fellow creatives, techies, and dreamers. 
+                            You'll make connections, swap ideas, and crush it together!
+                            </span>
                         </div>
                         
                         <div>
@@ -121,10 +91,31 @@ function Home() {
                     
                 </div>
 
-                <Footer />
-                
+
+                <div class = 'timeline-block'>
+                    <div class = 'banner-column-sub-section'>
+                        <div>
+                            <span class = 'headings'>Ready to get in on the fun?</span>
+                        </div>
+                        
+                        <div>
+                            <span style={{fontSize:'18px', color:'grey'}}>Dive in and start mingling with potential teammates. Make some memories and build something awesome together!</span>
+                        </div>
+                        
+                        <div>
+                        <button 
+                        onClick={()=> navigate(`/explore`)}
+                        class='banner-btn'>Start exploring</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <img class = 'home-show-images' style={{borderRadius:'35px'}} src={codingAlone} />
+                    </div>
+                    
+                </div>                
             </div>
-        
+            <Footer />
         </>
 
     );

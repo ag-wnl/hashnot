@@ -48,14 +48,14 @@ function Navbar() {
             <>
                 <div class = 'navbar'>
                     
-                    <div><Link to="/home" class = 'link-react' style={{fontSize:"26px"}}>hashnot</Link></div>
+                    <div><Link to="/home" style={{fontSize:"26px", fontWeight:'700'}}>stoira</Link></div>
                     
                     {
                         !isMobile 
                         ? 
                         <ul class = 'nav-right'>
                         <li><Link to="/about" class = 'link-react'>About</Link></li>
-                        <li>FAQ</li>
+                        <li><Link to="/about" class = 'link-react'>FAQ</Link></li>
                         <li><Link to="/explore" class = 'link-react'>Explore</Link></li>                    
 
 

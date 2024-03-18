@@ -1,66 +1,83 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useContext, useState } from "react";
 import '../components/component.css';
 import { AuthContext } from "../context/authContext";
 import userimg from "../imgs/user.png"
-import { useMutation, useQueryClient } from 'react-query';
-import { makeRequest } from "../axios";
-import { Avatar, Button, Input, Textarea } from '@chakra-ui/react';
+import { Avatar, Box, Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, InputGroup, InputLeftElement, List, ListItem, Menu, MenuButton, MenuItem, MenuList, Tag, TagCloseButton, Textarea } from '@chakra-ui/react';
+import axios from 'axios';
+import { AddIcon, ChevronDownIcon } from '@chakra-ui/icons';
 
 function Share() {
     const { currentUser } = useContext(AuthContext);
-    const queryClient = useQueryClient();
     const userId = currentUser?.userId;
 
+
+    const [notification, setNotification] = useState();
     const [title, setTitle] = useState("")
     const [desc, setDesc] = useState("")
-    const [skills, setSkills] = useState("")
     const [sliderValue, setSliderValue] = useState(1);
     const [objective, setObjective] = useState("");
-    const [domains, setDomains] = useState([]);
-    let domainString = domains.join(',');
-    console.log(domainString);
+    
+    const [skillsData, setSkillsData] = useState();
+    const [filteredSkills, setFilteredSkills] = useState([]);
+    const [skillsInputValue, setSkillsInputValue] = useState('');
+    const [selectedSkills, setSelectedSkills] = useState([]);
+
+
+    const isErrorTitle = title === ''
 
     const handleSliderChange = (e) => {
         setSliderValue(e.target.value);
     };
 
-    const handleObjectiveChange = (e) => {
-        setObjective(e.target.value);
-    }
+    useEffect(() => {
+        axios.get(`http://localhost:8800/api/skills`)
+        .then((response) => {
+            setSkillsData(response.data);
+        })
+    }, [])
 
-    const handleDomainSelect = (selectedDomain) => {
-        // Check if the selectedSkill is not already in the skills array
-        if (!domains.includes(selectedDomain)) {
-          // Add the selectedSkill to the skills array
-          setDomains([...domains, selectedDomain]);
-        }
+    const handleSkillInputChange = (e) => {
+        const value = e.target.value;
+        setSkillsInputValue(value);
+    
+        // Filter skills data based on input value
+        const filtered = skillsData.filter(skill =>
+          skill.skill.toLowerCase().includes(value.toLowerCase())
+        );
+        setFilteredSkills(filtered);
     };
 
-    const handleDomainClick = (clickedDomain) => {
-        // Filter out the clicked skill and update the skills array
-        const updatedDomains = domains.filter((domain) => domain !== clickedDomain);
-        setDomains(updatedDomains);
+    const handleSkillClick = (skill) => {
+        // Append the clicked skill to the selectedSkills list
+        setSelectedSkills(prev => [...prev, { id: skill.id, skill: skill.skill }]);
+        setSkillsInputValue(''); // Clear the input value after selection
     };
 
-    const mutation = useMutation(
-        (newPost) => {
-          return makeRequest.post("/posts", newPost);
-        },
-        {
-          onSuccess: () => {
-            // Invalidate and refetch
-            queryClient.invalidateQueries(["posts"]);
-          },
-        }
-    );
+    const handleRemoveSkill = (skillId) => {
+        // Remove the skill from the selectedSkills list
+        setSelectedSkills(prev => prev.filter(skill => skill.id !== skillId));
+    };
 
     const handleClick = e => {
-        e.preventDefault()
-        mutation.mutate({title, desc, skills, sliderValue, objective, domainString, userId})
+        const PostData = {
+            title, desc, sliderValue, objective, userId,
+            skills: selectedSkills.map(skill => skill.id)  // Extract skill names from selectedSkills
+        };
+
+        console.log(PostData);
+
+        try {
+            axios.post('http://localhost:8800/api/posts', PostData).then(() => {
+                setNotification('success');
+            })
+        } catch (error) {
+            setNotification('failed');
+            console.log('Error: ', error);
+        }
     }
 
-    var user_pfp = userimg;
+    let user_pfp = userimg;
     if(currentUser.pfp) {
         user_pfp = currentUser.pfp;
     }
@@ -74,31 +91,36 @@ function Share() {
                 </div>
                 
                 <div class = 'post-inp-area'>
-                    <Input
-                    class = 'create-post-title'
-                    type="text"
-                    placeholder={`Type your amazing post Title here!`}
-                    onChange={(e) => setTitle(e.target.value)}
-                    // value={desc}
-                    />
-                    <Textarea 
-                    rows="5" 
-                    class = 'create-post-desc'
-                    type="text"
-                    placeholder={`The Post description goes here! You can also add relevant links in here.`}
-                    onChange={(e) => setDesc(e.target.value)}
-                    // value={desc}
-                    />
 
-                    
-                    <Input
-                        class = 'create-post-skills'
-                        type="text"
-                        placeholder={`Mention desired skills, seperated by ,`}
-                        onChange={(e) => setSkills(e.target.value)}
-                    />
+                    {/* Title of the post */}
+                    <FormControl isInvalid={isErrorTitle}>
+                        <FormLabel>Title</FormLabel>
+                        <Input 
+                        onChange={(e) => setTitle(e.target.value)}  
+                        value={title} 
+                        type='title' />
+                        {!isErrorTitle ? (
+                            <FormHelperText>
+                                This will be shown as heading of the post
+                            </FormHelperText>
+                        ) : (
+                            <FormErrorMessage>Email is required.</FormErrorMessage>
+                        )}
+                    </FormControl>
+
+                    {/* Post description */}
+                    <FormControl isRequired>
+                        <FormLabel>Text</FormLabel>
+                        <Textarea    
+                        onChange={(e) => setDesc(e.target.value)}
+                        value={desc} 
+                        type='text-description' />
+                    </FormControl>
+
 
                     <div class = 'inp-row'>
+
+                        {/* Required member count slider */}
                         <div class = 'req-members-cnt'>
                             <span style={{fontWeight:'500'}}>Required Members</span>
                             <input 
@@ -111,53 +133,68 @@ function Share() {
                             <span className="slider-value">{sliderValue}</span>
                         </div>
 
-                        <div class = 'obj-type-inp'>
-                            <span style={{fontWeight:'500'}}>Objective</span>
-                            <form>                                
-                                <select name="sort" id="sort" value={objective} onChange={handleObjectiveChange}>
-                                    <option class = 'sort-selection' >No Selection</option>
-                                    <option value="Hackathon">Hackathon</option>
-                                    <option value="Project">Project</option>
-                                </select>
-                            </form>
-                        </div>
+                        {/* Objective selection */}
+                        <Menu>
+                            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                                {objective ? objective : 'Objective'}
+                            </MenuButton>
+                            <MenuList>
+                                <MenuItem value="" onClick={(e) => setObjective(e.target.value)}>No Selection</MenuItem>
+                                <MenuItem value="Hackathon" onClick={(e) => setObjective(e.target.value)}>Hackathon</MenuItem>
+                                <MenuItem value="Project" onClick={(e) => setObjective(e.target.value)}>Project</MenuItem>
+                                <MenuItem value="Research" onClick={(e) => setObjective(e.target.value)}>Research</MenuItem>
+                            </MenuList>
+                        </Menu>
                     </div>
 
-                    {/* domain selection: */}
-                    <div>
-                        <div style={{display:'flex', flexDirection:'row', alignContent:'center', gap:'1rem',fontSize:'14px'}}>
-                            <p style={{fontWeight:'500'}}>Select Skill Domain</p>
-                            <select name="sort" id="sort" onChange={(e) => handleDomainSelect(e.target.value)}>
-                                            <option selected="selected" disabled>No Selection</option>
-                                            <option value="web-development">Web Development</option>
-                                            <option value="machine-learning">Machine Learning</option>
-                                            <option value="mobile-app-dev">Mobile App Development</option>
-                                            <option value="devops">DevOps</option>
-                                            <option value="database-mgmt">Database Management</option>
-                                            <option value="data-science">Data Science</option>
-                                            <option value="cloud-computing">Cloud Computing</option>
-                                            <option value="cybersecurity">Cybersecurity</option>
-                                            <option value="blockchain-dev">Blockchain Development</option>
-                                            <option value="game-dev">Game Development</option>
-                                            <option value="fintech">FinTech</option>
-                                            <option value="bioinformatics">Bioinformatics</option>
-                            </select>
+                    {/* Skill selection: */}
+                    <div class = "profile-update-fields">
+                        <span style={{fontWeight:'500'}}>Skills</span>
+                        <div class = 'skills-update'>
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                <AddIcon color='gray.300' />
+                                </InputLeftElement>
 
-                            {/* show domains selected */}
-                            <div class = 'skill-select-show'>
-                                {domains.map((domain, index) => (
-                                    <span key={index}
-                                    title='Remove'
-                                    onClick={() => handleDomainClick(domain)}
-                                    className="selected-skill">
-                                    {domain}
-                                    </span>
+                                <Input 
+                                size='md'
+                                placeholder="Start typing"
+                                onChange={handleSkillInputChange}
+                                value={skillsInputValue}
+                                />
+                            </InputGroup>                            
+                        </div>
+
+                        <div>
+                            {skillsInputValue && (
+                                <Box position="absolute" zIndex="1" bg='black'>
+                                    <List borderWidth="1px" borderRadius="md">
+                                        {filteredSkills.map(skill => (
+                                        <ListItem 
+                                        style={{cursor:'pointer'}}
+                                        zIndex="99"
+                                        onClick={() => handleSkillClick(skill)}
+                                        key={skill.id} p={2} _hover={{ bg: "gray.700" }}>
+                                            {skill.skill}
+                                        </ListItem>
+                                        ))}
+                                    </List>
+                                </Box>
+                            )}
+                        </div>
+
+                        <div>
+                            {/* Display selected skills */}
+                            <div class = 'selected-skills'>
+                                {selectedSkills.map(skill => (
+                                    <Tag key={skill.id}>
+                                        <span>{skill.skill}</span>
+                                        <TagCloseButton onClick={() => handleRemoveSkill(skill.id)} />
+                                    </Tag>
                                 ))}
                             </div>
                         </div>
                     </div>
-                    
-                        
                 </div>
 
                 <div>

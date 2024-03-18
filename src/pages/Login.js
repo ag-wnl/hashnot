@@ -38,7 +38,7 @@ function Login() {
         <>
             <Navbar />
             <div class = 'login-head'>
-                <h1 style={{fontWeight:'700'}}>Welcome Back!</h1>
+                <h1 class = 'signin-page-heading' style={{fontWeight:'700'}}>Welcome Back!</h1>
 
                 <form class = 'register-card'>
                     <h3 style={{fontWeight:'500'}}>Log into your Account</h3>

@@ -5,8 +5,6 @@ import Posts from '../components/Posts';
 import Share from '../components/Share';
 import SidePosts from '../components/SidePosts';
 import Footer from "../components/Footer";
-import { useQuery } from 'react-query';
-import { makeRequest } from '../axios';
 import Post from '../components/Post';
 import NoResult from '../components/NoResult';
 import { useContext } from "react";
@@ -30,7 +28,13 @@ function Explore() {
     const [dataLoading, setDataLoading] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
-    const { isOpen, onOpen, onClose } = useDisclosure   ()
+    const [skillsData, setSkillsData] = useState();
+    const [filteredSkills, setFilteredSkills] = useState([]);
+    const [skillsInputValue, setSkillsInputValue] = useState('');
+    const [selectedSkills, setSelectedSkills] = useState([]);
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
     const btnRef = React.useRef()
 
     useEffect(() => {
@@ -398,7 +402,7 @@ function Explore() {
                     {
                         !isMobile && 
                         <div class = 'side-post-parent'>
-                            <SidePosts />
+                            {/* <SidePosts /> */}
                         </div>
                     }
                 </div>

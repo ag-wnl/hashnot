@@ -57,7 +57,7 @@ a {
 }
 
 .headings {
-  font-weight: 500;
+  font-weight: 700;
   font-size: 48px;
 }
 
@@ -102,10 +102,11 @@ a {
 }
 
 .banner-main-text {
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 78px;
+  font-size: 68px;
   margin-bottom: 2rem;
   font-weight: 700;
   position: relative; 
@@ -140,9 +141,9 @@ a {
 }
 
 .banner-sub-text{
-  color: rgb(255, 255, 255);
-  font-size: 18px;
-  font-weight: 500;
+  text-align: center;
+  color: rgb(200, 200, 200);
+  font-size: 20px;
 }
 
 .banner-sub-text-box{
@@ -154,7 +155,7 @@ a {
   margin-top: 2rem;
   font-size: 18px;
   font-weight: 500;
-  color: rgb(13, 17, 70);
+  color: black;
   background-color: white;
   border: 1px solid white;
   padding: 10px 20px 10px 20px;
@@ -172,57 +173,7 @@ a {
   width: 100%;
 }
 
-.section-below-banner {
-  /* background-image: url('./imgs/hackathon-bg-second.jpg'); */
-  background-attachment: fixed ;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  padding: 100px 60px 100px 60px;
-  /* font-family: 'Poppins', sans-serif; */
-  color: rgb(233, 233, 233);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center ;
-  gap: 5rem;
-}
 
-.sq-box {
-  background-color: transparent;
-  border: 1px solid rgb(99, 99, 255);
-  opacity: 0.7;
-  padding: 30px;
-  border-radius: 8px;
-  max-width: 30%;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem ;
-  transition: 0.3s ease-in-out;
-  -webkit-box-shadow: 2px -1px 43px 6px rgba(0,0,0,0.62);
-  -moz-box-shadow: 2px -1px 43px 6px rgba(0,0,0,0.62);
-  box-shadow: 2px -1px 43px 6px rgba(15, 16, 42, 0.62);
-  cursor: pointer;
-}
-
-.sq-box:hover {
-  opacity: 1;
-  box-shadow: 0px 2px 20px 1px #0e1064;
-}
-
-.go-btn {
-  font-weight: 500;
-  border-top: 1px solid rgb(204, 204, 204);
-  padding-top: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
-.go-btn:hover {
-  color: rgb(224, 224, 224);
-}
 
 .account-head {
   padding: 10px 50px 50px 50px;
@@ -479,6 +430,7 @@ a {
 .banner-column-sub-section {
   display: flex;
   flex-direction: column;
+  width: 60%;
   gap: 20px;
 }
 
@@ -597,6 +549,10 @@ a {
   width: 600px;
 }
 
+.home-show-images {
+  width: 600px;
+}
+
 .icon-bar-top-panel {
   padding: 5px 15px 5px 15px;
   border-radius: 6px;
@@ -622,15 +578,39 @@ a {
   }
 
   .banner-main-text {
-    font-size: 38px;
+    text-align: center;
+    font-size: 26px;
+  }
+
+  .banner-column-sub-section {
+    text-align: center;
   }
 
   .banner-sub-text {
-    font-size: 12px;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .headings {
+    font-size: 28px;
+  }
+
+  .signin-page-heading{
+    font-size: 36px;
+  }
+
+  .register-page-heading{
+    font-size: 26px;
   }
 
   .section-below-banner {
     flex-direction: column;
+  }
+
+
+  .timeline-block{
+    flex-direction: column;
+    padding: 80px 0px 80px 0px;
   }
 
   .sq-box {
@@ -645,6 +625,10 @@ a {
 
   .post-search-container{
     width: 100%;
+  }
+
+  .home-show-images {
+    width: 300px;
   }
 }
 

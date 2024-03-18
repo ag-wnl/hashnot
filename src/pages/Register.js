@@ -40,7 +40,7 @@ function Register() {
         <>
             <Navbar />
             <div class = 'login-head'>
-                <h2 style={{fontWeight:'700'}}>Join the Community!</h2>
+                <h2 class='register-page-heading' style={{fontWeight:'700'}}>Join the Community!</h2>
                 
                 <form class = 'register-card'>
                     <Input width='320px' variant='filled' class='register-field' type="text" placeholder="Username" name="username" onChange={handleChange}/>
