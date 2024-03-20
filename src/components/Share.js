@@ -24,8 +24,6 @@ function Share() {
     const [selectedSkills, setSelectedSkills] = useState([]);
 
 
-    const isErrorTitle = title === ''
-
     const handleSliderChange = (e) => {
         setSliderValue(e.target.value);
     };
@@ -34,6 +32,7 @@ function Share() {
         axios.get(`http://localhost:8800/api/skills`)
         .then((response) => {
             setSkillsData(response.data);
+            setFilteredSkills(response.data);
         })
     }, [])
 
@@ -49,9 +48,13 @@ function Share() {
     };
 
     const handleSkillClick = (skill) => {
-        // Append the clicked skill to the selectedSkills list
-        setSelectedSkills(prev => [...prev, { id: skill.id, skill: skill.skill }]);
-        setSkillsInputValue(''); // Clear the input value after selection
+
+        const checkIfExists = selectedSkills.some(selectedSkill => selectedSkill.id === skill.id);
+
+        if(!checkIfExists) {
+            setSelectedSkills(prev => [...prev, { id: skill.id, skill: skill.skill }]);
+            setSkillsInputValue(''); // Clear the input value after selection
+        }
     };
 
     const handleRemoveSkill = (skillId) => {
@@ -77,6 +80,7 @@ function Share() {
         }
     }
 
+
     let user_pfp = userimg;
     if(currentUser.pfp) {
         user_pfp = currentUser.pfp;
@@ -93,19 +97,16 @@ function Share() {
                 <div class = 'post-inp-area'>
 
                     {/* Title of the post */}
-                    <FormControl isInvalid={isErrorTitle}>
+                    <FormControl isRequired>
                         <FormLabel>Title</FormLabel>
                         <Input 
                         onChange={(e) => setTitle(e.target.value)}  
                         value={title} 
                         type='title' />
-                        {!isErrorTitle ? (
-                            <FormHelperText>
-                                This will be shown as heading of the post
-                            </FormHelperText>
-                        ) : (
-                            <FormErrorMessage>Email is required.</FormErrorMessage>
-                        )}
+
+                        <FormHelperText>
+                            This will be shown as heading of the post
+                        </FormHelperText>
                     </FormControl>
 
                     {/* Post description */}
@@ -167,7 +168,7 @@ function Share() {
 
                         <div>
                             {skillsInputValue && (
-                                <Box position="absolute" zIndex="1" bg='black'>
+                                <Box maxHeight='150px' overflowY='auto' position="absolute" zIndex="1" bg='black'>
                                     <List borderWidth="1px" borderRadius="md">
                                         {filteredSkills.map(skill => (
                                         <ListItem 
@@ -199,6 +200,7 @@ function Share() {
 
                 <div>
                     <Button
+                    colorScheme='purple'
                     isDisabled = {(title === "" || title.length > 150 ) || (desc === "" || desc.length < 2 || desc.length > 240)}
                     onClick={handleClick}
                     >Share Post</Button>

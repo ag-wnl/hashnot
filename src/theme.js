@@ -11,7 +11,7 @@ const styles = {
         body : {
             // fontFamily: 'InterVariable, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
             fontFamily: 'Geist Variable',
-            backgroundColor: '#020817'
+            backgroundColor: 'black'
             // background : 'linear-gradient(to bottom, #000000, #020621, #000000)'
         }
     }

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import '../components/component.css';
 import { useMutation, useQueryClient } from 'react-query';
 import { makeRequest } from '../axios';
-import { Box, Button, Input, InputGroup, InputLeftElement, List, ListItem, Tag, TagCloseButton } from '@chakra-ui/react';
+import { Box, Button, Input, InputGroup, InputLeftElement, List, ListItem, Tag, TagCloseButton, Textarea } from '@chakra-ui/react';
 import { AddIcon, CloseIcon } from '@chakra-ui/icons';
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
@@ -13,6 +13,7 @@ import ImageUploading from 'react-images-uploading';
 // to update user profile
 
 function Update({ setOpenUpdate, user }) {
+    console.log(user);
     const { currentUser } = useContext(AuthContext);
     const userId = currentUser?.userId;
     const [skillsData, setSkillsData] = useState();
@@ -22,10 +23,10 @@ function Update({ setOpenUpdate, user }) {
     const [profilePicture, setProfilePicture] = useState([]);
  
     const [texts, setTexts] = useState({
-        name: "",
-        about: "",
-        github: "",
-        website: "",
+        name: user.name,
+        about: user.about,
+        github: user.github,
+        website: user.website,
         userId: userId
     })
 
@@ -47,9 +48,13 @@ function Update({ setOpenUpdate, user }) {
 
 
     const handleSkillClick = (skill) => {
-        // Append the clicked skill to the selectedSkills list
-        setSelectedSkills(prev => [...prev, { id: skill.id, skill: skill.skill }]);
-        setSkillsInputValue(''); // Clear the input value after selection
+
+        const checkIfExists = selectedSkills.some(selectedSkill => selectedSkill.id === skill.id);
+
+        if(!checkIfExists) {
+            setSelectedSkills(prev => [...prev, { id: skill.id, skill: skill.skill }]);
+            setSkillsInputValue(''); // Clear the input value after selection
+        }
     };
 
     const handleRemoveSkill = (skillId) => {
@@ -114,25 +119,22 @@ function Update({ setOpenUpdate, user }) {
 
 
                 <form class = 'upd-inp-field'>
-                    <div class = "profile-update-fields">
-                    <span style={{fontWeight:'500'}}>Profile Picture</span>
-                        <Input class = 'upd-inp-txt' type = "text" name = "pfp" placeholder="Profile Picture Link"  onChange={handleChange} />
-                    </div>
                     
                     <div class = "profile-update-fields">
                         <span style={{fontWeight:'500'}}>Display Name</span>
-                        <Input class = 'upd-inp-txt' type = "text" name= "name" placeholder="Name" onChange={handleChange} />
+                        <Input value={texts.name} class = 'upd-inp-txt' type = "text" name= "name" placeholder="Name" onChange={handleChange} />
                     </div>
                     
                     <div class = "profile-update-fields">
                         <span style={{fontWeight:'500'}}>About</span>
-                        <Input class = 'upd-inp-txt' type = "text" name = "about" placeholder="About" onChange={handleChange} />
+                        <Textarea resize='none' value={texts.about} class = 'upd-inp-txt' type = "text" name = "about" placeholder="About" onChange={handleChange} />
                     </div>
                     
                     <div class = "profile-update-fields">
                         <span style={{fontWeight:'500'}}>Social Links</span>
-                        <Input class = 'upd-inp-txt' type = "text" name= "github" placeholder="Github Profile Link" onChange={handleChange} />   
-                        <Input class = 'upd-inp-txt' style={{marginTop:"5px"}} type = "text" name= "website" placeholder="Personal Website Link" onChange={handleChange} />
+                        <Input value={texts.github} class = 'upd-inp-txt' type = "text" name= "github" placeholder="Github Profile Link" onChange={handleChange} />   
+                        
+                        <Input value={texts.website} class = 'upd-inp-txt' style={{marginTop:"5px"}} type = "text" name= "website" placeholder="Personal Website Link" onChange={handleChange} />
                     </div>
 
                     <div class = "profile-update-fields">
@@ -228,10 +230,9 @@ function Update({ setOpenUpdate, user }) {
                     </ImageUploading>
                 </div>
 
-                <button 
+                <Button
                     onClick={handleClick}
-                    class = 'login-btn'
-                    >Update Profile</button>
+                    >Update Profile</Button>
             </div>
         </>
     )

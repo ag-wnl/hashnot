@@ -199,7 +199,7 @@ const Profile = () => {
                                     <div class='profile-skills-display'>
                                         {
                                             profileData.skills.map((skill, index) => (
-                                                <Tag colorScheme='cyan' key={index}>{skill}</Tag>
+                                                <Tag size='sm' colorScheme='cyan' key={index}>{skill}</Tag>
                                             )) 
                                         }
                                     </div>                                                                       
